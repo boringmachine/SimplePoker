@@ -15,11 +15,14 @@ public class HandCheckerTester {
 		int handr = 16;
 		
 		handl<<=6;
-		table.setCommunityCards(com);
-		Player player = new Player();
-		game.addPlayer(player);
+		game.addPlayer(new Player());
+		game.addPlayer(new Player());
+		game.addPlayer(new Player());
 		game.firstPhase();
+		table.setCommunityCards(com);
 		game.getTable().getChairs().get(0).setHands(handl|handr);
+		game.getTable().getChairs().get(1).setHands(handl|handr);
+		game.getTable().getChairs().get(2).setHands(handl|handr);
 		game.finalPhase();
 	}
 }

@@ -247,7 +247,7 @@ public class PokerGame implements GameRules{
 			hand = checkHand(hands);
 			chair.setHand(hand);
 			//最大ハンドより大きければ、
-			if(hand>max){
+			if(hand>=max){
 				max = hand;				
 			}
 			/***************/
@@ -268,6 +268,7 @@ public class PokerGame implements GameRules{
 		//勝者を決定。
 		for(Chair chair : chairs){
 			if(chair.getHand()==max){
+				System.out.println("we work!");
 				chair.setWinner(true);
 				sumWinner += chair.getAddedBet();
 			}
@@ -299,7 +300,7 @@ public class PokerGame implements GameRules{
 		for(Chair chair : chairs){
 			if(chair.isWinner()){
 				int x = chair.getAddedBet();
-				int profit = (x/sumWinner)*pot;
+				int profit = (x*pot)/sumWinner;
 				chair.profit(profit);
 			}
 			/*****/
