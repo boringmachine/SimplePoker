@@ -13,18 +13,20 @@ public class Table{
 
 	private int tableId;
 	private ArrayList<Chair> chairs;
+	
 	private int round;
 	private int currentPlayer;
 	private int anty;
 	private int limit;
 	private int pot;
 	private int maxRaise;
+	private int dealer;
+	private int currentPhase;
 	private int[] deck = new int[52];
 	private int deckIndex;
 	private int[] communityCards = new int[5];
 	private int communityCardsIndex;
-	private int dealer;
-	private int currentPhase;
+
 		
 	public Table(){
 		chairs  = new ArrayList<Chair>();
@@ -41,7 +43,23 @@ public class Table{
 			communityCards[i] = -1;
 		}
 	}
-	
+	/**
+	 * プレイヤーが参照できる変数をまとめて返す.
+	 * @return HashMapをラッピングしたオブジェクト.
+	 */
+	public Params packParams(){
+		Params pack = new Params();
+		pack.put("round",round);
+		pack.put("currentPlayer",currentPlayer);
+		pack.put("limit",limit);
+		pack.put("dealer", dealer);
+		pack.put("currentPhase", currentPhase);
+		pack.put("pot",pot);
+		pack.put("anty",anty);
+		pack.put("maxRaise",maxRaise);
+		pack.put("commCard", communityCards);
+		return pack;
+	}
 	/**
 	 * ポットを加算。
 	 * @return
@@ -156,6 +174,4 @@ public class Table{
 	public void setDeck(int[] deck) {
 		this.deck = deck;
 	}
-	
-	
 }

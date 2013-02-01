@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
  * @author Shun.S
  *
  */
-public class HumanPlayerStdIn implements Strategy{
+public class HumanPlayerStdIn extends DefaultStrategy{
 
 	private static int serial = 0;
 	private int id;
@@ -28,6 +28,5 @@ public class HumanPlayerStdIn implements Strategy{
 		}
 		return bet;
 	}
-
 
 }

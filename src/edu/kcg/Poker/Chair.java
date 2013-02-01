@@ -30,6 +30,25 @@ public class Chair{
 		allin = false;
 		winner = false;
 	}
+	/**
+	 * プレイヤーが座る椅子の情報をまとめて取得する.
+	 * @param id プレイヤーidをチェックする.
+	 * @return 
+	 */
+	public Params packParams(){
+		Params pack = new Params();
+		pack.put("bankroll",bankroll);
+		pack.put("hands",hands);
+		pack.put("hand", hand);
+		pack.put("lastPlay",lastPlay);
+		pack.put("addedRaise", addedRaise);
+		pack.put("currentRaise",currentRaise);
+		pack.put("fold",fold);
+		pack.put("allin",allin);
+		pack.put("winner",winner);
+		return pack;
+	}
+	
 	public int choice(int maxBet,int limit){
 		if(isFold()){
 			return -2;
@@ -37,6 +56,8 @@ public class Chair{
 		if(isAllin()){
 			return 0;
 		}
+		AdaptStrategy st = (AdaptStrategy)player.getStrategy();
+		st.setChairParams(this.packParams());
 		int option = player.getStrategy().solveRaise();
 		if(option>-1){
 			int bet = maxBet + option - this.currentRaise;

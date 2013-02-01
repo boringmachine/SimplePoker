@@ -2,7 +2,6 @@ package edu.kcg.Poker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -116,7 +115,6 @@ public class PokerGame implements GameRules{
 		//ビッグブラインドにアンティを支払わせる。
 		Chair bigblind = chairs.get(big);
 		bigblind.payAnty(anty*2);
-		table.setCurrentPlayer(big);
 
 		//ポットにアンティを支払い分を追加。
 		addPot(anty*3);
@@ -186,7 +184,11 @@ public class PokerGame implements GameRules{
 				"["+(hand_r%13+1)+":"+Table.MARK[hand_r/13]+"]");
 		/******************/
 		
+		//戦略決定のために、ゲームの現在状態をAdaptStrategyにセットし、
 		//プレイヤーに選択肢を選択させる。
+		AdaptStrategy st = (AdaptStrategy)chair.getPlayer().getStrategy();
+		st.setTableParams(table.packParams());
+		st.setChairParams(chair.packParams());
 		int option = chair.choice(maxBet,limit);
 		
 		//選択肢がフォルドでないなら上乗せ分をポットに加算。
@@ -265,10 +267,10 @@ public class PokerGame implements GameRules{
 			i++;
 		}
 		
+		
 		//勝者を決定。
 		for(Chair chair : chairs){
 			if(chair.getHand()==max){
-				System.out.println("we work!");
 				chair.setWinner(true);
 				sumWinner += chair.getAddedBet();
 			}
@@ -310,6 +312,7 @@ public class PokerGame implements GameRules{
 		}
 	}
 
+	
 	@Override
 	public int nextPhase(){
 		int currentPlayer = table.getCurrentPlayer();
@@ -337,7 +340,7 @@ public class PokerGame implements GameRules{
 			switch(status){
 			case GameRules.FIRST :
 				/****/
-				System.out.println("<<first>>");
+				System.out.println("[ first ]");
 				/****/
 				firstPhase();
 				break;
@@ -349,13 +352,13 @@ public class PokerGame implements GameRules{
 				break;
 			case GameRules.CHANCE:
 				/****/
-				System.out.println("<<chance>>");
+				System.out.println("[ chance ]");
 				/****/
 				chancePhase();
 				break;
 			case GameRules.FINAL:
 				/****/
-				System.out.println("<<final>>");
+				System.out.println("[ final ]");
 				/****/
 				finalPhase();
 				break;
@@ -598,7 +601,6 @@ public class PokerGame implements GameRules{
 		//各数字の枚数をカウントした配列。
 		int[] buf = countNums(cards);
 		int bit=0;
-		int index = -1;
 		boolean three=false,two=false,one=false,nopair=false;
 		for(int i=12;i>-1;i--){
 			if(buf[i]==4){

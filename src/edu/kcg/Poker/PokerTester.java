@@ -18,13 +18,12 @@ public class PokerTester {
 		
 		table.setAnty(10);
 		table.setLimit(Integer.MAX_VALUE);	
-		
-		for(Player player:players){
-			player = new Player();
-			player.setStrategy(new HumanPlayerStdIn());
-			game.addPlayer(player);
-		}
-		
+		players[0] = new Player();
+		players[1] = new Player();
+		players[0].setStrategy(new HumanPlayerStdIn());
+		players[1].setStrategy(new SampleStrategy());
+		game.addPlayer(players[0]);
+		game.addPlayer(players[1]);		
 		game.execute();
 	}
 
