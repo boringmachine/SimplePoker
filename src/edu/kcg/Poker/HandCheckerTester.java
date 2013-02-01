@@ -16,13 +16,9 @@ public class HandCheckerTester {
 		
 		handl<<=6;
 		game.addPlayer(new Player());
-		game.addPlayer(new Player());
-		game.addPlayer(new Player());
 		game.firstPhase();
 		table.setCommunityCards(com);
 		game.getTable().getChairs().get(0).setHands(handl|handr);
-		game.getTable().getChairs().get(1).setHands(handl|handr);
-		game.getTable().getChairs().get(2).setHands(handl|handr);
 		game.finalPhase();
 	}
 }
