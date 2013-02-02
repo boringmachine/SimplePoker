@@ -9,8 +9,13 @@ import java.util.ArrayList;
  */
 public class Table {
 
+<<<<<<< HEAD
 	private static int lastId = 0;
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+=======
+	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+	private static int lastId = 0;
+>>>>>>> origin/master
 
 	private int anty;
 	private ArrayList<Chair> chairs;
