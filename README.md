@@ -1,10 +1,4 @@
-SimplePoker
-===========
-
-The purpose of creating this program is only for studying.
- 
- 
- SimplePoker v0.04
+##SimplePoker v0.04
  
  The MIT License (MIT)
  Copyright(c) 2013, Shun Sugiyama
