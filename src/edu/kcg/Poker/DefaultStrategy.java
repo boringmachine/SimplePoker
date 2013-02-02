@@ -1,11 +1,6 @@
 package edu.kcg.Poker;
 
-public class DefaultStrategy extends AdaptStrategy{
-
-	@Override
-	public int solveRaise() {
-		return 0;
-	}
+public class DefaultStrategy extends AdaptStrategy {
 
 	@Override
 	public void setParams(Params params) {
@@ -13,5 +8,9 @@ public class DefaultStrategy extends AdaptStrategy{
 		this.params = params;
 	}
 
+	@Override
+	public int solveRaise() {
+		return 0;
+	}
 
 }
