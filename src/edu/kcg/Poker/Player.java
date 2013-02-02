@@ -1,5 +1,7 @@
 package edu.kcg.Poker;
 
+import edu.kcg.Poker.Strategy.Strategy;
+
 /**
  * ゲームをプレイするプレイヤーのクラス.
  * 

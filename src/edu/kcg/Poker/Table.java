@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Table {
 
-	private static int lastId = 0;
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+	private static int lastId = 0;
 
 	private int anty;
 	private ArrayList<Chair> chairs;
@@ -111,6 +111,25 @@ public class Table {
 
 	public int getTableId() {
 		return tableId;
+	}
+
+	public Params packParams() {
+		Params pack = new Params();
+		ArrayList<Params> chairParams = new ArrayList<Params>();
+		for (Chair chair : chairs) {
+			chairParams.add(chair.packParams());
+		}
+		pack.put("chairParams", chairs);
+		pack.put("round", round);
+		pack.put("currentPlayer", currentPlayer);
+		pack.put("limit", limit);
+		pack.put("dealer", dealer);
+		pack.put("currentPhase", currentPhase);
+		pack.put("pot", pot);
+		pack.put("anty", anty);
+		pack.put("maxRaise", maxRaise);
+		pack.put("commCard", communityCards);
+		return pack;
 	}
 
 	/**

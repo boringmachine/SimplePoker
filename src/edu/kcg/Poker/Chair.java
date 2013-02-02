@@ -98,6 +98,21 @@ public class Chair {
 		return winner;
 	}
 
+	public Params packParams() {
+		Params pack = new Params();
+		pack.put("hands", hands);
+		pack.put("hand", hand);
+		pack.put("playerId", player.getPlayerId());
+		pack.put("bankroll", bankroll);
+		pack.put("lastPlay", lastPlay);
+		pack.put("addedRaise", addedRaise);
+		pack.put("currentRaise", currentRaise);
+		pack.put("fold", fold);
+		pack.put("allin", allin);
+		pack.put("winner", winner);
+		return pack;
+	}
+
 	/**
 	 * プレイヤーが座る椅子の情報をまとめて取得する.
 	 * 
@@ -119,7 +134,6 @@ public class Chair {
 		pack.put("fold", fold);
 		pack.put("allin", allin);
 		pack.put("winner", winner);
-
 		return pack;
 	}
 
