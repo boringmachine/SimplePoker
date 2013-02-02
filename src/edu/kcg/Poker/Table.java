@@ -47,8 +47,13 @@ public class Table{
 	 * プレイヤーが参照できる変数をまとめて返す.
 	 * @return HashMapをラッピングしたオブジェクト.
 	 */
-	public Params packParams(){
+	public Params packParams(int playerId){
 		Params pack = new Params();
+		ArrayList<Params> chairParams = new ArrayList<Params>();
+		for(Chair chair : chairs){
+			chairParams.add(chair.packParams(playerId));
+		}
+		pack.put("chairParams", chairs);
 		pack.put("round",round);
 		pack.put("currentPlayer",currentPlayer);
 		pack.put("limit",limit);

@@ -35,17 +35,21 @@ public class Chair{
 	 * @param id プレイヤーidをチェックする.
 	 * @return 
 	 */
-	public Params packParams(){
+	public Params packParams(int playerId){
 		Params pack = new Params();
+		if(player.getPlayerId()==playerId){
+			pack.put("hands",hands);
+			pack.put("hand", hand);
+		}
+		pack.put("player", playerId);
 		pack.put("bankroll",bankroll);
-		pack.put("hands",hands);
-		pack.put("hand", hand);
 		pack.put("lastPlay",lastPlay);
 		pack.put("addedRaise", addedRaise);
 		pack.put("currentRaise",currentRaise);
 		pack.put("fold",fold);
 		pack.put("allin",allin);
 		pack.put("winner",winner);
+		
 		return pack;
 	}
 	
@@ -56,8 +60,6 @@ public class Chair{
 		if(isAllin()){
 			return 0;
 		}
-		AdaptStrategy st = (AdaptStrategy)player.getStrategy();
-		st.setChairParams(this.packParams());
 		int option = player.getStrategy().solveRaise();
 		if(option>-1){
 			int bet = maxBet + option - this.currentRaise;

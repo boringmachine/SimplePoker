@@ -1,9 +1,7 @@
 package edu.kcg.Poker;
 
 public abstract class AdaptStrategy implements Strategy{
-	public Params tableParams;
-	public Params chairParams;
+	public Params params;
 	
-	abstract protected void setTableParams(Params tableParams);
-	abstract protected void setChairParams(Params chairParams);
+	abstract protected void setParams(Params tableParams);
 }

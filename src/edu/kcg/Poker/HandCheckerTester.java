@@ -9,7 +9,7 @@ public class HandCheckerTester {
 		PokerGame game = new PokerGame(table);
 		
 		//コミュニティカード
-		int[] com = {5,2,4,14,3};
+		int[] com = {5,2,4,8,10};
 		//プレイヤーの手札
 		int handl = 51;
 		int handr = 50;

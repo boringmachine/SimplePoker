@@ -186,9 +186,9 @@ public class PokerGame implements GameRules{
 		
 		//戦略決定のために、ゲームの現在状態をAdaptStrategyにセットし、
 		//プレイヤーに選択肢を選択させる。
-		AdaptStrategy st = (AdaptStrategy)chair.getPlayer().getStrategy();
-		st.setTableParams(table.packParams());
-		st.setChairParams(chair.packParams());
+		Player player = chair.getPlayer();
+		AdaptStrategy st = (AdaptStrategy)player.getStrategy();
+		st.setParams(table.packParams(player.getPlayerId()));
 		int option = chair.choice(maxBet,limit);
 		
 		//選択肢がフォルドでないなら上乗せ分をポットに加算。
@@ -566,7 +566,10 @@ public class PokerGame implements GameRules{
 			for(int j=buf.length-1;j>-1;j--){
 				if(buf[j]==i){
 					++count;
-					max = j; 
+					int num = cards[j]%13;
+					if(max < num){
+						max = num;
+					}
 				}
 			}
 			if(count>4){

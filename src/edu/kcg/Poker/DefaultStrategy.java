@@ -8,15 +8,10 @@ public class DefaultStrategy extends AdaptStrategy{
 	}
 
 	@Override
-	public void setTableParams(Params tableParams) {
+	public void setParams(Params params) {
 		// TODO 自動生成されたメソッド・スタブ
-		this.tableParams = tableParams;
+		this.params = params;
 	}
 
-	@Override
-	public void setChairParams(Params chairParams) {
-		// TODO 自動生成されたメソッド・スタブ
-		this.chairParams = chairParams;		
-	}
 
 }
