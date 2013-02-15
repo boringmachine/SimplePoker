@@ -19,12 +19,13 @@ public class PokerGame implements GameRules {
 
 	public PokerGame() {
 		createTable();
+		this.view = new DefaultPokerView(this.table);
 	}
 
 	public PokerGame(PokerView view) {
 		this.view = view;
 		if(this.table == null){
-			this.table = new Table();
+			createTable();
 		}else{
 			this.view.setTable(this.table);
 		}
