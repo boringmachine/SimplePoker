@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Java プロジェクト名 &apos;コピー - テスト&apos; を &apos;poker_project&apos; に変更します&#x0A;- オリジナル要素: &apos;コピー - テスト&apos;&#x0A;- 名前変更済み要素: &apos;コピー - テスト&apos;&#x0A;- リファクタリングされた要素の参照を更新" description="Java プロジェクト &apos;コピー - テスト&apos; の名前変更" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=コピー - テスト" name="poker_project" references="true" stamp="1360898966004" version="1.0"/>
+</session>

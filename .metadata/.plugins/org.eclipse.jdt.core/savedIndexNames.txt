@@ -1,17 +1,6 @@
 INDEX VERSION 1.126+/home/john/SimplePoker/.metadata/.plugins/org.eclipse.jdt.core
-1159935248.index
-3296295421.index
-3640646894.index
-954478507.index
-534805504.index
-2031085872.index
-207581026.index
-1961235293.index
-2913048097.index
-1453598739.index
 2057790132.index
 332834682.index
-1279675953.index
+3703194086.index
+248439285.index
 1910037199.index
-1609788100.index
-2895934474.index
