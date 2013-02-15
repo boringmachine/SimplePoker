@@ -11,8 +11,8 @@ import edu.kcg.Poker.Strategy.Params;
  */
 public class Table {
 
-	private static int lastId = 0;
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+	private static int lastId = 0;
 
 	private int anty;
 	private ArrayList<Chair> chairs;

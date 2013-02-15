@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.kcg.Poker.Strategy.AdaptStrategy;
+import edu.kcg.Poker.View.DefaultPokerView;
+import edu.kcg.Poker.View.PokerView;
 
 /**
  * テーブルのデータを処理し、ゲームを定義するクラス.
@@ -13,42 +15,273 @@ import edu.kcg.Poker.Strategy.AdaptStrategy;
  * @author Shun.S
  * 
  */
-public class PokerGame implements GameRules {
+public class PokerGame implements GameRules, PokerHand {
 
-	/**
-	 * 各役の強さのフラグ
-	 */
-	private static final int FL = 0x1000, ST = 0x800, TH = 0x400, TW = 0x200,
-			ON = 0x100;
-	private static final int FO = FL | TH | ON;
-	private static final int FU = (TH | ON) << 2;
-	/**
-	 * 上位6ビットと下位6ビットに分けて手札を管理するマスク。
-	 */
-	private static final int HAND_L = 0xFC0, HAND_R = 0x3F;
-
-	private static final int SF = FL | ST;
-
-	/**
-	 * PokerGameが処理するテーブルを格納する変数.
-	 */
 	private Table table;
+	private PokerView view;
 
 	public PokerGame() {
+		view = new DefaultPokerView();
+	}
+
+	public PokerGame(PokerView view) {
+		this.view = view;
 	}
 
 	public PokerGame(Table table) {
+		this();
 		this.table = table;
 	}
 
-	/**
-	 * 新規参加プレイヤーをテーブルに追加する。
-	 * 
-	 * @param player
-	 *            追加するプレイヤー。
-	 */
+	public PokerGame(Table table, PokerView view) {
+		this.table = table;
+		this.view = view;
+	}
+
 	public void addPlayer(Player player) {
 		table.addChair(player);
+	}
+
+	@Override
+	public void chancePhase() {
+		int round = table.getRound();
+		// ラウンド番号を更新する。
+		round++;
+		table.setRound(round);
+		table.setMaxRaise(0);
+		for (Chair chair : table.getChairs()) {
+			chair.setCurrentRaise(0);
+		}
+
+		// ラウンド1ならデックからコミュニティカードに3枚出す。
+		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
+		// ラウンド4なら何もしない。
+		if (round == 1) {
+			for (int i = 0; i < 3; i++) {
+				int card = table.popDeck();
+				table.pushCommunityCards(card);
+			}
+		} else if (round == 2 || round == 3) {
+			int card = table.popDeck();
+			table.pushCommunityCards(card);
+		} else if (round == 4) {
+		}
+
+		/****************************/
+		view.communityCardStatus(table);
+		/*****************************/
+	}
+
+	@Override
+	public int checkHand(int hands) {
+		int[] comcard = table.getCommunityCards();
+		int[] cards = { comcard[0], comcard[1], comcard[2], comcard[3],
+				comcard[4], (hands & HAND_L) >> 6, hands & HAND_R };
+		int bit = 0;
+		bit |= checkFlush(cards);
+		bit |= checkStraight(cards);
+		if (bit > 0) {
+			if ((bit & PokerGame.FL) > 0 && (bit & PokerGame.ST) > 0) {
+				bit |= PokerGame.SF;
+				return bit;
+			}
+		}
+		int buf = bit;
+		bit = checkOther(cards);
+		if (buf > bit) {
+			bit = buf;
+		}
+		return bit;
+	}
+
+	public Table createTable() {
+		Table table = new Table();
+		this.table = table;
+		return table;
+	}
+
+	@Override
+	public void execute() {
+		int status;
+		initGame();
+		while (true) {
+			status = gameStatus();
+			/******************/
+			view.phaseStatus(status);
+			/******************/
+			switch (status) {
+			case GameRules.FIRST:
+				firstPhase();
+				break;
+			case GameRules.HUMAN:
+				humanPhase();
+				break;
+			case GameRules.CHANCE:
+				chancePhase();
+				break;
+			case GameRules.FINAL:
+				finalPhase();
+				break;
+			}
+			if (status == GameRules.FINAL) {
+				this.initGame();
+				if(table.chairSize()==1){
+					break;
+				}
+			}
+			nextPhase();
+		}
+	}
+
+	@Override
+	public void finalPhase() {
+
+		divisionProfit();
+
+		/***************/
+		view.communityCardStatus(table);
+		/***************/
+
+		// firstフェーズに戻るためにポットを初期化。
+		table.setPot(0);
+	}
+
+	@Override
+	public void firstPhase() {
+
+		int anty = table.getAnty();
+		// スモールブラインドを決定する。
+		int small = table.getDealer() + 1;
+		if (small > table.chairSize() - 1) {
+			small = 0;
+		}
+		// ビッグブラインドを決定する。
+		int big = small + 1;
+		if (big > table.chairSize() - 1) {
+			big = 0;
+		}
+		ArrayList<Chair> chairs = table.getChairs();
+
+		// スモールブラインドにアンティを支払わせる。
+		Chair smallblind = chairs.get(small);
+		smallblind.payAnty(anty);
+
+		// ビッグブラインドにアンティを支払わせる。
+		Chair bigblind = chairs.get(big);
+		bigblind.payAnty(anty * 2);
+
+		// ポットにアンティを支払い分を追加。
+		addPot(anty * 3);
+
+		// レイズの最大値と現在手番のプレイヤーを更新。
+		table.setMaxRaise(anty * 2);
+		table.setCurrentPlayer(big);
+	}
+
+	@Override
+	public int gameStatus() {
+		int pot = table.getPot();
+		int round = table.getRound();
+		ArrayList<Chair> chairs = table.getChairs();
+		// ポットが0なら最初のフェーズ。
+		if (pot == 0) {
+			return GameRules.FIRST;
+		}
+		// ラウンドが4なら最終フェーズ。
+		if (round == 4) {
+			return GameRules.FINAL;
+		}
+		// あるプレイヤーがオールインもフォルドもしていない場合、
+		// 全員の掛け金の最大と同じ額を賭けていなければ人為手番。
+		// または、最終プレイの値がIntegerの最小値になっていたら人為手番。
+		for (Chair chair : chairs) {
+			boolean b1 = chair.getCurrentRaise() != table.getMaxRaise();
+			boolean b2 = !(chair.isAllin() || chair.isFold());
+			boolean b3 = chair.getLastPlay() == Integer.MIN_VALUE;
+			if (b1 && b2 || b3) {
+				return GameRules.HUMAN;
+			}
+		}
+		// 現在手番が偶然手番の時の処理。
+		if (table.getCurrentPhase() == GameRules.CHANCE) {
+			// 現在手番を人為手番に設定。
+			table.setCurrentPhase(GameRules.HUMAN);
+			// フォルドしていないかオールインしていない場合、
+			// 最終プレイの値をIntegerの最小値に設定する。
+			for (Chair chair : table.getChairs()) {
+				if (!(chair.isFold() || chair.isAllin())) {
+					chair.setLastPlay(Integer.MIN_VALUE);
+				}
+			}
+			// 形式的に偶然手番をリターンする。
+			return GameRules.CHANCE;
+		}
+
+		// それ以外は偶然手番。
+		return GameRules.CHANCE;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	@Override
+	public void humanPhase() {
+		int i = table.getCurrentPlayer();
+		int maxBet = table.getMaxRaise();
+		int limit = table.getLimit();
+		Chair chair = table.getChairs().get(i);
+
+		/******************/
+		view.playerStatus(chair, table);
+		/******************/
+
+		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
+		AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
+				.getStrategy();
+		strategy.setParams(table.packParams());
+		int pastBankroll = chair.getBankroll();
+		int option = chair.choice(maxBet, limit);
+		if (pastBankroll < option) {
+			option = pastBankroll;
+		}
+
+		// 選択肢がフォルドでないなら上乗せ分をポットに加算。
+		if (option > -1) {
+			int bet = option + maxBet;
+			if(chair.isAllin()){
+				bet -= maxBet;
+			}
+			table.setMaxRaise(bet);
+			addPot(bet - chair.getCurrentRaise());
+			chair.setCurrentRaise(bet);
+		}
+
+		/****************************/
+		view.lastPlayStatus(chair, i);
+		/****************************/
+	}
+
+	@Override
+	public int nextPhase() {
+		int currentPlayer = table.getCurrentPlayer();
+		int playerNum = table.chairSize();
+		int currentPhase = this.gameStatus();
+		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
+			currentPlayer++;
+			if (currentPlayer > playerNum - 1) {
+				currentPlayer = 0;
+			}
+		} else {
+			currentPlayer = table.getDealer();
+		}
+		table.setCurrentPlayer(currentPlayer);
+		table.setCurrentPhase(currentPhase);
+		return currentPhase;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
 	}
 
 	/**
@@ -90,9 +323,6 @@ public class PokerGame implements GameRules {
 		return buf;
 	}
 
-	/**
-	 * ゲームを初期化する。
-	 */
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
@@ -103,44 +333,6 @@ public class PokerGame implements GameRules {
 			chair.setWinner(false);
 			chair.setAddedBet(0);
 		}
-	}
-
-	@Override
-	public void chancePhase() {
-		int round = table.getRound();
-		// ラウンド番号を更新する。
-		round++;
-		table.setRound(round);
-		table.setMaxRaise(0);
-		for (Chair chair : table.getChairs()) {
-			chair.setCurrentRaise(0);
-		}
-
-		// ラウンド1ならデックからコミュニティカードに3枚出す。
-		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
-		// ラウンド4なら何もしない。
-		if (round == 1) {
-			for (int i = 0; i < 3; i++) {
-				int card = table.popDeck();
-				table.pushCommunityCards(card);
-			}
-		} else if (round == 2 || round == 3) {
-			int card = table.popDeck();
-			table.pushCommunityCards(card);
-		} else if (round == 4) {
-		}
-
-		/****************************/
-		for (int card : table.getCommunityCards()) {
-			if (card == -1) {
-				System.out.print(Messages.getString("PokerGame.0")); //$NON-NLS-1$
-			} else {
-				System.out.print(Messages.getString("PokerGame.1") + (card % 13 + 1) + Messages.getString("PokerGame.2") //$NON-NLS-1$ //$NON-NLS-2$
-						+ Table.MARK[card / 13] + Messages.getString("PokerGame.3")); //$NON-NLS-1$
-			}
-		}
-		System.out.println();
-		/*****************************/
 	}
 
 	private void checkBankrollOverAnty() {
@@ -182,32 +374,6 @@ public class PokerGame implements GameRules {
 			i++;
 		}
 		return 0;
-	}
-
-	/**
-	 * ハンドの強さを計算。
-	 * 
-	 * @return
-	 */
-	private int checkHand(int hands) {
-		int[] comcard = table.getCommunityCards();
-		int[] cards = { comcard[0], comcard[1], comcard[2], comcard[3],
-				comcard[4], (hands & HAND_L) >> 6, hands & HAND_R };
-		int bit = 0;
-		bit |= checkFlush(cards);
-		bit |= checkStraight(cards);
-		if (bit > 0) {
-			if ((bit & PokerGame.FL) > 0 && (bit & PokerGame.ST) > 0) {
-				bit |= PokerGame.SF;
-				return bit;
-			}
-		}
-		int buf = bit;
-		bit = checkOther(cards);
-		if (buf > bit) {
-			bit = buf;
-		}
-		return bit;
 	}
 
 	/**
@@ -321,12 +487,6 @@ public class PokerGame implements GameRules {
 		return cardnum;
 	}
 
-	public Table createTable() {
-		Table table = new Table();
-		this.table = table;
-		return table;
-	}
-
 	/**
 	 * カードを配る。
 	 */
@@ -363,16 +523,7 @@ public class PokerGame implements GameRules {
 				max = hand;
 			}
 			/***************/
-			// ハンドを２枚に分解。
-			int handl = (hands & HAND_L) >> 6;
-			int handr = (hands & HAND_R);
-			// それぞれ数字とマークに分解。
-			int handln = handl % 13 + 1;
-			char handlm = Table.MARK[handl / 13];
-			int handrn = handr % 13 + 1;
-			char handrm = Table.MARK[handr / 13];
-			System.out.printf(Messages.getString("PokerGame.4"), i, handln, handlm, //$NON-NLS-1$
-					handrn, handrm, hand);
+			view.playerHands(hands, hand, i);
 			/***************/
 
 			i++;
@@ -416,200 +567,10 @@ public class PokerGame implements GameRules {
 				chair.profit(profit);
 			}
 			/*****/
-			System.out.println(i + Messages.getString("PokerGame.5") + chair.getBankroll()); //$NON-NLS-1$
+			view.playerBankroll(chair, i);
 			/*****/
 			i++;
 		}
-	}
-
-	@Override
-	public void execute() {
-		int status;
-		while (true) {
-			status = gameStatus();
-			switch (status) {
-			case GameRules.FIRST:
-				/****/
-				System.out.println(Messages.getString("PokerGame.6")); //$NON-NLS-1$
-				/****/
-				firstPhase();
-				break;
-			case GameRules.HUMAN:
-				/****/
-				System.out.println(Messages.getString("PokerGame.7")); //$NON-NLS-1$
-				/****/
-				humanPhase();
-				break;
-			case GameRules.CHANCE:
-				/****/
-				System.out.println(Messages.getString("PokerGame.8")); //$NON-NLS-1$
-				/****/
-				chancePhase();
-				break;
-			case GameRules.FINAL:
-				/****/
-				System.out.println(Messages.getString("PokerGame.9")); //$NON-NLS-1$
-				/****/
-				finalPhase();
-				break;
-			}
-			System.out.println(Messages.getString("PokerGame.10")); //$NON-NLS-1$
-			if (status == GameRules.FINAL) {
-				break;
-			}
-			nextPhase();
-		}
-	}
-
-	@Override
-	public void finalPhase() {
-
-		divisionProfit();
-
-		/***************/
-		for (int card : table.getCommunityCards()) {
-			System.out.print(Messages.getString("PokerGame.11") + (card % 13 + 1) + Messages.getString("PokerGame.12") //$NON-NLS-1$ //$NON-NLS-2$
-					+ Table.MARK[card / 13] + Messages.getString("PokerGame.13")); //$NON-NLS-1$
-		}
-		System.out.println(Messages.getString("PokerGame.14")); //$NON-NLS-1$
-		/***************/
-
-		// firstフェーズに戻るためにポットを初期化。
-		table.setPot(0);
-	}
-
-	@Override
-	public void firstPhase() {
-		// ゲームを初期化。
-		initGame();
-
-		int anty = table.getAnty();
-		// スモールブラインドを決定する。
-		int small = table.getDealer() + 1;
-		if (small > table.chairSize() - 1) {
-			small = 0;
-		}
-		// ビッグブラインドを決定する。
-		int big = small + 1;
-		if (big > table.chairSize() - 1) {
-			big = 0;
-		}
-		ArrayList<Chair> chairs = table.getChairs();
-
-		// スモールブラインドにアンティを支払わせる。
-		Chair smallblind = chairs.get(small);
-		smallblind.payAnty(anty);
-
-		// ビッグブラインドにアンティを支払わせる。
-		Chair bigblind = chairs.get(big);
-		bigblind.payAnty(anty * 2);
-
-		// ポットにアンティを支払い分を追加。
-		addPot(anty * 3);
-
-		// レイズの最大値と現在手番のプレイヤーを更新。
-		table.setMaxRaise(anty * 2);
-		table.setCurrentPlayer(big);
-	}
-
-	@Override
-	public int gameStatus() {
-		int pot = table.getPot();
-		int round = table.getRound();
-		ArrayList<Chair> chairs = table.getChairs();
-		// ポットが0なら最初のフェーズ。
-		if (pot == 0) {
-			return GameRules.FIRST;
-		}
-		// ラウンドが4なら最終フェーズ。
-		if (round == 4) {
-			return GameRules.FINAL;
-		}
-		// あるプレイヤーがオールインもフォルドもしていない場合、
-		// 全員の掛け金の最大と同じ額を賭けていなければ人為手番。
-		// または、最終プレイの値がIntegerの最小値になっていたら人為手番。
-		for (Chair chair : chairs) {
-			boolean b1 = chair.getCurrentRaise() != table.getMaxRaise();
-			boolean b2 = !(chair.isAllin() || chair.isFold());
-			boolean b3 = chair.getLastPlay() == Integer.MIN_VALUE;
-			if (b1 && b2 || b3) {
-				return GameRules.HUMAN;
-			}
-		}
-		// 現在手番が偶然手番の時の処理。
-		if (table.getCurrentPhase() == GameRules.CHANCE) {
-			// 現在手番を人為手番に設定。
-			table.setCurrentPhase(GameRules.HUMAN);
-			// フォルドしていないかオールインしていない場合、
-			// 最終プレイの値をIntegerの最小値に設定する。
-			for (Chair chair : table.getChairs()) {
-				if (!(chair.isFold() || chair.isAllin())) {
-					chair.setLastPlay(Integer.MIN_VALUE);
-				}
-			}
-			// 形式的に偶然手番をリターンする。
-			return GameRules.CHANCE;
-		}
-
-		// それ以外は偶然手番。
-		return GameRules.CHANCE;
-	}
-
-	public Table getTable() {
-		return table;
-	}
-
-	@Override
-	public void humanPhase() {
-		int i = table.getCurrentPlayer();
-		int maxBet = table.getMaxRaise();
-		int limit = table.getLimit();
-		Chair chair = table.getChairs().get(i);
-
-		/******************/
-		int hands = chair.getHands();
-		int hand_l = (hands & PokerGame.HAND_L) >> 6;
-		int hand_r = (hands & PokerGame.HAND_R);
-		System.out.println(Messages.getString("PokerGame.15") + table.getPot() + Messages.getString("PokerGame.16") + Messages.getString("PokerGame.17") + maxBet //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				+ Messages.getString("PokerGame.18") + Messages.getString("PokerGame.19") + chair.getAddedBet() + Messages.getString("PokerGame.20") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				+ Messages.getString("PokerGame.21") + chair.getCurrentRaise() + Messages.getString("PokerGame.22") //$NON-NLS-1$ //$NON-NLS-2$
-				+ Messages.getString("PokerGame.23") + Messages.getString("PokerGame.24") + (hand_l % 13 + 1) + Messages.getString("PokerGame.25") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				+ Table.MARK[hand_l / 13] + Messages.getString("PokerGame.26") + Messages.getString("PokerGame.27") + (hand_r % 13 + 1) + Messages.getString("PokerGame.28") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				+ Table.MARK[hand_r / 13] + Messages.getString("PokerGame.29")); //$NON-NLS-1$
-		/******************/
-
-		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
-		AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
-				.getStrategy();
-		strategy.setParams(table.packParams());
-		int pastBankroll = chair.getBankroll();
-		int option = chair.choice(maxBet, limit);
-		if (pastBankroll < option) {
-			option = pastBankroll;
-		}
-
-		// 選択肢がフォルドでないなら上乗せ分をポットに加算。
-		if (option > -1) {
-			int bet = option + maxBet;
-			table.setMaxRaise(bet);
-			addPot(bet - chair.getCurrentRaise());
-			chair.setCurrentRaise(bet);
-		}
-
-		/****************************/
-		int lastplay = chair.getLastPlay();
-		String stringLastPlay = String.valueOf(lastplay);
-		if (chair.isFold()) {
-			stringLastPlay = Messages.getString("PokerGame.30"); //$NON-NLS-1$
-		} else if (chair.isAllin()) {
-			stringLastPlay = Messages.getString("PokerGame.31"); //$NON-NLS-1$
-		} else if (lastplay == 0) {
-			stringLastPlay = Messages.getString("PokerGame.32"); //$NON-NLS-1$
-		} else {
-			stringLastPlay = Messages.getString("PokerGame.33") + String.valueOf(lastplay) + Messages.getString("PokerGame.34"); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		System.out.println(i + Messages.getString("PokerGame.35") + stringLastPlay); //$NON-NLS-1$
-		/****************************/
 	}
 
 	private void initGame() {
@@ -656,28 +617,6 @@ public class PokerGame implements GameRules {
 		return 0;
 	}
 
-	@Override
-	public int nextPhase() {
-		int currentPlayer = table.getCurrentPlayer();
-		int playerNum = table.chairSize();
-		int currentPhase = this.gameStatus();
-		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
-			currentPlayer++;
-			if (currentPlayer > playerNum - 1) {
-				currentPlayer = 0;
-			}
-		} else {
-			currentPlayer = table.getDealer();
-		}
-		table.setCurrentPlayer(currentPlayer);
-		table.setCurrentPhase(currentPhase);
-		return currentPhase;
-	}
-
-	public void setTable(Table table) {
-		this.table = table;
-	}
-
 	/**
 	 * デックをシャッフル
 	 */
@@ -698,9 +637,14 @@ public class PokerGame implements GameRules {
 	}
 
 	private void tableInit() {
+		int[] comcard = new int[5];
+		for (int i = 0; i < comcard.length; i++) {
+			comcard[i] = -1;
+		}
 		table.setMaxRaise(0);
 		table.setRound(0);
 		table.setCommunityCardsIndex(0);
+		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
 	}

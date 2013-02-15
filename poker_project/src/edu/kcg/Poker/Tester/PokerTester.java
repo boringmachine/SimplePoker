@@ -34,9 +34,7 @@ public class PokerTester {
 		game.addPlayer(players[0]);
 		game.addPlayer(players[1]);
 
-		while (true) {
-			game.execute();
-		}
+		game.execute();
 	}
 
 }
