@@ -1,0 +1,11 @@
+package edu.kcg.Poker.View;
+
+import edu.kcg.Poker.Chair;
+import edu.kcg.Poker.Table;
+
+
+public interface PokerView {
+
+	public void playerStatus(Chair chair,Table table);
+	public void phaseStatus();
+}

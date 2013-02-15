@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="RefactoringWizard.&apos;HumanPlayerStdIn.java&apos; のストリングを外部化します">
+		<item value="481" key="height"/>
+		<item value="777" key="width"/>
+	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="400" key="height"/>
 		<item value="600" key="width"/>
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="deleteSubPackages"/>
+		<item value="*" key="patterns"/>
+		<item value="false" key="moveWizard.updateQualifiedNames"/>
+	</section>
+	<section name="RefactoringWizard.&apos;PokerGame.java&apos; のストリングを外部化します">
+		<item value="481" key="height"/>
+		<item value="777" key="width"/>
+	</section>
+	<section name="InferTypeArguments">
+		<item value="true" key="leaveUnconstrainedRaw"/>
+		<item value="true" key="assumeCloneReturnsSameType"/>
 	</section>
 </section>
