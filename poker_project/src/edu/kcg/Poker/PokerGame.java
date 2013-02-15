@@ -104,6 +104,7 @@ public class PokerGame implements GameRules, PokerHand {
 	public void execute() {
 		int status;
 		initGame();
+
 		while (true) {
 			status = gameStatus();
 			/******************/

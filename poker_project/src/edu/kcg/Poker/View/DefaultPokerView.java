@@ -2,7 +2,6 @@ package edu.kcg.Poker.View;
 
 import edu.kcg.Poker.Chair;
 import edu.kcg.Poker.GameRules;
-import edu.kcg.Poker.Messages;
 import edu.kcg.Poker.PokerGame;
 import edu.kcg.Poker.PokerHand;
 import edu.kcg.Poker.Table;
