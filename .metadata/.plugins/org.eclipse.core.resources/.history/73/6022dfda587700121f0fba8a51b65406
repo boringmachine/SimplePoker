@@ -1,0 +1,21 @@
+package edu.kcg.Poker.View;
+
+import edu.kcg.Poker.Chair;
+import edu.kcg.Poker.Table;
+
+abstract public class PokerView {
+
+	Table table;
+	
+	abstract public void communityCardStatus();
+
+	abstract public void lastPlayStatus(Chair chair, int index);
+
+	abstract public void phaseStatus(int status);
+
+	abstract public void playerBankroll(Chair chair, int index);
+
+	abstract public void playerHands(int hands, int hand, int index);
+
+	abstract public void playerStatus(Chair chair);
+}

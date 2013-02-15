@@ -2,14 +2,17 @@ package edu.kcg.Poker.View;
 
 import edu.kcg.Poker.Chair;
 import edu.kcg.Poker.GameRules;
-import edu.kcg.Poker.PokerGame;
-import edu.kcg.Poker.PokerHand;
+import edu.kcg.Poker.HandChecker;
 import edu.kcg.Poker.Table;
 
-public class DefaultPokerView implements PokerView {
+public class DefaultPokerView extends PokerView {
+
+	public DefaultPokerView(Table table) {
+		super(table);
+	}
 
 	@Override
-	public void communityCardStatus(Table table) {
+	public void communityCardStatus() {
 		for (int card : table.getCommunityCards()) {
 			if (card == -1) {
 				System.out.print(Messages.getString("PokerGame.0")); //$NON-NLS-1$
@@ -24,7 +27,8 @@ public class DefaultPokerView implements PokerView {
 	}
 
 	@Override
-	public void lastPlayStatus(Chair chair, int index) {
+	public void lastPlayStatus(int index) {
+		Chair chair = table.getChairs().get(index);
 		int lastplay = chair.getLastPlay();
 		String stringLastPlay = String.valueOf(lastplay);
 		if (chair.isFold()) {
@@ -38,6 +42,11 @@ public class DefaultPokerView implements PokerView {
 		}
 		System.out.println(index
 				+ Messages.getString("PokerGame.35") + stringLastPlay); //$NON-NLS-1$
+	}
+
+	@Override
+	public void phaseLast() {
+		System.out.println(Messages.getString("PokerGame.10")); //$NON-NLS-1$
 	}
 
 	@Override
@@ -59,16 +68,20 @@ public class DefaultPokerView implements PokerView {
 	}
 
 	@Override
-	public void playerBankroll(Chair chair, int index) {
+	public void playerBankroll(int index) {
+		Chair chair = table.getChairs().get(index);
 		System.out.println(index
 				+ Messages.getString("PokerGame.5") + chair.getBankroll()); //$NON-NLS-1$		
 	}
 
 	@Override
-	public void playerHands(int hands, int hand, int index) {
+	public void playerHands(int index) {
+		Chair chair = table.getChairs().get(index);
+		int hands = chair.getHands();
+		int hand = chair.getHand();
 		// ハンドを２枚に分解。
-		int handl = (hands & PokerHand.HAND_L) >> 6;
-		int handr = (hands & PokerHand.HAND_R);
+		int handl = (hands & HandChecker.HAND_L) >> 6;
+		int handr = (hands & HandChecker.HAND_R);
 		// それぞれ数字とマークに分解。
 		int handln = handl % 13 + 1;
 		char handlm = Table.MARK[handl / 13];
@@ -80,19 +93,34 @@ public class DefaultPokerView implements PokerView {
 	}
 
 	@Override
-	public void playerStatus(Chair chair, Table table) {
+	public void playerStatus(int index) {
+		Chair chair = table.getChairs().get(index);
 		int hands = chair.getHands();
-		int hand_l = (hands & PokerGame.HAND_L) >> 6;
-		int hand_r = (hands & PokerGame.HAND_R);
+		int hand_l = (hands & HandChecker.HAND_L) >> 6;
+		int hand_r = (hands & HandChecker.HAND_R);
 		System.out
-				.println(Messages.getString("PokerGame.15") + table.getPot() + Messages.getString("PokerGame.16") + Messages.getString("PokerGame.17") + table.getMaxRaise() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						+ Messages.getString("PokerGame.18") + Messages.getString("PokerGame.19") + chair.getAddedBet() + Messages.getString("PokerGame.20") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						+ Messages.getString("PokerGame.21") + chair.getCurrentRaise() + Messages.getString("PokerGame.22") //$NON-NLS-1$ //$NON-NLS-2$
+				.println(Messages.getString("PokerGame.15")
+						+ table.getPot()
+						+ Messages.getString("PokerGame.16")
+						+ Messages.getString("PokerGame.17")
+						+ table.getMaxRaise() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						+ Messages.getString("PokerGame.18")
+						+ Messages.getString("PokerGame.19")
+						+ chair.getAddedBet()
+						+ Messages.getString("PokerGame.20") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						+ Messages.getString("PokerGame.21")
+						+ chair.getCurrentRaise()
+						+ Messages.getString("PokerGame.22") //$NON-NLS-1$ //$NON-NLS-2$
 						+ Messages.getString("PokerGame.23") + Messages.getString("PokerGame.24") + (hand_l % 13 + 1) + Messages.getString("PokerGame.25") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ Table.MARK[hand_l / 13]
 						+ Messages.getString("PokerGame.26") + Messages.getString("PokerGame.27") + (hand_r % 13 + 1) + Messages.getString("PokerGame.28") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ Table.MARK[hand_r / 13]
 						+ Messages.getString("PokerGame.29")); //$NON-NLS-1$
+	}
+
+	@Override
+	public void setTable(Table table) {
+		this.table = table;
 	}
 
 }

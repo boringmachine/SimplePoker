@@ -703,3 +703,67 @@ org.osgi.service.prefs.BackingStoreException: 設定のロード中に例外が�
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:629)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
+!SESSION 2013-02-15 19:07:12.127 -----------------------------------------------
+eclipse.buildId=I20120502-2000
+java.version=1.7.0_13
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=ja_JP
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.core.resources 2 10035 2013-02-15 19:07:35.835
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.804
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.804
+!MESSAGE 競合 'org.eclipse.compare.selectNextChange':
+HandlerActivation(commandId=org.eclipse.compare.selectNextChange,
+	handler=ActionHandler(org.eclipse.compare.contentmergeviewer.TextMergeViewer\$35@1bf7b80),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.compare.selectNextChange,
+	handler=ActionHandler(org.eclipse.compare.contentmergeviewer.TextMergeViewer\$35@4544af),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.821
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.822
+!MESSAGE 競合 'org.eclipse.compare.selectPreviousChange':
+HandlerActivation(commandId=org.eclipse.compare.selectPreviousChange,
+	handler=ActionHandler(org.eclipse.compare.contentmergeviewer.TextMergeViewer\$36@1123304),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.compare.selectPreviousChange,
+	handler=ActionHandler(org.eclipse.compare.contentmergeviewer.TextMergeViewer\$36@1d34d2f),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.825
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.825
+!MESSAGE 競合 'org.eclipse.compare.ignoreWhiteSpace':
+HandlerActivation(commandId=org.eclipse.compare.ignoreWhiteSpace,
+	handler=ActionHandler(org.eclipse.compare.internal.ChangePropertyAction@11ca080),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.compare.ignoreWhiteSpace,
+	handler=ActionHandler(org.eclipse.compare.internal.ChangePropertyAction@6d6863),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.829
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.829
+!MESSAGE 競合 'org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters':
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters,
+	handler=ActionHandler(org.eclipse.compare.internal.ShowWhitespaceAction@b4430d),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters,
+	handler=ActionHandler(org.eclipse.compare.internal.ShowWhitespaceAction@9e2cb1),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.832
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-02-15 19:36:50.832
+!MESSAGE 競合 'org.eclipse.ui.editors.lineNumberToggle':
+HandlerActivation(commandId=org.eclipse.ui.editors.lineNumberToggle,
+	handler=ActionHandler(org.eclipse.compare.internal.TextEditorPropertyAction@7f03dc),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.ui.editors.lineNumberToggle,
+	handler=ActionHandler(org.eclipse.compare.internal.TextEditorPropertyAction@d67549),
+	expression=ActiveShellExpression(Shell {ストリングを外部化します}),sourcePriority=17408)

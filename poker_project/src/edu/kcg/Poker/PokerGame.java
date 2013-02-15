@@ -1,9 +1,6 @@
 package edu.kcg.Poker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import edu.kcg.Poker.Strategy.AdaptStrategy;
 import edu.kcg.Poker.View.DefaultPokerView;
@@ -15,27 +12,30 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame implements GameRules, PokerHand {
+public class PokerGame implements GameRules {
 
 	private Table table;
 	private PokerView view;
 
 	public PokerGame() {
-		view = new DefaultPokerView();
+		this.table = this.createTable();
+		view = new DefaultPokerView(this.table);
 	}
 
 	public PokerGame(PokerView view) {
 		this.view = view;
+		this.view.setTable(this.table);
 	}
 
 	public PokerGame(Table table) {
-		this();
 		this.table = table;
+		this.view = new DefaultPokerView(this.table);
 	}
 
 	public PokerGame(Table table, PokerView view) {
 		this.table = table;
 		this.view = view;
+		view.setTable(this.table);
 	}
 
 	public void addPlayer(Player player) {
@@ -68,35 +68,12 @@ public class PokerGame implements GameRules, PokerHand {
 		}
 
 		/****************************/
-		view.communityCardStatus(table);
+		view.communityCardStatus();
 		/*****************************/
-	}
-
-	@Override
-	public int checkHand(int hands) {
-		int[] comcard = table.getCommunityCards();
-		int[] cards = { comcard[0], comcard[1], comcard[2], comcard[3],
-				comcard[4], (hands & HAND_L) >> 6, hands & HAND_R };
-		int bit = 0;
-		bit |= checkFlush(cards);
-		bit |= checkStraight(cards);
-		if (bit > 0) {
-			if ((bit & PokerGame.FL) > 0 && (bit & PokerGame.ST) > 0) {
-				bit |= PokerGame.SF;
-				return bit;
-			}
-		}
-		int buf = bit;
-		bit = checkOther(cards);
-		if (buf > bit) {
-			bit = buf;
-		}
-		return bit;
 	}
 
 	public Table createTable() {
 		Table table = new Table();
-		this.table = table;
 		return table;
 	}
 
@@ -126,11 +103,14 @@ public class PokerGame implements GameRules, PokerHand {
 			}
 			if (status == GameRules.FINAL) {
 				this.initGame();
-				if(table.chairSize()==1){
+				if (table.chairSize() == 1) {
 					break;
 				}
 			}
 			nextPhase();
+			/**************/
+			view.phaseLast();
+			/**************/
 		}
 	}
 
@@ -140,7 +120,7 @@ public class PokerGame implements GameRules, PokerHand {
 		divisionProfit();
 
 		/***************/
-		view.communityCardStatus(table);
+		view.communityCardStatus();
 		/***************/
 
 		// firstフェーズに戻るためにポットを初期化。
@@ -234,7 +214,7 @@ public class PokerGame implements GameRules, PokerHand {
 		Chair chair = table.getChairs().get(i);
 
 		/******************/
-		view.playerStatus(chair, table);
+		view.playerStatus(i);
 		/******************/
 
 		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
@@ -250,7 +230,7 @@ public class PokerGame implements GameRules, PokerHand {
 		// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 		if (option > -1) {
 			int bet = option + maxBet;
-			if(chair.isAllin()){
+			if (chair.isAllin()) {
 				bet -= maxBet;
 			}
 			table.setMaxRaise(bet);
@@ -259,7 +239,7 @@ public class PokerGame implements GameRules, PokerHand {
 		}
 
 		/****************************/
-		view.lastPlayStatus(chair, i);
+		view.lastPlayStatus(i);
 		/****************************/
 	}
 
@@ -278,6 +258,7 @@ public class PokerGame implements GameRules, PokerHand {
 		}
 		table.setCurrentPlayer(currentPlayer);
 		table.setCurrentPhase(currentPhase);
+
 		return currentPhase;
 	}
 
@@ -292,36 +273,6 @@ public class PokerGame implements GameRules, PokerHand {
 	 */
 	private void addPot(int x) {
 		table.addPot(x);
-	}
-
-	/**
-	 * 各カードのマークを調べる。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int[] cardMarks(int[] cards) {
-		int[] buf = new int[cards.length];
-		int i = 0;
-		for (int x : cards) {
-			buf[i++] = (int) (x / 13);
-		}
-		return buf;
-	}
-
-	/**
-	 * 各カードの数字を調べる。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int[] cardNums(int[] cards) {
-		int[] buf = new int[cards.length];
-		int i = 0;
-		for (int x : cards) {
-			buf[i++] = x % 13;
-		}
-		return buf;
 	}
 
 	private void chairsInit() {
@@ -346,146 +297,6 @@ public class PokerGame implements GameRules, PokerHand {
 				chairs.remove(i);
 			}
 		}
-	}
-
-	/**
-	 * フラッシュかどうかチェック。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int checkFlush(int[] cards) {
-		int i = 0;
-		int[] buf = cardMarks(cards);
-		while (i < 4) {
-			int count = 0;
-			int max = 0;
-			for (int j = buf.length - 1; j > -1; j--) {
-				if (buf[j] == i) {
-					++count;
-					int num = cards[j] % 13;
-					if (max < num) {
-						max = num;
-					}
-				}
-			}
-			if (count > 4) {
-				return max | PokerGame.FL;
-			}
-			i++;
-		}
-		return 0;
-	}
-
-	/**
-	 * 数字の枚数を用いる役のチェッカー。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int checkOther(int[] cards) {
-		// 各数字の枚数をカウントした配列。
-		int[] buf = countNums(cards);
-		int bit = 0;
-		boolean three = false, two = false, one = false, nopair = false;
-		for (int i = 12; i > -1; i--) {
-			if (buf[i] == 4) {
-				// 4ペアなら即リターン
-				return (PokerGame.FO | i);
-			} else if (buf[i] == 3) {
-				if (three && one) {
-					// すでにフルハウスが決定しているなら何もしない。
-				} else if (one || three) {
-					// ワンペアまたはスリーカードが決まっているならフルハウス。
-					bit &= PokerGame.HAND_R;
-					bit |= PokerGame.FU;
-				} else {
-					// 役が決まっていないならスリーカード。
-					bit = (PokerGame.TH | i);
-				}
-				// スリーカードのフラグをtrueにする。
-				three = true;
-			} else if (buf[i] == 2) {
-				if (three && one) {
-					// すでにフルハウスが決定しているなら何もしない。
-				} else if (three) {
-					// スリーカードが決まっているならフルハウス。
-					bit &= PokerGame.HAND_R;
-					bit |= PokerGame.FU;
-				} else if (!two) {
-					// ツーペアが決まっていない場合。
-					if (one) {
-						// ワンペアが決まっているならツーペア。
-						bit = (bit & PokerGame.HAND_R) << 6;
-						bit |= (PokerGame.TW | i);
-						// ツーペアのフラグをtrueにする。
-						two = true;
-					} else {
-						// ワンペアが決まっていないならワンペア。
-						bit = (PokerGame.ON | i);
-					}
-				}
-				// ワンペアのフラグをtrueにする。
-				one = true;
-			} else if (buf[i] == 1) {
-				if (three || two || one || nopair) {
-					// 何かの役が決まっているなら何もしない。
-				} else {
-					// 役が決まっていないならハイカード。
-					bit = i;
-					nopair = true;
-				}
-			}
-		}
-		// 役の強さを返す。
-		return bit;
-	}
-
-	/**
-	 * ストレートをチェック。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int checkStraight(int[] cards) {
-		int[] buf = cardNums(cards);
-		int[] sorted = mysort(buf);
-
-		if (sorted.length < 5)
-			return (0);
-		if (sorted[0] == 0) {
-			buf = Arrays.copyOf(sorted, sorted.length);
-			sorted = new int[buf.length + 1];
-			int i = 0;
-			for (i = 0; i < buf.length; i++) {
-				sorted[i] = buf[i];
-			}
-			sorted[i] = 13;
-		}
-		int i = sorted.length - 1;
-		while (i > 3) {
-			if (sorted[i - 4] + 4 == sorted[i])
-				return (sorted[i] | PokerGame.ST);
-			i--;
-		}
-
-		return 0;
-	}
-
-	/**
-	 * 各数字の枚数を数える。
-	 * 
-	 * @param cards
-	 * @return 数えた回数を配列として返す。
-	 */
-	private int[] countNums(int[] cards) {
-		int[] buf = cardNums(cards);
-		int[] cardnum = new int[13];
-		Arrays.fill(cardnum, 0);
-		for (int x : buf) {
-			cardnum[x]++;
-		}
-		return cardnum;
 	}
 
 	/**
@@ -516,15 +327,16 @@ public class PokerGame implements GameRules, PokerHand {
 		for (Chair chair : chairs) {
 			// ハンドを取得
 			int hands = chair.getHands();
+			int[] comcard = table.getCommunityCards();
 			// 役の強さを計算。
-			hand = checkHand(hands);
+			hand = HandChecker.checkHand(hands, comcard);
 			chair.setHand(hand);
 			// 最大ハンドより大きければ、
 			if (hand >= max) {
 				max = hand;
 			}
 			/***************/
-			view.playerHands(hands, hand, i);
+			view.playerHands(i);
 			/***************/
 
 			i++;
@@ -568,7 +380,7 @@ public class PokerGame implements GameRules, PokerHand {
 				chair.profit(profit);
 			}
 			/*****/
-			view.playerBankroll(chair, i);
+			view.playerBankroll(i);
 			/*****/
 			i++;
 		}
@@ -584,35 +396,16 @@ public class PokerGame implements GameRules, PokerHand {
 	}
 
 	/**
-	 * 重複を取り除いてソートする。
-	 * 
-	 * @param cards
-	 * @return
-	 */
-	private int[] mysort(int[] cards) {
-		Set<Integer> set = new HashSet<Integer>();
-		// 集合クラスは重複を捨てる性質がある.
-		for (int x : cards) {
-			set.add(x);
-		}
-		Object[] buf = set.toArray();
-		int[] array = new int[buf.length];
-		int i = 0;
-		for (Object x : buf) {
-			array[i] = (Integer) x;
-			i++;
-		}
-		return array;
-	}
-
-	/**
 	 * 次のディーラーを決定。
 	 */
 	private int nextDealer() {
 		int dealer = table.getDealer();
 		int playerNum = table.chairSize();
 		dealer++;
-		if (dealer > playerNum - 1) {
+
+		// XXX ディーラーが遷移しない.
+
+		if (dealer == playerNum) {
 			dealer = 0;
 		}
 		return 0;
