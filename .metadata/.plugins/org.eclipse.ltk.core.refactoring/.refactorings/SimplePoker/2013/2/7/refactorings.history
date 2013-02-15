@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="フィールド &apos;edu.kcg.Poker.Strategy.AdaptStrategy.params&apos; を &apos;edu.kcg.Poker.Strategy.AdaptStrategy&apos;にカプセル化します&#x0A;- 元のプロジェクト: &apos;SimplePoker&apos;&#x0A;- オリジナル要素: &apos;edu.kcg.Poker.Strategy.AdaptStrategy.params&apos;&#x0A;- getter メソッド名: &apos;getParams&apos;&#x0A;- setter メソッド名: &apos;setParams&apos;&#x0A;- フィールドの可視性: &apos;public&apos;&#x0A;- 宣言型の getter および setter メソッドを使用" comments="false" declaring="true" description="フィールド &apos;params&apos; をカプセル化します" flags="589830" getter="getParams" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;edu.kcg.Poker.Strategy{AdaptStrategy.java[AdaptStrategy^params" insertion="-1" setter="setParams" stamp="1360895594374" version="1.0" visibility="1"/>
+</session>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 packages to &apos;v0.05/src&apos;&#x0A;- 元のプロジェクト: &apos;v0.10&apos;&#x0A;- 宛先要素: &apos;v0.05/src&apos;&#x0A;- オリジナル要素:&#x0A;     v0.10/src/edu.kcg.Poker.Strategy&#x0A;     v0.10/src/edu.kcg.Poker.Tester&#x0A;     v0.10/src/edu.kcg.Poker" description="パッケージをコピー" destination="=v0.05/src" element1="/src&lt;edu.kcg.Poker.Strategy" element2="/src&lt;edu.kcg.Poker.Tester" element3="/src&lt;edu.kcg.Poker" flags="589830" fragments="3" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1360568167106" version="1.0"/>
+</session>

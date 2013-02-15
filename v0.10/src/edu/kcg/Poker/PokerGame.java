@@ -18,8 +18,7 @@ public class PokerGame implements GameRules {
 	/**
 	 * 各役の強さのフラグ
 	 */
-	private static final int FL = 0x1000, ST = 0x800, TH = 0x400, TW = 0x200,
-			ON = 0x100;
+	private static final int FL = 0x1000, ST = 0x800, TH = 0x400, TW = 0x200,ON = 0x100;
 	private static final int FO = FL | TH | ON;
 	private static final int FU = (TH | ON) << 2;
 
@@ -38,6 +37,15 @@ public class PokerGame implements GameRules {
 	 * 統計解析用のファイルを出力するためにTableの状態を随時保存する.
 	 */
 	private TableStateBuffer tableBuffer;
+
+	
+	public void addTableBuffer(Params params){
+		tableBuffer.add(params);
+	}
+	
+	public TableStateBuffer getTableBuffer() {
+		return tableBuffer;
+	}
 
 	/**
 	 * コンストラクタ。
