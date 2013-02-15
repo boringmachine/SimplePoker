@@ -18,14 +18,14 @@ public class PokerGame implements GameRules {
 	private PokerView view;
 
 	public PokerGame() {
-		createTable();
+		this.table = this.createTable();
 		this.view = new DefaultPokerView(this.table);
 	}
 
 	public PokerGame(PokerView view) {
 		this.view = view;
 		if(this.table == null){
-			createTable();
+			this.table = this.createTable();
 		}else{
 			this.view.setTable(this.table);
 		}
@@ -78,13 +78,7 @@ public class PokerGame implements GameRules {
 
 	public Table createTable() {
 		Table table = new Table();
-		this.table = table;
-		if(this.view == null){
-			this.view = new DefaultPokerView(this.table);
-		}else{
-			this.view.setTable(this.table);
-		}
-		return this.table;
+		return table;
 	}
 
 	@Override
@@ -415,7 +409,7 @@ public class PokerGame implements GameRules {
 
 		// XXX ディーラーが遷移しない.
 
-		if (dealer > playerNum-1) {
+		if (dealer == playerNum) {
 			dealer = 0;
 		}
 		return 0;

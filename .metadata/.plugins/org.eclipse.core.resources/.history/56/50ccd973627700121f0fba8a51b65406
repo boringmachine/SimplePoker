@@ -20,8 +20,6 @@ public class PokerTester {
 
 		Player[] players = new Player[3];
 		PokerGame game = new PokerGame();
-		
-//		Table table = game.getTable();
 		Table table = game.createTable();
 		table.setAnty(10);
 		table.setLimit(1000);

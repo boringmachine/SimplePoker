@@ -79,12 +79,7 @@ public class PokerGame implements GameRules {
 	public Table createTable() {
 		Table table = new Table();
 		this.table = table;
-		if(this.view == null){
-			this.view = new DefaultPokerView(this.table);
-		}else{
-			this.view.setTable(this.table);
-		}
-		return this.table;
+		return table;
 	}
 
 	@Override
