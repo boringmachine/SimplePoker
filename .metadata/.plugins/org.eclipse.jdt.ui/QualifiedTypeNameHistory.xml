@@ -3,4 +3,8 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.Params"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.Strategy.AdaptStrategy"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.Table"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.Chair"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.View.DefaultPokerView"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.PokerHand"/>
 </qualifiedTypeNameHistroy>
