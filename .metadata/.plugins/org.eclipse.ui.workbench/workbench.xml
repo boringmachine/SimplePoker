@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="21" version="2.0">
+<workbench progressCount="15" version="2.0">
 <workbenchAdvisor/>
-<window height="744" width="1008" x="0" y="0">
+<window height="743" width="1008" x="0" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -41,11 +41,6 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="問題">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.pathField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="問題">
-<expanded>
-<category IMemento.internal.id="警告"/>
-<category IMemento.internal.id="エラー (55 項目)"/>
-<category IMemento.internal.id="エラー"/>
-</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="105" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="364"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -301,6 +296,39 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Chair.java" tooltip="SimplePoker/src/edu/kcg/Poker/Chair.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Chair.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SampleStrategy.java" tooltip="SimplePoker/src/edu/kcg/Poker/Strategy/SampleStrategy.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Strategy/SampleStrategy.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanPlayerStdIn.java" tooltip="SimplePoker/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameRules.java" tooltip="SimplePoker/src/edu/kcg/Poker/GameRules.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/GameRules.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultStrategy.java" tooltip="SimplePoker/src/edu/kcg/Poker/Strategy/DefaultStrategy.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Strategy/DefaultStrategy.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AdaptStrategy.java" tooltip="SimplePoker/src/edu/kcg/Poker/Strategy/AdaptStrategy.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Strategy/AdaptStrategy.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Params.java" tooltip="SimplePoker/src/edu/kcg/Poker/Params.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Params.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="SimplePoker/src/edu/kcg/Poker/Table.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Table.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="SimplePoker/src/edu/kcg/Poker/Tester/PokerTester.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="SimplePoker/src/edu/kcg/Poker/PokerGame.java">
+<persistable path="/SimplePoker/src/edu/kcg/Poker/PokerGame.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="v0.05/src/edu/kcg/Poker/PokerGame.java">
+<persistable path="/v0.05/src/edu/kcg/Poker/PokerGame.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="v0.05/src/edu/kcg/Poker/Tester/PokerTester.java">
 <persistable path="/v0.05/src/edu/kcg/Poker/Tester/PokerTester.java"/>
 </file>
@@ -312,39 +340,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Chair.java" tooltip="v0.05/src/edu/kcg/Poker/Chair.java">
 <persistable path="/v0.05/src/edu/kcg/Poker/Chair.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="v0.05/src/edu/kcg/Poker/Table.java">
-<persistable path="/v0.05/src/edu/kcg/Poker/Table.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="v0.05/src/edu/kcg/Poker/PokerGame.java">
-<persistable path="/v0.05/src/edu/kcg/Poker/PokerGame.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="v0.10/src/edu/kcg/Poker/Table.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Table.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="v0.10/src/edu/kcg/Poker/Tester/PokerTester.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Tester/PokerTester.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SampleStrategy.java" tooltip="v0.10/src/edu/kcg/Poker/Strategy/SampleStrategy.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Strategy/SampleStrategy.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanPlayerStdIn.java" tooltip="v0.10/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultStrategy.java" tooltip="v0.10/src/edu/kcg/Poker/Strategy/DefaultStrategy.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Strategy/DefaultStrategy.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Strategy.java" tooltip="v0.10/src/edu/kcg/Poker/Strategy/Strategy.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Strategy/Strategy.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="v0.10/src/edu/kcg/Poker/PokerGame.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/PokerGame.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AdaptStrategy.java" tooltip="v0.10/src/edu/kcg/Poker/Strategy/AdaptStrategy.java">
-<persistable path="/v0.10/src/edu/kcg/Poker/Strategy/AdaptStrategy.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SampleStrategy.java" tooltip="v0.04/src/edu/kcg/Poker/Strategy/SampleStrategy.java">
-<persistable path="/v0.04/src/edu/kcg/Poker/Strategy/SampleStrategy.java"/>
 </file>
 </mruList>
 </workbench>
