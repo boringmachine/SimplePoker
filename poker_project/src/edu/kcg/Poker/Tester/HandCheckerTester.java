@@ -10,14 +10,14 @@ public class HandCheckerTester {
 
 		// コミュニティカード
 		int[] com = { 5, 15, 4, 8, 10 };
-		
+
 		// プレイヤーの手札
 		int handl = 51;
 		int handr = 50;
-		
+
 		handl <<= 6;
-		
-		System.out.println(HandChecker.checkHand(handl|handr, com));
-		
+
+		System.out.println(HandChecker.checkHand(handl | handr, com));
+
 	}
 }

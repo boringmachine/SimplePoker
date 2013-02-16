@@ -9,6 +9,8 @@ public class Params {
 
 	private int anty;
 	private int[] bankrolls;
+	private int chairIndex;
+	private int[] communityCards;
 	private int hands;
 	private int[] lastPlays;
 	private int limit;
@@ -16,22 +18,37 @@ public class Params {
 	private int pot;
 	private int round;
 
-	public Params(Table table) {
+	public Params(Table table,int chairIndex) {
+		this.chairIndex = chairIndex;
+		this.hands = table.getChairs().get(chairIndex).getHands();
 		this.anty = table.getAnty();
 		this.limit = table.getLimit();
 		this.maxRaise = table.getMaxRaise();
 		this.pot = table.getPot();
 		this.round = table.getRound();
+		this.setCommunityCards(table);
 		this.setBankrolls(table.getChairs());
-		this.setLastPlays(table.getChairs());
+		this.setLastPlays(table.getChairs());	
 	}
-
+	
+	public void setCommunityCards(Table table){
+		int[] cards = table.getCommunityCards();
+		this.communityCards = new int[5];
+		for(int i=0;i<cards.length;i++){
+			this.communityCards[i]=(int)cards[i];
+		}	
+	}
+	
 	public int getAnty() {
 		return anty;
 	}
 
 	public int[] getBankrolls() {
 		return bankrolls;
+	}
+
+	public int getChairIndex() {
+		return chairIndex;
 	}
 
 	public int getHands() {
@@ -69,6 +86,10 @@ public class Params {
 			this.bankrolls[i] = chair.getBankroll();
 			i++;
 		}
+	}
+
+	public void setChairIndex(int chairIndex) {
+		this.chairIndex = chairIndex;
 	}
 
 	public void setHands(int hands) {

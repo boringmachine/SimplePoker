@@ -23,9 +23,9 @@ public class PokerGame implements GameRules {
 
 	public PokerGame(PokerView view) {
 		this.view = view;
-		if(this.table == null){
+		if (this.table == null) {
 			this.table = new Table();
-		}else{
+		} else {
 			this.view.setTable(this.table);
 		}
 	}
@@ -78,9 +78,9 @@ public class PokerGame implements GameRules {
 	public Table createTable() {
 		Table table = new Table();
 		this.table = table;
-		if(this.view == null){
+		if (this.view == null) {
 			this.view = new DefaultPokerView(this.table);
-		}else{
+		} else {
 			this.view.setTable(this.table);
 		}
 		return this.table;
@@ -217,21 +217,23 @@ public class PokerGame implements GameRules {
 
 	@Override
 	public void humanPhase() {
-		int i = table.getCurrentPlayer();
+		int index = table.getCurrentPlayer();
 		int maxBet = table.getMaxRaise();
 		int limit = table.getLimit();
-		Chair chair = table.getChairs().get(i);
+		Chair chair = table.getChairs().get(index);
 
 		/******************/
-		view.playerStatus(i);
+		view.playerStatus(index);
 		/******************/
 
 		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
-		AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
-				.getStrategy();
-		strategy.setParams(table.packParams());
+		AdaptStrategy strategy 
+			= (AdaptStrategy) chair.getPlayer().getStrategy();
+		strategy.setParams(table.packParams(index));
 		int pastBankroll = chair.getBankroll();
 		int option = chair.choice(maxBet, limit);
+		
+		//XXX オールインとフォルドの動作がうまくいかない。
 		if (pastBankroll < option) {
 			option = pastBankroll;
 		}
@@ -239,16 +241,13 @@ public class PokerGame implements GameRules {
 		// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 		if (option > -1) {
 			int bet = option + maxBet;
-			if (chair.isAllin()) {
-				bet -= maxBet;
-			}
 			table.setMaxRaise(bet);
 			addPot(bet - chair.getCurrentRaise());
 			chair.setCurrentRaise(bet);
 		}
 
 		/****************************/
-		view.lastPlayStatus(i);
+		view.lastPlayStatus(index);
 		/****************************/
 	}
 
@@ -407,17 +406,14 @@ public class PokerGame implements GameRules {
 	/**
 	 * 次のディーラーを決定。
 	 */
-	private int nextDealer() {
+	private void nextDealer() {
 		int dealer = table.getDealer();
 		int playerNum = table.chairSize();
 		dealer++;
-
-		// XXX ディーラーが遷移しない.
-
-		if (dealer > playerNum-1) {
+		if (dealer > playerNum - 1) {
 			dealer = 0;
 		}
-		return 0;
+		table.setDealer(dealer);
 	}
 
 	/**

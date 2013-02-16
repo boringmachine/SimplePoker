@@ -4,6 +4,10 @@
 		<item value="481" key="height"/>
 		<item value="777" key="width"/>
 	</section>
+	<section name="RefactoringWizard.&apos;DefaultPokerView.java&apos; のストリングを外部化します">
+		<item value="481" key="height"/>
+		<item value="777" key="width"/>
+	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="400" key="height"/>
 		<item value="600" key="width"/>

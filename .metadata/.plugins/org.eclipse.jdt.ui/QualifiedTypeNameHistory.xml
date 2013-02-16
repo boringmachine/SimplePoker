@@ -7,4 +7,6 @@
 <fullyQualifiedTypeName name="edu.kcg.Poker.Chair"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.View.DefaultPokerView"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.PokerHand"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.Strategy.Params"/>
+<fullyQualifiedTypeName name="edu.kcg.Poker.HandChecker"/>
 </qualifiedTypeNameHistroy>
