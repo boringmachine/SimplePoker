@@ -4,7 +4,7 @@ import edu.kcg.Poker.Table;
 import edu.kcg.Poker.View.DefaultPokerView;
 import edu.kcg.Poker.View.PokerView;
 
-public abstract class TableAndViewFactory {
+public class TableAndViewFactory {
 	protected Table table;
 	protected PokerView view;
 

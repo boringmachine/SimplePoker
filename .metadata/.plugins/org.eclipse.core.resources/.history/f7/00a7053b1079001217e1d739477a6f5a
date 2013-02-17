@@ -12,7 +12,8 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,Runnable {
+public class PokerGame extends TableAndViewFactory implements GameRules,
+		Runnable {
 
 	public PokerGame() {
 		createTable();
@@ -101,9 +102,10 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		table.setPot(0);
 	}
 
-	private int[] decideBlind(){
-		int[] blind = new int[2];
-		
+	@Override
+	public void firstPhase() {
+
+		int anty = table.getAnty();
 		// スモールブラインドを決定する。
 		int small = table.getDealer() + 1;
 		if (small > table.chairSize() - 1) {
@@ -114,14 +116,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		if (big > table.chairSize() - 1) {
 			big = 0;
 		}
-		blind[0] = small;
-		blind[1] = big;
-		
-		return blind;
-	}
-	
-	private void payBlind(int small,int big){
-		int anty = table.getAnty();
 		ArrayList<Chair> chairs = table.getChairs();
 
 		// スモールブラインドにアンティを支払わせる。
@@ -139,34 +133,20 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		table.setMaxRaise(anty * 2);
 		table.setCurrentPlayer(big);
 	}
-	
-	@Override
-	public void firstPhase() {
-		int[] blind = decideBlind();
-		int small = blind[0];
-		int big = blind[1];		
-		payBlind(small,big);
-	}
 
-	
-	private boolean isFirst(){
-		if (table.getPot() == 0) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	private boolean isFinal(){
-		if (table.getRound() == 4) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	private boolean isHuman(){
+	@Override
+	public int gameStatus() {
+		int pot = table.getPot();
+		int round = table.getRound();
 		ArrayList<Chair> chairs = table.getChairs();
+		// ポットが0なら最初のフェーズ。
+		if (pot == 0) {
+			return GameRules.FIRST;
+		}
+		// ラウンドが4なら最終フェーズ。
+		if (round == 4) {
+			return GameRules.FINAL;
+		}
 		// あるプレイヤーがオールインもフォルドもしていない場合、
 		// 全員の掛け金の最大と同じ額を賭けていなければ人為手番。
 		// または、最終プレイの値がIntegerの最小値になっていたら人為手番。
@@ -175,13 +155,9 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 			boolean b2 = !(chair.isAllin() || chair.isFold());
 			boolean b3 = chair.getLastPlay() == Integer.MIN_VALUE;
 			if (b1 && b2 || b3) {
-				return true;
+				return GameRules.HUMAN;
 			}
 		}
-		return false;
-	}
-	
-	private boolean isNowChance(){
 		// 現在手番が偶然手番の時の処理。
 		if (table.getCurrentPhase() == GameRules.CHANCE) {
 			// 現在手番を人為手番に設定。
@@ -194,27 +170,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 				}
 			}
 			// 形式的に偶然手番をリターンする。
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public int gameStatus() {
-		
-		if (isFirst()){
-			return GameRules.FIRST;
-		}
-		
-		if (isFinal()) {
-			return GameRules.FINAL;
-		}
-
-		if (isHuman()){
-			return GameRules.HUMAN;
-		}
-		
-		if (isNowChance()){
 			return GameRules.CHANCE;
 		}
 
@@ -274,10 +229,12 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		/****************************/
 	}
 
-	
-	private void updateCurrentPlayer(int currentPhase){
+	@Override
+	public int nextPhase() {
 		int currentPlayer = table.getCurrentPlayer();
 		int playerNum = table.chairSize();
+		int currentPhase = this.gameStatus();
+
 		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
 			currentPlayer++;
 			if (currentPlayer > playerNum - 1) {
@@ -287,13 +244,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 			currentPlayer = table.getDealer();
 		}
 		table.setCurrentPlayer(currentPlayer);
-	}
-	
-	@Override
-	public int nextPhase() {
-		int currentPhase = this.gameStatus();
-		updateCurrentPlayer(currentPhase);
 		table.setCurrentPhase(currentPhase);
+
 		return currentPhase;
 	}
 
@@ -388,10 +340,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		}
 	}
 
-	/**
-	 * コミュニティカードを配る。
-	 * @param round
-	 */
 	private void dealCommunityCard(int round) {
 		// ラウンド1ならデックからコミュニティカードに3枚出す。
 		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
@@ -412,8 +360,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 	 * 利益の分配。
 	 */
 	private void divisionProfit() {
-
- 		int maxAddedBet = 0;
+		int maxAddedBet = 0;
 		int sumWinner = 0;
 		int max = 0;
 		int pot = 0;

@@ -12,7 +12,8 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,Runnable {
+public class PokerGame extends TableAndViewFactory implements GameRules,
+		Runnable {
 
 	public PokerGame() {
 		createTable();
@@ -274,10 +275,12 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 		/****************************/
 	}
 
-	
-	private void updateCurrentPlayer(int currentPhase){
+	@Override
+	public int nextPhase() {
 		int currentPlayer = table.getCurrentPlayer();
 		int playerNum = table.chairSize();
+		int currentPhase = this.gameStatus();
+
 		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
 			currentPlayer++;
 			if (currentPlayer > playerNum - 1) {
@@ -287,13 +290,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,Runnable
 			currentPlayer = table.getDealer();
 		}
 		table.setCurrentPlayer(currentPlayer);
-	}
-	
-	@Override
-	public int nextPhase() {
-		int currentPhase = this.gameStatus();
-		updateCurrentPlayer(currentPhase);
 		table.setCurrentPhase(currentPhase);
+
 		return currentPhase;
 	}
 

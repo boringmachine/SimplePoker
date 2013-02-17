@@ -12,7 +12,8 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,Runnable {
+public class PokerGame extends TableAndViewFactory implements GameRules,
+		Runnable {
 
 	public PokerGame() {
 		createTable();
