@@ -442,9 +442,13 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 		int pot = 0;
 		
 		max = solvePlayersHand();
+
 		sumWinner = solveWinner(max);
+
 		maxAddedBet = solveMaxAddedBet();
+		
 		pot = backOverRaise(maxAddedBet);
+		
 		solveProfit(pot,sumWinner);
 
 	}

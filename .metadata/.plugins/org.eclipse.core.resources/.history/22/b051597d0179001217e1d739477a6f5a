@@ -52,7 +52,8 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 			return;
 		}
 
-		int round = updateRound(table.getRound());
+		int round = table.getRound();
+		round = updateRound(round);
 		dealCommunityCard(round);
 
 		/****************************/
@@ -80,8 +81,8 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 			/******************/
 
 			gameGraph(status);
+
 			nextPhase();
-	
 
 			/**************/
 			view.phaseLast();
@@ -339,10 +340,16 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 		}
 	}
 
-	private int solvePlayersHand(){
-		int i = 0;
-		int hand = 0;
+	/**
+	 * 利益の分配。
+	 */
+	private void divisionProfit() {
+		int maxAddedBet = 0;
+		int sumWinner = 0;
 		int max = 0;
+		int hand = 0;
+		int i = 0;
+		int pot = table.getPot();
 		ArrayList<Chair> chairs = table.getChairs();
 
 		// 最大ハンドを計算。
@@ -366,12 +373,7 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 
 			i++;
 		}
-		return max;
-	}
-	
-	private int solveWinner(int max){
-		int sumWinner = 0;
-		ArrayList<Chair> chairs = table.getChairs();
+
 		// 勝者を決定。
 		for (Chair chair : chairs) {
 			if (chair.getHand() == max) {
@@ -379,12 +381,7 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 				sumWinner += chair.getAddedBet();
 			}
 		}
-		return sumWinner;
-	}
-	
-	private int solveMaxAddedBet(){		
-		int maxAddedBet = 0;
-		ArrayList<Chair> chairs = table.getChairs();
+
 		// 勝者の掛け金の最大を計算。
 		for (Chair chair : chairs) {
 			if (chair.isWinner()) {
@@ -394,12 +391,6 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 				}
 			}
 		}
-		return maxAddedBet;
-	}
-	
-	private int backOverRaise(int maxAddedBet){
-		ArrayList<Chair> chairs = table.getChairs();
-		int pot = table.getPot();
 		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
 		for (Chair chair : chairs) {
 			if (!chair.isWinner()) {
@@ -411,12 +402,7 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 				}
 			}
 		}
-		return pot;
-	}
-	
-	private void solveProfit(int pot,int sumWinner){
-		int i = 0;
-		ArrayList<Chair> chairs = table.getChairs();
+		i = 0;
 		// 勝者に利益を配分。
 		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
 		for (Chair chair : chairs) {
@@ -430,23 +416,6 @@ public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnabl
 			/*****/
 			i++;
 		}
-	}
-	
-	/**
-	 * 利益の分配。
-	 */
-	private void divisionProfit() {
-		int maxAddedBet = 0;
-		int sumWinner = 0;
-		int max = 0;
-		int pot = 0;
-		
-		max = solvePlayersHand();
-		sumWinner = solveWinner(max);
-		maxAddedBet = solveMaxAddedBet();
-		pot = backOverRaise(maxAddedBet);
-		solveProfit(pot,sumWinner);
-
 	}
 
 	private void finalize(int status) {
