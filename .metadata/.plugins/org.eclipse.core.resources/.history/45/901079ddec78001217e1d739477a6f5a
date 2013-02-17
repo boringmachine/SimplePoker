@@ -290,6 +290,7 @@ public class PokerGame implements GameRules {
 			// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 			if (option > -1) {
 				int bet = option + maxBet;
+				//XXX オールインがうまくいかない。
 				if (pastBankroll < bet) {
 					bet = pastBankroll+chair.getCurrentRaise();
 				}
