@@ -1,0 +1,19 @@
+package edu.kcg.Poker.Factory;
+
+import java.util.Vector;
+
+import edu.kcg.Poker.PokerGame;
+import edu.kcg.Poker.Table;
+import edu.kcg.Poker.View.DefaultPokerView;
+import edu.kcg.Poker.View.PokerView;
+
+public class GameFactory {
+
+	public static final Vector<PokerGame> pool = new Vector<PokerGame>();
+	
+	public PokerGame createGame(){
+		PokerGame game = new PokerGame();
+		
+		return null;
+	}
+}

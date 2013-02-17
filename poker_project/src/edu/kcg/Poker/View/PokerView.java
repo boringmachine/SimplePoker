@@ -4,7 +4,7 @@ import edu.kcg.Poker.Table;
 
 abstract public class PokerView {
 
-	Table table;
+	protected Table table;
 
 	public PokerView(Table table) {
 		this.table = table;

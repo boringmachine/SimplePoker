@@ -12,7 +12,7 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame implements GameRules {
+public class PokerGame implements GameRules,Runnable {
 
 	private Table table;
 	private PokerView view;
@@ -22,21 +22,11 @@ public class PokerGame implements GameRules {
 	}
 
 	public PokerGame(PokerView view) {
-		this.view = view;
-		if (this.table == null) {
-			this.table = new Table();
-		} else {
-			this.view.setTable(this.table);
-		}
+		createTable(view);
 	}
 
 	public PokerGame(Table table) {
-		this.table = table;
-		if(this.view==null){
-			this.view = new DefaultPokerView(this.table);
-		}else{
-			this.view.setTable(table);
-		}
+		createPokerView(table);
 	}
 
 	public PokerGame(Table table, PokerView view) {
@@ -49,26 +39,6 @@ public class PokerGame implements GameRules {
 		table.addChair(player);
 	}
 
-	private int countAllin(){
-		int count = 0;
-		for(Chair chair : this.table.getChairs()){
-			if(chair.isAllin()){
-				count++;
-			}
-		}
-		return count;
-	}
-	
-	private int countFold(){
-		int count = 0;
-		for(Chair chair : this.table.getChairs()){
-			if(chair.isFold()){
-				count++;
-			}
-		}
-		return count;
-	}
-	
 	@Override
 	public void chancePhase() {
 
@@ -76,15 +46,15 @@ public class PokerGame implements GameRules {
 		int countAllin = countAllin();
 		int chairSize = table.chairSize();
 		int notFolder = chairSize - countFold;
-		
-		if(notFolder == 1){
+
+		if (notFolder == 1) {
 			int round = 4;
-			int[] communityCards = {1,2,3,4,5};
+			int[] communityCards = { 1, 2, 3, 4, 5 };
 			table.setCommunityCards(communityCards);
 			table.setRound(round);
-			return ;
+			return;
 		}
-		
+
 		int round = table.getRound();
 		// ラウンド番号を更新する。
 		round++;
@@ -111,9 +81,11 @@ public class PokerGame implements GameRules {
 		/****************************/
 		view.communityCardStatus();
 		/*****************************/
-		
-		if((notFolder - countAllin) < 1){
-			if(table.getRound()==4){ return; }
+
+		if ((notFolder - countAllin) < 1) {
+			if (table.getRound() == 4) {
+				return;
+			}
 			chancePhase();
 		}
 	}
@@ -123,12 +95,35 @@ public class PokerGame implements GameRules {
 		this.table = table;
 		if (this.view == null) {
 			this.view = new DefaultPokerView(this.table);
-		} else {
-			this.view.setTable(this.table);
-		}
+		}	
+		this.view.setTable(this.table);
 		return this.table;
 	}
 
+	public Table createTable(PokerView view){
+		Table table = new Table();
+		this.table = table;
+		this.view = view;
+		this.view.setTable(this.table);		
+		return this.table;
+	}
+
+	public PokerView createPokerView(){
+		if(this.table == null){
+			this.table = new Table();
+		}
+		PokerView view = new DefaultPokerView(this.table);
+		this.view  = view;
+		return this.view;
+	}
+	
+	public PokerView createPokerView(Table table){
+		PokerView view = new DefaultPokerView(table);
+		this.view = view;
+		this.table = table;
+		return this.view;
+	}
+	
 	@Override
 	public void execute() {
 		int status;
@@ -136,30 +131,15 @@ public class PokerGame implements GameRules {
 
 		while (true) {
 			status = gameStatus();
+
 			/******************/
 			view.phaseStatus(status);
 			/******************/
-			switch (status) {
-			case GameRules.FIRST:
-				firstPhase();
-				break;
-			case GameRules.HUMAN:
-				humanPhase();
-				break;
-			case GameRules.CHANCE:
-				chancePhase();
-				break;
-			case GameRules.FINAL:
-				finalPhase();
-				break;
-			}
-			if (status == GameRules.FINAL) {
-				this.initGame();
-				if (table.chairSize() == 1) {
-					break;
-				}
-			}
+
+			gameGraph(status);
+
 			nextPhase();
+
 			/**************/
 			view.phaseLast();
 			/**************/
@@ -258,10 +238,9 @@ public class PokerGame implements GameRules {
 		return table;
 	}
 
-	
 	@Override
 	public void humanPhase() {
-		
+
 		int index = table.getCurrentPlayer();
 		int maxBet = table.getMaxRaise();
 		int limit = table.getLimit();
@@ -272,26 +251,26 @@ public class PokerGame implements GameRules {
 		/******************/
 
 		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
-		if(!(chair.isAllin()||chair.isFold())){
+		if (!(chair.isAllin() || chair.isFold())) {
 			int option = 0;
 			int chairSize = table.chairSize();
 			int countFold = countFold();
 			int notFolder = chairSize - countFold;
 			int countAllin = countAllin();
 			int pastBankroll = chair.getBankroll();
-			
-			if((notFolder > 1) && (notFolder-countAllin>0)){
-				AdaptStrategy strategy 
-					= (AdaptStrategy) chair.getPlayer().getStrategy();
+
+			if ((notFolder > 1) && (notFolder - countAllin > 0)) {
+				AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
+						.getStrategy();
 				strategy.setParams(table.packParams(index));
 				option = chair.choice(maxBet, limit);
 			}
-	
+
 			// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 			if (option > -1) {
 				int bet = option + maxBet;
 				if (pastBankroll < bet) {
-					bet = pastBankroll+chair.getCurrentRaise();
+					bet = pastBankroll + chair.getCurrentRaise();
 				}
 				table.setMaxRaise(bet);
 				addPot(bet - chair.getCurrentRaise());
@@ -359,6 +338,26 @@ public class PokerGame implements GameRules {
 		}
 	}
 
+	private int countAllin() {
+		int count = 0;
+		for (Chair chair : this.table.getChairs()) {
+			if (chair.isAllin()) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	private int countFold() {
+		int count = 0;
+		for (Chair chair : this.table.getChairs()) {
+			if (chair.isFold()) {
+				count++;
+			}
+		}
+		return count;
+	}
+
 	/**
 	 * カードを配る。
 	 */
@@ -390,7 +389,7 @@ public class PokerGame implements GameRules {
 			hand = 0;
 			int[] comcard = table.getCommunityCards();
 			// 役の強さを計算。
-			if(!chair.isFold()){
+			if (!chair.isFold()) {
 				hand = HandChecker.checkHand(hands, comcard);
 			}
 			chair.setHand(hand);
@@ -449,6 +448,33 @@ public class PokerGame implements GameRules {
 		}
 	}
 
+	private void finalize(int status) {
+		if (status == FINAL) {
+			initGame();
+		}
+		if (table.chairSize() == 1) {
+			System.exit(status);
+		}
+	}
+
+	private void gameGraph(int status) {
+		switch (status) {
+		case GameRules.FIRST:
+			firstPhase();
+			break;
+		case GameRules.HUMAN:
+			humanPhase();
+			break;
+		case GameRules.CHANCE:
+			chancePhase();
+			break;
+		case GameRules.FINAL:
+			finalPhase();
+			break;
+		}
+		finalize(status);
+	}
+
 	private void initGame() {
 		checkBankrollOverAnty();
 		chairsInit();
@@ -501,5 +527,10 @@ public class PokerGame implements GameRules {
 		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
+	}
+
+	@Override
+	public void run() {
+		execute();
 	}
 }

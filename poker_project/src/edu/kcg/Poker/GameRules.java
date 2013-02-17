@@ -16,40 +16,40 @@ public interface GameRules {
 	/**
 	 * 偶然手番の処理.
 	 */
-	void chancePhase();
+	abstract void chancePhase();
 
 	/**
 	 * 手番の実行手順を定義する。
 	 */
-	void execute();
+	abstract void execute();
 
 	/**
 	 * ゲーム終了時の処理.
 	 */
-	void finalPhase();
+	abstract void finalPhase();
 
 	/**
 	 * ゲーム開始時の処理.
 	 */
-	void firstPhase();
+	abstract void firstPhase();
 
 	/**
 	 * ゲームの状態を返す.GameRulesのstatic定数に対応するようにする.
 	 * 
 	 * @return
 	 */
-	int gameStatus();
+	abstract int gameStatus();
 
 	/**
 	 * 人為手番の処理.
 	 */
-	void humanPhase();
+	abstract void humanPhase();
 
 	/**
 	 * 次の手番へ遷移する。
 	 * 
 	 * @return 遷移後の手番の種類。GameRulesのstatic定数に対応するようにする。
 	 */
-	int nextPhase();
+	abstract int nextPhase();
 
 }

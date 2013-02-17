@@ -116,7 +116,7 @@ public class Table {
 	 * @return
 	 */
 	public Params packParams(int index) {
-		return new Params(this,index);
+		return new Params(this, index);
 	}
 
 	public int popDeck() {

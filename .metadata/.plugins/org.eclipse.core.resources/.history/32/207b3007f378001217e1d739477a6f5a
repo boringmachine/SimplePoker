@@ -1,0 +1,5 @@
+package edu.kcg.Poker.Factory;
+
+public class GameFactory {
+
+}
