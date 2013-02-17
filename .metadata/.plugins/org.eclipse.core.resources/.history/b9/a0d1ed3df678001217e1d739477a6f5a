@@ -16,14 +16,14 @@ public class GameFactory {
 		return game;
 	}
 
-	public static PokerGame createGame(PokerView view) {
-		PokerGame game = new PokerGame(view);
+	public static PokerGame createGame(Table table) {
+		PokerGame game = new PokerGame(table);
 		pool.add(game);
 		return game;
 	}
 
-	public static PokerGame createGame(Table table) {
-		PokerGame game = new PokerGame(table);
+	public static PokerGame createGame(PokerView view) {
+		PokerGame game = new PokerGame(view);
 		pool.add(game);
 		return game;
 	}

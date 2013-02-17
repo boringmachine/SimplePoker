@@ -250,6 +250,7 @@ public class PokerGame implements GameRules, Runnable {
 		view.playerStatus(index);
 		/******************/
 
+		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
 		if (!(chair.isAllin() || chair.isFold())) {
 			int option = 0;
 			int chairSize = table.chairSize();
@@ -258,7 +259,6 @@ public class PokerGame implements GameRules, Runnable {
 			int countAllin = countAllin();
 			int pastBankroll = chair.getBankroll();
 
-			// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
 			if ((notFolder > 1) && (notFolder - countAllin > 0)) {
 				AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
 						.getStrategy();

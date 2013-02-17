@@ -32,8 +32,7 @@ public class PokerTester {
 			game.addPlayer(player);
 		}
 
-		game.execute();
-		//thread.start();
+		thread.start();
 	}
 
 }

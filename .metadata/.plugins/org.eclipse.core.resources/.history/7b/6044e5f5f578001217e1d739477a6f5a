@@ -31,9 +31,8 @@ public class PokerTester {
 			player.setStrategy(new HumanPlayerStdIn());
 			game.addPlayer(player);
 		}
-
-		game.execute();
-		//thread.start();
+		
+		thread.start();
 	}
 
 }
