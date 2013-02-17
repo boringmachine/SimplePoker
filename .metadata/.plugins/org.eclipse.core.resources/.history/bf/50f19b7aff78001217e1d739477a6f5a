@@ -12,8 +12,10 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,
-		Runnable {
+public class PokerGame extends TableAndViewFactory implements GameRules, Runnable {
+
+	private Table table;
+	private PokerView view;
 
 	public PokerGame() {
 		createTable();
@@ -36,7 +38,33 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 	public void addPlayer(Player player) {
 		table.addChair(player);
 	}
-
+	
+	private int updateRound(int round){
+		// ラウンド番号を更新する。
+		++round;
+		table.setRound(round);
+		table.setMaxRaise(0);
+		for (Chair chair : table.getChairs()) {
+			chair.setCurrentRaise(0);
+		}
+		return round;
+	}
+	
+	private void dealCommunityCard(int round){
+		// ラウンド1ならデックからコミュニティカードに3枚出す。
+		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
+		// ラウンド4なら何もしない。
+		if (round == 1) {
+			for (int i = 0; i < 3; i++) {
+				int card = table.popDeck();
+				table.pushCommunityCards(card);
+			}
+		} else if (round == 2 || round == 3) {
+			int card = table.popDeck();
+			table.pushCommunityCards(card);
+		} else if (round == 4) {
+		}
+	}
 	@Override
 	public void chancePhase() {
 
@@ -53,6 +81,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			return;
 		}
 
+		
 		int round = table.getRound();
 		round = updateRound(round);
 		dealCommunityCard(round);
@@ -68,6 +97,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			chancePhase();
 		}
 	}
+
 
 	@Override
 	public void execute() {
@@ -191,8 +221,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int limit = table.getLimit();
 		Chair chair = table.getChairs().get(index);
 		int pastBankroll = chair.getBankroll();
-
-		if (pastBankroll == 0) {
+		
+		if(pastBankroll == 0){
 			chair.setAllin(true);
 		}
 
@@ -236,8 +266,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int currentPlayer = table.getCurrentPlayer();
 		int playerNum = table.chairSize();
 		int currentPhase = this.gameStatus();
-
-		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
+		
+		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {			
 			currentPlayer++;
 			if (currentPlayer > playerNum - 1) {
 				currentPlayer = 0;
@@ -322,22 +352,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			int cardRight = table.popDeck();
 			int hands = (cardLeft | cardRight);
 			chair.setHands(hands);
-		}
-	}
-
-	private void dealCommunityCard(int round) {
-		// ラウンド1ならデックからコミュニティカードに3枚出す。
-		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
-		// ラウンド4なら何もしない。
-		if (round == 1) {
-			for (int i = 0; i < 3; i++) {
-				int card = table.popDeck();
-				table.pushCommunityCards(card);
-			}
-		} else if (round == 2 || round == 3) {
-			int card = table.popDeck();
-			table.pushCommunityCards(card);
-		} else if (round == 4) {
 		}
 	}
 
@@ -498,15 +512,5 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
-	}
-
-	private int updateRound(int round) {
-		++round;
-		table.setRound(round);
-		table.setMaxRaise(0);
-		for (Chair chair : table.getChairs()) {
-			chair.setCurrentRaise(0);
-		}
-		return round;
 	}
 }

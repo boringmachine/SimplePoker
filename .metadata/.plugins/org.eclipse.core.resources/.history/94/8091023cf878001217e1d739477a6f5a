@@ -20,7 +20,7 @@ public class PokerTester {
 
 		Player[] players = new Player[3];
 		PokerGame game = GameFactory.createGame();
-		// Thread thread = new Thread(game);
+		Thread thread = new Thread(game);
 
 		Table table = game.getTable();
 		table.setAnty(10);
@@ -33,7 +33,7 @@ public class PokerTester {
 		}
 
 		game.execute();
-		// thread.start();
+		//thread.start();
 	}
 
 }

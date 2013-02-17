@@ -2,8 +2,8 @@ package edu.kcg.Poker;
 
 import java.util.ArrayList;
 
-import edu.kcg.Poker.Factory.TableAndViewFactory;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
+import edu.kcg.Poker.View.DefaultPokerView;
 import edu.kcg.Poker.View.PokerView;
 
 /**
@@ -12,8 +12,10 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,
-		Runnable {
+public class PokerGame implements GameRules, Runnable {
+
+	private Table table;
+	private PokerView view;
 
 	public PokerGame() {
 		createTable();
@@ -36,7 +38,21 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 	public void addPlayer(Player player) {
 		table.addChair(player);
 	}
-
+	private void dealCommunityCard(int round){
+		// ラウンド1ならデックからコミュニティカードに3枚出す。
+		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
+		// ラウンド4なら何もしない。
+		if (round == 1) {
+			for (int i = 0; i < 3; i++) {
+				int card = table.popDeck();
+				table.pushCommunityCards(card);
+			}
+		} else if (round == 2 || round == 3) {
+			int card = table.popDeck();
+			table.pushCommunityCards(card);
+		} else if (round == 4) {
+		}
+	}
 	@Override
 	public void chancePhase() {
 
@@ -53,8 +69,15 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			return;
 		}
 
+		// ラウンド番号を更新する。
 		int round = table.getRound();
-		round = updateRound(round);
+		round++;
+		table.setRound(round);
+		table.setMaxRaise(0);
+		for (Chair chair : table.getChairs()) {
+			chair.setCurrentRaise(0);
+		}
+
 		dealCommunityCard(round);
 
 		/****************************/
@@ -67,6 +90,40 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			}
 			chancePhase();
 		}
+	}
+
+	public PokerView createPokerView() {
+		if (this.table == null) {
+			this.table = new Table();
+		}
+		PokerView view = new DefaultPokerView(this.table);
+		this.view = view;
+		return this.view;
+	}
+
+	public PokerView createPokerView(Table table) {
+		PokerView view = new DefaultPokerView(table);
+		this.view = view;
+		this.table = table;
+		return this.view;
+	}
+
+	public Table createTable() {
+		Table table = new Table();
+		this.table = table;
+		if (this.view == null) {
+			this.view = new DefaultPokerView(this.table);
+		}
+		this.view.setTable(this.table);
+		return this.table;
+	}
+
+	public Table createTable(PokerView view) {
+		Table table = new Table();
+		this.table = table;
+		this.view = view;
+		this.view.setTable(this.table);
+		return this.table;
 	}
 
 	@Override
@@ -191,8 +248,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int limit = table.getLimit();
 		Chair chair = table.getChairs().get(index);
 		int pastBankroll = chair.getBankroll();
-
-		if (pastBankroll == 0) {
+		
+		if(pastBankroll == 0){
 			chair.setAllin(true);
 		}
 
@@ -236,8 +293,8 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int currentPlayer = table.getCurrentPlayer();
 		int playerNum = table.chairSize();
 		int currentPhase = this.gameStatus();
-
-		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
+		
+		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {			
 			currentPlayer++;
 			if (currentPlayer > playerNum - 1) {
 				currentPlayer = 0;
@@ -322,22 +379,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			int cardRight = table.popDeck();
 			int hands = (cardLeft | cardRight);
 			chair.setHands(hands);
-		}
-	}
-
-	private void dealCommunityCard(int round) {
-		// ラウンド1ならデックからコミュニティカードに3枚出す。
-		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
-		// ラウンド4なら何もしない。
-		if (round == 1) {
-			for (int i = 0; i < 3; i++) {
-				int card = table.popDeck();
-				table.pushCommunityCards(card);
-			}
-		} else if (round == 2 || round == 3) {
-			int card = table.popDeck();
-			table.pushCommunityCards(card);
-		} else if (round == 4) {
 		}
 	}
 
@@ -498,15 +539,5 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
-	}
-
-	private int updateRound(int round) {
-		++round;
-		table.setRound(round);
-		table.setMaxRaise(0);
-		for (Chair chair : table.getChairs()) {
-			chair.setCurrentRaise(0);
-		}
-		return round;
 	}
 }

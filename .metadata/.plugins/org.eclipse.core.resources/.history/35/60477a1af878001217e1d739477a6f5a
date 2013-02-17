@@ -10,13 +10,6 @@ public class GameFactory {
 
 	public static final Vector<PokerGame> pool = new Vector<PokerGame>();
 
-	public static void allGameDo() {
-		for (PokerGame game : pool) {
-			Thread thread = new Thread(game);
-			thread.start();
-		}
-	}
-
 	public static PokerGame createGame() {
 		PokerGame game = new PokerGame();
 		pool.add(game);
