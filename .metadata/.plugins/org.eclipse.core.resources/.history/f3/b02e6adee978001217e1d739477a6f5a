@@ -112,7 +112,7 @@ public class PokerGame implements GameRules {
 		view.communityCardStatus();
 		/*****************************/
 		
-		if((notFolder - countAllin) < 1){
+		if((notFolder - countAllin) < 2){
 			if(table.getRound()==4){ return; }
 			chancePhase();
 		}
@@ -277,20 +277,15 @@ public class PokerGame implements GameRules {
 				= (AdaptStrategy) chair.getPlayer().getStrategy();
 			strategy.setParams(table.packParams(index));
 			int option = 0;
-			int chairSize = table.chairSize();
-			int countFold = countFold();
-			int notFolder = chairSize - countFold;
-			int countAllin = countAllin();
-			int pastBankroll = chair.getBankroll();
-
-			if((notFolder > 1) && (notFolder-countAllin>0)){
+			if((table.chairSize() - countAllin() - countFold()) > 1){
+				int pastBankroll = chair.getBankroll();
 				option = chair.choice(maxBet, limit);
+				//XXX オールインとフォルドの動作がうまくいかない。
+				if (pastBankroll < option) {
+					option = pastBankroll;
+				}
 			}
-			
-			//XXX オールインとフォルドの動作がうまくいかない。
-			if (pastBankroll < option) {
-				option = pastBankroll;
-			}
+
 	
 			// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 			if (option > -1) {

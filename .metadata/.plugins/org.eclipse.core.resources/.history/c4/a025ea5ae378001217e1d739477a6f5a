@@ -71,20 +71,6 @@ public class PokerGame implements GameRules {
 	
 	@Override
 	public void chancePhase() {
-
-		int countFold = countFold();
-		int countAllin = countAllin();
-		int chairSize = table.chairSize();
-		int notFolder = chairSize - countFold;
-		
-		if(notFolder == 1){
-			int round = 4;
-			int[] communityCards = {1,2,3,4,5};
-			table.setCommunityCards(communityCards);
-			table.setRound(round);
-			return ;
-		}
-		
 		int round = table.getRound();
 		// ラウンド番号を更新する。
 		round++;
@@ -111,11 +97,6 @@ public class PokerGame implements GameRules {
 		/****************************/
 		view.communityCardStatus();
 		/*****************************/
-		
-		if((notFolder - countAllin) < 1){
-			if(table.getRound()==4){ return; }
-			chancePhase();
-		}
 	}
 
 	public Table createTable() {
@@ -258,9 +239,36 @@ public class PokerGame implements GameRules {
 		return table;
 	}
 
+	private void folderCheck(){
+		int chairSize = table.chairSize();
+		int foldNum = this.countFold();
+		
+		if(chairSize - foldNum < 2){
+			int round = 4;
+			int[] communityCards = {1,2,3,4,5};
+			this.table.setCommunityCards(communityCards);
+			this.table.setRound(round);
+			this.finalPhase();
+		}
+	}
+	
+	private void allinerCheck(){
+		int chairSize = table.chairSize();
+		int foldNum = this.countFold();
+		int allinNum = this.countAllin();
+		
+		if(chairSize - (foldNum+allinNum) < 1){
+			int round = 4;
+			this.table.setRound(round);
+			this.finalPhase();
+			return;
+		}
+	}
 	
 	@Override
 	public void humanPhase() {
+		
+		this.folderCheck();
 		
 		int index = table.getCurrentPlayer();
 		int maxBet = table.getMaxRaise();
@@ -276,17 +284,9 @@ public class PokerGame implements GameRules {
 			AdaptStrategy strategy 
 				= (AdaptStrategy) chair.getPlayer().getStrategy();
 			strategy.setParams(table.packParams(index));
-			int option = 0;
-			int chairSize = table.chairSize();
-			int countFold = countFold();
-			int notFolder = chairSize - countFold;
-			int countAllin = countAllin();
 			int pastBankroll = chair.getBankroll();
-
-			if((notFolder > 1) && (notFolder-countAllin>0)){
-				option = chair.choice(maxBet, limit);
-			}
-			
+			int option = chair.choice(maxBet, limit);
+		
 			//XXX オールインとフォルドの動作がうまくいかない。
 			if (pastBankroll < option) {
 				option = pastBankroll;

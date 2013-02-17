@@ -32,11 +32,7 @@ public class PokerGame implements GameRules {
 
 	public PokerGame(Table table) {
 		this.table = table;
-		if(this.view==null){
-			this.view = new DefaultPokerView(this.table);
-		}else{
-			this.view.setTable(table);
-		}
+		this.view = new DefaultPokerView(this.table);
 	}
 
 	public PokerGame(Table table, PokerView view) {
@@ -49,42 +45,8 @@ public class PokerGame implements GameRules {
 		table.addChair(player);
 	}
 
-	private int countAllin(){
-		int count = 0;
-		for(Chair chair : this.table.getChairs()){
-			if(chair.isAllin()){
-				count++;
-			}
-		}
-		return count;
-	}
-	
-	private int countFold(){
-		int count = 0;
-		for(Chair chair : this.table.getChairs()){
-			if(chair.isFold()){
-				count++;
-			}
-		}
-		return count;
-	}
-	
 	@Override
 	public void chancePhase() {
-
-		int countFold = countFold();
-		int countAllin = countAllin();
-		int chairSize = table.chairSize();
-		int notFolder = chairSize - countFold;
-		
-		if(notFolder == 1){
-			int round = 4;
-			int[] communityCards = {1,2,3,4,5};
-			table.setCommunityCards(communityCards);
-			table.setRound(round);
-			return ;
-		}
-		
 		int round = table.getRound();
 		// ラウンド番号を更新する。
 		round++;
@@ -111,11 +73,6 @@ public class PokerGame implements GameRules {
 		/****************************/
 		view.communityCardStatus();
 		/*****************************/
-		
-		if((notFolder - countAllin) < 1){
-			if(table.getRound()==4){ return; }
-			chancePhase();
-		}
 	}
 
 	public Table createTable() {
@@ -258,10 +215,8 @@ public class PokerGame implements GameRules {
 		return table;
 	}
 
-	
 	@Override
 	public void humanPhase() {
-		
 		int index = table.getCurrentPlayer();
 		int maxBet = table.getMaxRaise();
 		int limit = table.getLimit();
@@ -276,17 +231,9 @@ public class PokerGame implements GameRules {
 			AdaptStrategy strategy 
 				= (AdaptStrategy) chair.getPlayer().getStrategy();
 			strategy.setParams(table.packParams(index));
-			int option = 0;
-			int chairSize = table.chairSize();
-			int countFold = countFold();
-			int notFolder = chairSize - countFold;
-			int countAllin = countAllin();
 			int pastBankroll = chair.getBankroll();
-
-			if((notFolder > 1) && (notFolder-countAllin>0)){
-				option = chair.choice(maxBet, limit);
-			}
-			
+			int option = chair.choice(maxBet, limit);
+		
 			//XXX オールインとフォルドの動作がうまくいかない。
 			if (pastBankroll < option) {
 				option = pastBankroll;
@@ -389,12 +336,9 @@ public class PokerGame implements GameRules {
 		for (Chair chair : chairs) {
 			// ハンドを取得
 			int hands = chair.getHands();
-			hand = 0;
 			int[] comcard = table.getCommunityCards();
 			// 役の強さを計算。
-			if(!chair.isFold()){
-				hand = HandChecker.checkHand(hands, comcard);
-			}
+			hand = HandChecker.checkHand(hands, comcard);
 			chair.setHand(hand);
 			// 最大ハンドより大きければ、
 			if (hand >= max) {

@@ -281,16 +281,16 @@ public class PokerGame implements GameRules {
 			int countFold = countFold();
 			int notFolder = chairSize - countFold;
 			int countAllin = countAllin();
-			int pastBankroll = chair.getBankroll();
-
+			
 			if((notFolder > 1) && (notFolder-countAllin>0)){
+				int pastBankroll = chair.getBankroll();
 				option = chair.choice(maxBet, limit);
+				//XXX オールインとフォルドの動作がうまくいかない。
+				if (pastBankroll < option) {
+					option = pastBankroll;
+				}
 			}
 			
-			//XXX オールインとフォルドの動作がうまくいかない。
-			if (pastBankroll < option) {
-				option = pastBankroll;
-			}
 	
 			// 選択肢がフォルドでないなら上乗せ分をポットに加算。
 			if (option > -1) {

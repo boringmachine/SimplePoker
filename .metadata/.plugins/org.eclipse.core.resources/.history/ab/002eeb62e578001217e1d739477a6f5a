@@ -18,7 +18,7 @@ public class PokerTester {
 	 */
 	public static void main(String[] args) {
 
-		Player[] players = new Player[3];
+		Player[] players = new Player[5];
 		PokerGame game = new PokerGame();
 
 		Table table = game.getTable();
