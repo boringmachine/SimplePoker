@@ -273,17 +273,18 @@ public class PokerGame implements GameRules {
 
 		// プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
 		if(!(chair.isAllin()||chair.isFold())){
+			AdaptStrategy strategy 
+				= (AdaptStrategy) chair.getPlayer().getStrategy();
+			strategy.setParams(table.packParams(index));
 			int option = 0;
 			int chairSize = table.chairSize();
 			int countFold = countFold();
 			int notFolder = chairSize - countFold;
 			int countAllin = countAllin();
 			int pastBankroll = chair.getBankroll();
+
 			
 			if((notFolder > 1) && (notFolder-countAllin>0)){
-				AdaptStrategy strategy 
-					= (AdaptStrategy) chair.getPlayer().getStrategy();
-				strategy.setParams(table.packParams(index));
 				option = chair.choice(maxBet, limit);
 			}
 	
@@ -292,7 +293,7 @@ public class PokerGame implements GameRules {
 				int bet = option + maxBet;
 				//XXX オールインがうまくいかない。
 				if (pastBankroll < bet) {
-					bet = pastBankroll+chair.getCurrentRaise();
+					bet = pastBankroll;
 				}
 				table.setMaxRaise(bet);
 				addPot(bet - chair.getCurrentRaise());
