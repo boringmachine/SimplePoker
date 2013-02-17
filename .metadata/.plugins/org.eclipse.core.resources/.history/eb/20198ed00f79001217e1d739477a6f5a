@@ -12,8 +12,7 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,
-		Runnable {
+public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnable {
 
 	public PokerGame() {
 		createTable();
@@ -82,6 +81,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 
 			gameGraph(status);
 			nextPhase();
+	
 
 			/**************/
 			view.phaseLast();
@@ -267,23 +267,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.addPot(x);
 	}
 
-	private int backOverRaise(int maxAddedBet) {
-		ArrayList<Chair> chairs = table.getChairs();
-		int pot = table.getPot();
-		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
-		for (Chair chair : chairs) {
-			if (!chair.isWinner()) {
-				int x = chair.getAddedBet();
-				if (x > maxAddedBet) {
-					x = chair.getAddedBet() - maxAddedBet;
-					pot -= x;
-					chair.profit(x);
-				}
-			}
-		}
-		return pot;
-	}
-
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
@@ -356,6 +339,99 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
+	private int solvePlayersHand(){
+		int i = 0;
+		int hand = 0;
+		int max = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+
+		// 最大ハンドを計算。
+		for (Chair chair : chairs) {
+			// ハンドを取得
+			int hands = chair.getHands();
+			hand = 0;
+			int[] comcard = table.getCommunityCards();
+			// 役の強さを計算。
+			if (!chair.isFold()) {
+				hand = HandChecker.checkHand(hands, comcard);
+			}
+			chair.setHand(hand);
+			// 最大ハンドより大きければ、
+			if (hand >= max) {
+				max = hand;
+			}
+			/***************/
+			view.playerHands(i);
+			/***************/
+
+			i++;
+		}
+		return max;
+	}
+	
+	private int solveWinner(int max){
+		int sumWinner = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+		// 勝者を決定。
+		for (Chair chair : chairs) {
+			if (chair.getHand() == max) {
+				chair.setWinner(true);
+				sumWinner += chair.getAddedBet();
+			}
+		}
+		return sumWinner;
+	}
+	
+	private int solveMaxAddedBet(){		
+		int maxAddedBet = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+		// 勝者の掛け金の最大を計算。
+		for (Chair chair : chairs) {
+			if (chair.isWinner()) {
+				int x = chair.getAddedBet();
+				if (x > maxAddedBet) {
+					maxAddedBet = x;
+				}
+			}
+		}
+		return maxAddedBet;
+	}
+	
+	private int backOverRaise(int maxAddedBet){
+		ArrayList<Chair> chairs = table.getChairs();
+		int pot = table.getPot();
+		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
+		for (Chair chair : chairs) {
+			if (!chair.isWinner()) {
+				int x = chair.getAddedBet();
+				if (x > maxAddedBet) {
+					x = chair.getAddedBet() - maxAddedBet;
+					pot -= x;
+					chair.profit(x);
+				}
+			}
+		}
+		return pot;
+	}
+	
+	private void solveProfit(int pot,int sumWinner){
+		int i = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+		// 勝者に利益を配分。
+		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
+		for (Chair chair : chairs) {
+			if (chair.isWinner()) {
+				int x = chair.getAddedBet();
+				int profit = (x * pot) / sumWinner;
+				chair.profit(profit);
+			}
+			/*****/
+			view.playerBankroll(i);
+			/*****/
+			i++;
+		}
+	}
+	
 	/**
 	 * 利益の分配。
 	 */
@@ -364,12 +440,12 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int sumWinner = 0;
 		int max = 0;
 		int pot = 0;
-
+		
 		max = solvePlayersHand();
 		sumWinner = solveWinner(max);
 		maxAddedBet = solveMaxAddedBet();
 		pot = backOverRaise(maxAddedBet);
-		solveProfit(pot, sumWinner);
+		solveProfit(pot,sumWinner);
 
 	}
 
@@ -439,82 +515,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 
 		table.setDeck(bufDeck);
-	}
-
-	private int solveMaxAddedBet() {
-		int maxAddedBet = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		// 勝者の掛け金の最大を計算。
-		for (Chair chair : chairs) {
-			if (chair.isWinner()) {
-				int x = chair.getAddedBet();
-				if (x > maxAddedBet) {
-					maxAddedBet = x;
-				}
-			}
-		}
-		return maxAddedBet;
-	}
-
-	private int solvePlayersHand() {
-		int i = 0;
-		int hand = 0;
-		int max = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-
-		// 最大ハンドを計算。
-		for (Chair chair : chairs) {
-			// ハンドを取得
-			int hands = chair.getHands();
-			hand = 0;
-			int[] comcard = table.getCommunityCards();
-			// 役の強さを計算。
-			if (!chair.isFold()) {
-				hand = HandChecker.checkHand(hands, comcard);
-			}
-			chair.setHand(hand);
-			// 最大ハンドより大きければ、
-			if (hand >= max) {
-				max = hand;
-			}
-			/***************/
-			view.playerHands(i);
-			/***************/
-
-			i++;
-		}
-		return max;
-	}
-
-	private void solveProfit(int pot, int sumWinner) {
-		int i = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		// 勝者に利益を配分。
-		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
-		for (Chair chair : chairs) {
-			if (chair.isWinner()) {
-				int x = chair.getAddedBet();
-				int profit = (x * pot) / sumWinner;
-				chair.profit(profit);
-			}
-			/*****/
-			view.playerBankroll(i);
-			/*****/
-			i++;
-		}
-	}
-
-	private int solveWinner(int max) {
-		int sumWinner = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		// 勝者を決定。
-		for (Chair chair : chairs) {
-			if (chair.getHand() == max) {
-				chair.setWinner(true);
-				sumWinner += chair.getAddedBet();
-			}
-		}
-		return sumWinner;
 	}
 
 	private void tableInit() {

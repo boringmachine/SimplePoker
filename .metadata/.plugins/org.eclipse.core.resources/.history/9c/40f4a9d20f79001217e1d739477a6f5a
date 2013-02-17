@@ -12,8 +12,7 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,
-		Runnable {
+public class PokerGame 	extends TableAndViewFactory implements GameRules,Runnable {
 
 	public PokerGame() {
 		createTable();
@@ -82,6 +81,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 
 			gameGraph(status);
 			nextPhase();
+	
 
 			/**************/
 			view.phaseLast();
@@ -267,7 +267,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.addPot(x);
 	}
 
-	private int backOverRaise(int maxAddedBet) {
+	private int backOverRaise(int maxAddedBet){
 		ArrayList<Chair> chairs = table.getChairs();
 		int pot = table.getPot();
 		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
@@ -355,7 +355,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		} else if (round == 4) {
 		}
 	}
-
+	
 	/**
 	 * 利益の分配。
 	 */
@@ -364,15 +364,15 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int sumWinner = 0;
 		int max = 0;
 		int pot = 0;
-
+		
 		max = solvePlayersHand();
 		sumWinner = solveWinner(max);
 		maxAddedBet = solveMaxAddedBet();
 		pot = backOverRaise(maxAddedBet);
-		solveProfit(pot, sumWinner);
+		solveProfit(pot,sumWinner);
 
 	}
-
+	
 	private void finalize(int status) {
 		if (status == GameRules.FINAL) {
 			initGame();
@@ -381,7 +381,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			System.exit(status);
 		}
 	}
-
+	
 	private void gameGraph(int status) {
 		switch (status) {
 		case GameRules.FIRST:
@@ -399,7 +399,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 		finalize(status);
 	}
-
+	
 	private void initGame() {
 		checkBankrollOverAnty();
 		chairsInit();
@@ -408,7 +408,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		deal();
 		nextDealer();
 	}
-
+	
 	/**
 	 * 次のディーラーを決定。
 	 */
@@ -441,7 +441,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setDeck(bufDeck);
 	}
 
-	private int solveMaxAddedBet() {
+	private int solveMaxAddedBet(){		
 		int maxAddedBet = 0;
 		ArrayList<Chair> chairs = table.getChairs();
 		// 勝者の掛け金の最大を計算。
@@ -456,7 +456,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return maxAddedBet;
 	}
 
-	private int solvePlayersHand() {
+	private int solvePlayersHand(){
 		int i = 0;
 		int hand = 0;
 		int max = 0;
@@ -486,7 +486,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return max;
 	}
 
-	private void solveProfit(int pot, int sumWinner) {
+	private void solveProfit(int pot,int sumWinner){
 		int i = 0;
 		ArrayList<Chair> chairs = table.getChairs();
 		// 勝者に利益を配分。
@@ -504,7 +504,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
-	private int solveWinner(int max) {
+	private int solveWinner(int max){
 		int sumWinner = 0;
 		ArrayList<Chair> chairs = table.getChairs();
 		// 勝者を決定。
