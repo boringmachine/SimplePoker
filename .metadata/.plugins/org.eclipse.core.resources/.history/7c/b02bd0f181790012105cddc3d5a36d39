@@ -103,14 +103,14 @@ public class DefaultPokerView extends PokerView {
 						+ table.getPot()
 						+ Messages.getString("PokerGame.16")
 						+ Messages.getString("PokerGame.17")
-						+ table.getMaxRaise() 
+						+ table.getMaxRaise() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ Messages.getString("PokerGame.18")
 						+ Messages.getString("PokerGame.19")
 						+ chair.getAddedBet()
-						+ Messages.getString("PokerGame.20") //$NON-NLS-1$ 
+						+ Messages.getString("PokerGame.20") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ Messages.getString("PokerGame.21")
 						+ chair.getCurrentRaise()
-						+ Messages.getString("PokerGame.22") //$NON-NLS-1$ 
+						+ Messages.getString("PokerGame.22") //$NON-NLS-1$ //$NON-NLS-2$
 						+ Messages.getString("PokerGame.23") + Messages.getString("PokerGame.24") + (hand_l % 13 + 1) + Messages.getString("PokerGame.25") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ Table.MARK[hand_l / 13]
 						+ Messages.getString("PokerGame.26") + Messages.getString("PokerGame.27") + (hand_r % 13 + 1) + Messages.getString("PokerGame.28") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

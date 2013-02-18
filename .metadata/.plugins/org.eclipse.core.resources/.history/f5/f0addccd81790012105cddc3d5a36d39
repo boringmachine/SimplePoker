@@ -9,7 +9,7 @@ public class HandChecker {
 	/**
 	 * 各役の強さの値.
 	 */
-	public static final int FL = 0x1000, ST = 0x800, TH = 0x400, TW = 0x200,
+	public static int FL = 0x1000, ST = 0x800, TH = 0x400, TW = 0x200,
 			ON = 0x100, FO = FL | TH | ON, FU = (TH | ON) << 2, SF = FL | ST;
 
 	/**
@@ -47,7 +47,7 @@ public class HandChecker {
 		int[] buf = new int[cards.length];
 		int i = 0;
 		for (int x : cards) {
-			buf[i++] = x / 13;
+			buf[i++] = (int) (x / 13);
 		}
 		return buf;
 	}

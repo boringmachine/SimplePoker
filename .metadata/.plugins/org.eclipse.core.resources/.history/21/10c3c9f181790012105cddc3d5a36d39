@@ -47,7 +47,7 @@ public class HandChecker {
 		int[] buf = new int[cards.length];
 		int i = 0;
 		for (int x : cards) {
-			buf[i++] = x / 13;
+			buf[i++] = (int) (x / 13);
 		}
 		return buf;
 	}

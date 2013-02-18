@@ -238,6 +238,22 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
+	private void updateChairs() {
+		ArrayList<Chair> chairs = this.table.getChairs();
+		Vector<Chair> buffer = new Vector<Chair>();
+
+		for (Chair chair : chairs) {
+			if (chair.getBankroll() < table.getAnty() * 2) {
+				buffer.add(chair);
+			}
+		}
+
+		for (Chair removeItem : buffer) {
+			chairs.remove(removeItem);
+		}
+
+	}
+
 	private int countAllin() {
 		int count = 0;
 		for (Chair chair : this.table.getChairs()) {
@@ -393,6 +409,24 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return false;
 	}
 
+	private boolean updateChance() {
+		// 現在手番が偶然手番の時の処理。
+		if (table.getCurrentPhase() == GameRules.CHANCE) {
+			// 現在手番を人為手番に設定。
+			table.setCurrentPhase(GameRules.HUMAN);
+			// フォルドしていないかオールインしていない場合、
+			// 最終プレイの値をIntegerの最小値に設定する。
+			for (Chair chair : table.getChairs()) {
+				if (!(chair.isFold() || chair.isAllin())) {
+					chair.setLastPlay(Integer.MIN_VALUE);
+				}
+			}
+			// 形式的に偶然手番をリターンする。
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * 次のディーラーを決定。
 	 */
@@ -532,40 +566,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
-	}
-
-	private void updateChairs() {
-		ArrayList<Chair> chairs = this.table.getChairs();
-		Vector<Chair> buffer = new Vector<Chair>();
-
-		for (Chair chair : chairs) {
-			if (chair.getBankroll() < table.getAnty() * 2) {
-				buffer.add(chair);
-			}
-		}
-
-		for (Chair removeItem : buffer) {
-			chairs.remove(removeItem);
-		}
-
-	}
-
-	private boolean updateChance() {
-		// 現在手番が偶然手番の時の処理。
-		if (table.getCurrentPhase() == GameRules.CHANCE) {
-			// 現在手番を人為手番に設定。
-			table.setCurrentPhase(GameRules.HUMAN);
-			// フォルドしていないかオールインしていない場合、
-			// 最終プレイの値をIntegerの最小値に設定する。
-			for (Chair chair : table.getChairs()) {
-				if (!(chair.isFold() || chair.isAllin())) {
-					chair.setLastPlay(Integer.MIN_VALUE);
-				}
-			}
-			// 形式的に偶然手番をリターンする。
-			return true;
-		}
-		return false;
 	}
 
 	private void updateCurrentPlayer(int currentPhase) {

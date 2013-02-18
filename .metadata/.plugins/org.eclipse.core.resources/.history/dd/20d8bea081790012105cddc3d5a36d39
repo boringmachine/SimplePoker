@@ -4,7 +4,7 @@ import edu.kcg.Poker.Player;
 import edu.kcg.Poker.PokerGame;
 import edu.kcg.Poker.Table;
 import edu.kcg.Poker.Factory.GameFactory;
-import edu.kcg.Poker.Strategy.HumanPlayerStdIn;
+import edu.kcg.Poker.Strategy.*;
 
 /**
  * ポーカー全体のテスター.

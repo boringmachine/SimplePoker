@@ -88,7 +88,7 @@ public class Params {
 		int[] cards = table.getCommunityCards();
 		this.communityCards = new int[5];
 		for (int i = 0; i < cards.length; i++) {
-			this.communityCards[i] = cards[i];
+			this.communityCards[i] = (int) cards[i];
 		}
 	}
 
