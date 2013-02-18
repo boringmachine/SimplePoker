@@ -1,7 +1,6 @@
 package edu.kcg.Poker;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import edu.kcg.Poker.Factory.TableAndViewFactory;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
@@ -45,15 +44,23 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int countAllin = countAllin();
 		int chairSize = table.chairSize();
 		int notFolder = chairSize - countFold;
+
+		if (notFolder == 1) {
+			int finalRound = 4;
+			int[] communityCards = { 0, 1, 2, 3, 4 };
+			table.setCommunityCards(communityCards);
+			table.setRound(finalRound);
+			return;
+		}
+
 		int round = updateRound(table.getRound());
-		
 		dealCommunityCard(round);
 
 		/****************************/
 		view.communityCardStatus();
 		/*****************************/
 
-		if (notFolder == 1 || (notFolder - countAllin) < 2) {
+		if ((notFolder - countAllin) < 1) {
 			if (table.getRound() == 4) {
 				return;
 			}
@@ -74,12 +81,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			/******************/
 
 			gameGraph(status);
-			
-			if(table.chairSize()==1){
-				System.out.println("[AAAAAAA]");
-				break;
-			}
-			
 			nextPhase();
 
 			/**************/
@@ -101,12 +102,101 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setPot(0);
 	}
 
+	private int[] decideBlind() {
+		int[] blind = new int[2];
+
+		// スモールブラインドを決定する。
+		int small = table.getDealer() + 1;
+		if (small > table.chairSize() - 1) {
+			small = 0;
+		}
+		// ビッグブラインドを決定する。
+		int big = small + 1;
+		if (big > table.chairSize() - 1) {
+			big = 0;
+		}
+		blind[0] = small;
+		blind[1] = big;
+
+		return blind;
+	}
+
+	private void payBlind(int small, int big) {
+		int anty = table.getAnty();
+		ArrayList<Chair> chairs = table.getChairs();
+
+		// スモールブラインドにアンティを支払わせる。
+		Chair smallblind = chairs.get(small);
+		smallblind.payAnty(anty);
+
+		// ビッグブラインドにアンティを支払わせる。
+		Chair bigblind = chairs.get(big);
+		bigblind.payAnty(anty * 2);
+
+		// ポットにアンティを支払い分を追加。
+		addPot(anty * 3);
+
+		// レイズの最大値と現在手番のプレイヤーを更新。
+		table.setMaxRaise(anty * 2);
+		table.setCurrentPlayer(big);
+	}
+
 	@Override
 	public void firstPhase() {
 		int[] blind = decideBlind();
 		int small = blind[0];
 		int big = blind[1];
 		payBlind(small, big);
+	}
+
+	private boolean isFirst() {
+		if (table.getPot() == 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean isFinal() {
+		if (table.getRound() == 4) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean isHuman() {
+		ArrayList<Chair> chairs = table.getChairs();
+		// あるプレイヤーがオールインもフォルドもしていない場合、
+		// 全員の掛け金の最大と同じ額を賭けていなければ人為手番。
+		// または、最終プレイの値がIntegerの最小値になっていたら人為手番。
+		for (Chair chair : chairs) {
+			boolean b1 = chair.getCurrentRaise() != table.getMaxRaise();
+			boolean b2 = !(chair.isAllin() || chair.isFold());
+			boolean b3 = chair.getLastPlay() == Integer.MIN_VALUE;
+			if (b1 && b2 || b3) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isNowChance() {
+		// 現在手番が偶然手番の時の処理。
+		if (table.getCurrentPhase() == GameRules.CHANCE) {
+			// 現在手番を人為手番に設定。
+			table.setCurrentPhase(GameRules.HUMAN);
+			// フォルドしていないかオールインしていない場合、
+			// 最終プレイの値をIntegerの最小値に設定する。
+			for (Chair chair : table.getChairs()) {
+				if (!(chair.isFold() || chair.isAllin())) {
+					chair.setLastPlay(Integer.MIN_VALUE);
+				}
+			}
+			// 形式的に偶然手番をリターンする。
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -124,7 +214,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			return GameRules.HUMAN;
 		}
 
-		if (updateChance()) {
+		if (isNowChance()) {
 			return GameRules.CHANCE;
 		}
 
@@ -184,6 +274,20 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		/****************************/
 	}
 
+	private void updateCurrentPlayer(int currentPhase) {
+		int currentPlayer = table.getCurrentPlayer();
+		int playerNum = table.chairSize();
+		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
+			currentPlayer++;
+			if (currentPlayer > playerNum - 1) {
+				currentPlayer = 0;
+			}
+		} else {
+			currentPlayer = table.getDealer();
+		}
+		table.setCurrentPlayer(currentPlayer);
+	}
+
 	@Override
 	public int nextPhase() {
 		int currentPhase = this.gameStatus();
@@ -239,26 +343,22 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
-	private void updateChairs() {
+	private void checkBankrollOverAnty() {
 		ArrayList<Chair> chairs = this.table.getChairs();
-		Vector<Chair> buffer = new Vector<Chair>();
-		
-		for(Chair chair : chairs){
-			if(chair.getBankroll() < table.getAnty()*2){
-				buffer.add(chair);
+		for (int i = 0; i < chairs.size(); i++) {
+			Chair chair = chairs.get(i);
+			int bankroll = chair.getBankroll();
+			int doubleAnty = this.table.getAnty() * 2;
+			if (bankroll < doubleAnty) {
+				chairs.remove(i);
 			}
 		}
-
-		for(Chair removeItem : buffer){
-			chairs.remove(removeItem);
-		}
-		
 	}
 
 	private int countAllin() {
 		int count = 0;
 		for (Chair chair : this.table.getChairs()) {
-			if (chair.getBankroll()==0/*isallin*/) {
+			if (chair.isAllin()) {
 				count++;
 			}
 		}
@@ -308,25 +408,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
-	private int[] decideBlind() {
-		int[] blind = new int[2];
-
-		// スモールブラインドを決定する。
-		int small = table.getDealer() + 1;
-		if (small > table.chairSize() - 1) {
-			small = 0;
-		}
-		// ビッグブラインドを決定する。
-		int big = small + 1;
-		if (big > table.chairSize() - 1) {
-			big = 0;
-		}
-		blind[0] = small;
-		blind[1] = big;
-
-		return blind;
-	}
-
 	/**
 	 * 利益の分配。
 	 */
@@ -349,6 +430,9 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		if (status == GameRules.FINAL) {
 			initGame();
 		}
+		if (table.chairSize() < 2) {
+			System.exit(status);
+		}
 	}
 
 	private void gameGraph(int status) {
@@ -370,62 +454,12 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 	}
 
 	private void initGame() {
-		updateChairs();
+		checkBankrollOverAnty();
 		chairsInit();
 		tableInit();
 		shuffle();
 		deal();
 		nextDealer();
-	}
-
-	private boolean isFinal() {
-		if (table.getRound() == 4) {
-			return true;
-		}
-
-		return false;
-	}
-
-	private boolean isFirst() {
-		if (table.getPot() == 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	private boolean isHuman() {
-		ArrayList<Chair> chairs = table.getChairs();
-		// あるプレイヤーがオールインもフォルドもしていない場合、
-		// 全員の掛け金の最大と同じ額を賭けていなければ人為手番。
-		// または、最終プレイの値がIntegerの最小値になっていたら人為手番。
-		for (Chair chair : chairs) {
-			boolean b1 = chair.getCurrentRaise() != table.getMaxRaise();
-			boolean b2 = !(chair.isAllin() || chair.isFold());
-			boolean b3 = chair.getLastPlay() == Integer.MIN_VALUE;
-			if (b1 && b2 || b3) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean updateChance() {
-		// 現在手番が偶然手番の時の処理。
-		if (table.getCurrentPhase() == GameRules.CHANCE) {
-			// 現在手番を人為手番に設定。
-			table.setCurrentPhase(GameRules.HUMAN);
-			// フォルドしていないかオールインしていない場合、
-			// 最終プレイの値をIntegerの最小値に設定する。
-			for (Chair chair : table.getChairs()) {
-				if (!(chair.isFold() || chair.isAllin())) {
-					chair.setLastPlay(Integer.MIN_VALUE);
-				}
-			}
-			// 形式的に偶然手番をリターンする。
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -439,26 +473,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			dealer = 0;
 		}
 		table.setDealer(dealer);
-	}
-
-	private void payBlind(int small, int big) {
-		int anty = table.getAnty();
-		ArrayList<Chair> chairs = table.getChairs();
-
-		// スモールブラインドにアンティを支払わせる。
-		Chair smallblind = chairs.get(small);
-		smallblind.payAnty(anty);
-
-		// ビッグブラインドにアンティを支払わせる。
-		Chair bigblind = chairs.get(big);
-		bigblind.payAnty(anty * 2);
-
-		// ポットにアンティを支払い分を追加。
-		addPot(anty * 3);
-
-		// レイズの最大値と現在手番のプレイヤーを更新。
-		table.setMaxRaise(anty * 2);
-		table.setCurrentPlayer(big);
 	}
 
 	/**
@@ -567,20 +581,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setCommunityCards(comcard);
 		table.setDeckIndex(51);
 		table.setPot(0);
-	}
-
-	private void updateCurrentPlayer(int currentPhase) {
-		int currentPlayer = table.getCurrentPlayer();
-		int playerNum = table.chairSize();
-		if (currentPhase == GameRules.HUMAN || currentPhase == GameRules.FIRST) {
-			currentPlayer++;
-			if (currentPlayer > playerNum - 1) {
-				currentPlayer = 0;
-			}
-		} else {
-			currentPlayer = table.getDealer();
-		}
-		table.setCurrentPlayer(currentPlayer);
 	}
 
 	private int updateRound(int round) {

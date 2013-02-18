@@ -1,7 +1,6 @@
 package edu.kcg.Poker;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import edu.kcg.Poker.Factory.TableAndViewFactory;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
@@ -76,7 +75,6 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			gameGraph(status);
 			
 			if(table.chairSize()==1){
-				System.out.println("[AAAAAAA]");
 				break;
 			}
 			
@@ -124,7 +122,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			return GameRules.HUMAN;
 		}
 
-		if (updateChance()) {
+		if (isNowChance()) {
 			return GameRules.CHANCE;
 		}
 
@@ -239,20 +237,16 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		}
 	}
 
-	private void updateChairs() {
+	private void checkBankrollOverAnty() {
 		ArrayList<Chair> chairs = this.table.getChairs();
-		Vector<Chair> buffer = new Vector<Chair>();
-		
-		for(Chair chair : chairs){
-			if(chair.getBankroll() < table.getAnty()*2){
-				buffer.add(chair);
+		for (int i = 0; i < chairs.size(); i++) {
+			Chair chair = chairs.get(i);
+			int bankroll = chair.getBankroll();
+			int doubleAnty = this.table.getAnty() * 2;
+			if (bankroll < doubleAnty) {
+				chairs.remove(i);
 			}
 		}
-
-		for(Chair removeItem : buffer){
-			chairs.remove(removeItem);
-		}
-		
 	}
 
 	private int countAllin() {
@@ -370,7 +364,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 	}
 
 	private void initGame() {
-		updateChairs();
+		checkBankrollOverAnty();
 		chairsInit();
 		tableInit();
 		shuffle();
@@ -410,7 +404,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return false;
 	}
 
-	private boolean updateChance() {
+	private boolean isNowChance() {
 		// 現在手番が偶然手番の時の処理。
 		if (table.getCurrentPhase() == GameRules.CHANCE) {
 			// 現在手番を人為手番に設定。

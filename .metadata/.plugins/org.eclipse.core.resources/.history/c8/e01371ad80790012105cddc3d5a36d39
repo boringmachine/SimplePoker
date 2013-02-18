@@ -124,7 +124,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			return GameRules.HUMAN;
 		}
 
-		if (updateChance()) {
+		if (isNowChance()) {
 			return GameRules.CHANCE;
 		}
 
@@ -410,7 +410,7 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return false;
 	}
 
-	private boolean updateChance() {
+	private boolean isNowChance() {
 		// 現在手番が偶然手番の時の処理。
 		if (table.getCurrentPhase() == GameRules.CHANCE) {
 			// 現在手番を人為手番に設定。

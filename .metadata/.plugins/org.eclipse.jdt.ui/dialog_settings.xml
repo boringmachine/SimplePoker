@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
+	<item value="false" key="delegateUpdating"/>
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
 	<item value="true" key="SortMembers.sort_all"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+		<item value="false" key="SortMembersMessageDialog.optionalDialog.id"/>
 	</section>
 	<section name="SelfEncapsulateFieldWizard">
 		<item value="false" key="GenerateJavadoc"/>
@@ -10,20 +16,20 @@
 	<section name="nls_accessor_history">
 		<section name="2">
 			<item value="Messages" key="accessorName"/>
-			<item value="=poker_project/src&lt;edu.kcg.Poker.Strategy" key="bundlePackage"/>
 			<item value="=poker_project/src&lt;edu.kcg.Poker.Strategy" key="accessorPackage"/>
+			<item value="=poker_project/src&lt;edu.kcg.Poker.Strategy" key="bundlePackage"/>
 			<item value="messages.properties" key="bundleName"/>
 		</section>
 		<section name="1">
 			<item value="Messages" key="accessorName"/>
-			<item value="=poker_project/src&lt;edu.kcg.Poker.View" key="bundlePackage"/>
 			<item value="=poker_project/src&lt;edu.kcg.Poker.View" key="accessorPackage"/>
+			<item value="=poker_project/src&lt;edu.kcg.Poker.View" key="bundlePackage"/>
 			<item value="messages.properties" key="bundleName"/>
 		</section>
 		<section name="0">
 			<item value="Messages" key="accessorName"/>
-			<item value="=poker_project/src&lt;edu.kcg.Poker" key="bundlePackage"/>
 			<item value="=poker_project/src&lt;edu.kcg.Poker" key="accessorPackage"/>
+			<item value="=poker_project/src&lt;edu.kcg.Poker" key="bundlePackage"/>
 			<item value="messages.properties" key="bundleName"/>
 		</section>
 	</section>
@@ -34,8 +40,8 @@
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="SourceActionDialog.methods">
-		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="Comments"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
@@ -56,21 +62,21 @@
 	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
 		<item value="611" key="DIALOG_WIDTH"/>
 		<item value="0" key="DIALOG_Y_ORIGIN"/>
-		<item value="744" key="DIALOG_HEIGHT"/>
 		<item value="201" key="DIALOG_X_ORIGIN"/>
+		<item value="744" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
-	<section name="NewClassWizardPage">
-		<item value="false" key="create_constructor"/>
-		<item value="true" key="create_unimplemented"/>
-		<item value="false" key="create_main"/>
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
+		<item value="false" key="updateQualifiedNames"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
 		<item value="false" key="updateTextualMatches"/>
 		<item value="false" key="updateSimilarElements"/>
+	</section>
+	<section name="NewClassWizardPage">
+		<item value="false" key="create_constructor"/>
+		<item value="false" key="create_main"/>
+		<item value="true" key="create_unimplemented"/>
 	</section>
 	<section name="AddGetterSetterDialog">
 		<item value="false" key="RemoveFinal"/>
