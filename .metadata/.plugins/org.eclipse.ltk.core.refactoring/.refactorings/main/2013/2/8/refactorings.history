@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from プロジェクト &apos;main&apos;&#x0A;- 元のプロジェクト: &apos;main&apos;&#x0A;- オリジナル要素:&#x0A;     edu.kcg.Poker.Chair.java&#x0A;     edu.kcg.Poker.Player.java&#x0A;     edu.kcg.Poker.Table.java" description="要素の削除" element1="/src&lt;edu.kcg.Poker{Chair.java" element2="/src&lt;edu.kcg.Poker{Player.java" element3="/src&lt;edu.kcg.Poker{Table.java" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1361476974046" subPackages="false" version="1.0"/>
+</session>
