@@ -1,7 +1,6 @@
 package edu.kcg.Poker.Table.DataManager;
 
-
-public class PhasesManager implements PhasesManagerInterface{
+public class PhasesManager implements PhasesManagerInterface {
 	private int currentPhase;
 	private int round;
 

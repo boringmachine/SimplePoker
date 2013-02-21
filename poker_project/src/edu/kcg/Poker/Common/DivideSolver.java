@@ -7,13 +7,13 @@ import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
 
 public class DivideSolver {
-	
+
 	private PokerGame game;
-	
-	public DivideSolver(PokerGame game){
+
+	public DivideSolver(PokerGame game) {
 		this.game = game;
 	}
-	
+
 	public int backOverRaise(int maxAddedBet, boolean[] winners) {
 		Table table = game.getTable();
 		ArrayList<Chair> chairs = table.getChairs();
@@ -32,8 +32,7 @@ public class DivideSolver {
 		}
 		return pot;
 	}
-	
-	
+
 	public void divideProfit(int pot, int sumWinner, boolean[] winners) {
 		Table table = game.getTable();
 		ArrayList<Chair> chairs = table.getChairs();
@@ -50,8 +49,6 @@ public class DivideSolver {
 		}
 	}
 
-	
-	
 	public int[] solveHandrolls() {
 		int handroll = 0;
 		Table table = game.getTable();
@@ -105,7 +102,6 @@ public class DivideSolver {
 		}
 		return max;
 	}
-
 
 	public int solveSumWinnersBet(boolean[] winners) {
 		int sumWinner = 0;

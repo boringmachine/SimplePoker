@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import edu.kcg.Poker.Client.Player;
 import edu.kcg.Poker.Table.Chair;
 
-public class PlayersManager implements PlayersManagerInterface{
+public class PlayersManager implements PlayersManagerInterface {
 	private ArrayList<Chair> chairs;
 	private int currentPlayer;
 	private int dealer;

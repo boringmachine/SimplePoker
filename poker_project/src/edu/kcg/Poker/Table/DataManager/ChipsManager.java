@@ -1,7 +1,6 @@
 package edu.kcg.Poker.Table.DataManager;
 
-
-public class ChipsManager implements ChipsManagerInterFace{
+public class ChipsManager implements ChipsManagerInterFace {
 	private int anty;
 	private int limit;
 	private int maxRaise;

@@ -22,8 +22,7 @@ public class PokerGame implements GameRules, Runnable {
 
 	private PokerGameLogger logger;
 	private Table table;
-	
-	
+
 	public PokerGame() {
 		createTable();
 	}
@@ -31,25 +30,7 @@ public class PokerGame implements GameRules, Runnable {
 	public PokerGame(PokerGameLogger view) {
 		createTable(view);
 	}
-	
-	public Table createTable() {
-		Table table = new Table();
-		this.table = table;
-		if (this.logger == null) {
-			this.logger = new DefaultPokerLogger(this.table);
-		}
-		this.logger.setTable(this.table);
-		return this.table;
-	}
 
-	public Table createTable(PokerGameLogger view) {
-		Table table = new Table();
-		this.table = table;
-		this.logger = view;
-		this.logger.setTable(this.table);
-		return this.table;
-	}
-	
 	public void addPlayer(Player player) {
 		table.addChair(player);
 	}
@@ -75,6 +56,24 @@ public class PokerGame implements GameRules, Runnable {
 			}
 			chancePhase();
 		}
+	}
+
+	public Table createTable() {
+		Table table = new Table();
+		this.table = table;
+		if (this.logger == null) {
+			this.logger = new DefaultPokerLogger(this.table);
+		}
+		this.logger.setTable(this.table);
+		return this.table;
+	}
+
+	public Table createTable(PokerGameLogger view) {
+		Table table = new Table();
+		this.table = table;
+		this.logger = view;
+		this.logger.setTable(this.table);
+		return this.table;
 	}
 
 	@Override
@@ -320,14 +319,14 @@ public class PokerGame implements GameRules, Runnable {
 		winners = solver.solveWinner(max, handrolls);
 		sumWinner = solver.solveSumWinnersBet(winners);
 		maxAddedBet = solver.solveMaxAddedBet(winners);
-		
+
 		pot = solver.backOverRaise(maxAddedBet, winners);
 		solver.divideProfit(pot, sumWinner, winners);
 
 		logger.playersHandsStatus();
 		logger.playersHandRollStatus(handrolls);
 		logger.playersBankrollStatus();
-		
+
 	}
 
 	private void finalize(int status) {
@@ -446,7 +445,6 @@ public class PokerGame implements GameRules, Runnable {
 
 		table.setDeck(bufDeck);
 	}
-
 
 	private void tableInit() {
 		int[] comcard = new int[5];

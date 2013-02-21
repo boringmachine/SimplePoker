@@ -2,8 +2,7 @@ package edu.kcg.Poker.Table.DataManager;
 
 import java.util.Arrays;
 
-
-public class CardsManager implements CardsManagerInterface{
+public class CardsManager implements CardsManagerInterface {
 
 	// community card
 	private int[] communityCards = new int[5];

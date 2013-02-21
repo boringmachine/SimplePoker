@@ -15,14 +15,14 @@ import edu.kcg.Poker.Table.DataManager.PlayersManager;
  * 
  * @author Shun.S
  */
-public class Table extends AdaptManager{
-	private int tableId;
+public class Table extends AdaptManager {
 	private static int lastId = 0;
+	private CardsManager cardManager;
+	private ChipsManager chipManager;
 	private PhasesManager phaseManager;
 	private PlayersManager playerManager;
-	private ChipsManager chipManager;
-	private CardsManager cardManager;
-	
+	private int tableId;
+
 	public Table() {
 		tableId = lastId++;
 		phaseManager = new PhasesManager();

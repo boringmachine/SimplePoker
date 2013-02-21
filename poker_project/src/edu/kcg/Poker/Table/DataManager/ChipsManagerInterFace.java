@@ -1,12 +1,12 @@
 package edu.kcg.Poker.Table.DataManager;
 
 public interface ChipsManagerInterFace {
-	
+
 	public void addPot(int x);
 
 	public int getAnty();
 
-	public int getLimit() ;
+	public int getLimit();
 
 	public int getMaxRaise();
 

@@ -2,7 +2,7 @@ package edu.kcg.Poker.Table.DataManager;
 
 public interface CardsManagerInterface {
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
-	
+
 	public int[] getCommunityCards();
 
 	public int getCommunityCardsIndex();
