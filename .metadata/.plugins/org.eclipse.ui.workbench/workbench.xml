@@ -44,62 +44,57 @@
 <part id="9"/>
 <part id="10"/>
 <part id="11"/>
-<part id="12"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" partName="Table.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/Table.java" title="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table/Table.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/Table.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="903" selectionTopPixel="255"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" partName="Table.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table.java" title="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="305" selectionTopPixel="124"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChipsManager.java" partName="ChipsManager.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManager.java" title="ChipsManager.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManager.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="19" selectionOffset="83" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasesManager.java" partName="PhasesManager.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManager.java" title="PhasesManager.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManager.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="105" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CardsManager.java" partName="CardsManager.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManager.java" title="CardsManager.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManager.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="129" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PlayersManager.java" partName="PlayersManager.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManager.java" title="PlayersManager.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManager.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="1" selectionOffset="204" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DivideSolver.java" partName="DivideSolver.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java" title="DivideSolver.java" tooltip="poker_project/src/edu/kcg/Poker/Common/DivideSolver.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="375" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AdaptManager.java" partName="AdaptManager.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/AdaptManager.java" title="AdaptManager.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/AdaptManager.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/AdaptManager.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="136" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChipsManagerInterFace.java" partName="ChipsManagerInterFace.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManagerInterFace.java" title="ChipsManagerInterFace.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManagerInterFace.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManagerInterFace.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="84" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CardsManagerInterface.java" partName="CardsManagerInterface.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManagerInterface.java" title="CardsManagerInterface.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManagerInterface.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManagerInterface.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="141" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PhasesManagerInterface.java" partName="PhasesManagerInterface.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManagerInterface.java" title="PhasesManagerInterface.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManagerInterface.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManagerInterface.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="170" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PlayersManagerInterface.java" partName="PlayersManagerInterface.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManagerInterface.java" title="PlayersManagerInterface.java" tooltip="poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManagerInterface.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManagerInterface.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="22" selectionOffset="413" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultPokerLogger.java" partName="DefaultPokerLogger.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Logger/DefaultPokerLogger.java" title="DefaultPokerLogger.java" tooltip="poker_project/src/edu/kcg/Poker/Logger/DefaultPokerLogger.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Logger/DefaultPokerLogger.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3645" selectionTopPixel="1344"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" partName="PokerTester.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java" title="PokerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/PokerTester.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="115"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" partName="PokerGame.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/PokerGame.java" title="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5471" selectionTopPixel="3542"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6466" selectionTopPixel="4339"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameFactory.java" partName="GameFactory.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java" title="GameFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/GameFactory.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="90" selectionTopPixel="138"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Chair.java" partName="Chair.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Chair.java" title="Chair.java" tooltip="poker_project/src/edu/kcg/Poker/Chair.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Chair.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="259" selectionTopPixel="108"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultPokerLogger.java" partName="DefaultPokerLogger.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java" title="DefaultPokerLogger.java" tooltip="poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3791" selectionTopPixel="1426"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.PropertiesFileEditor" name="messages.properties" partName="messages.properties" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/View/messages.properties" title="messages.properties" tooltip="poker_project/src/edu/kcg/Poker/View/messages.properties" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/View/messages.properties"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="439" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DivideSolver.java" partName="DivideSolver.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java" title="DivideSolver.java" tooltip="poker_project/src/edu/kcg/Poker/Common/DivideSolver.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="226" selectionTopPixel="1510"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGameLogger.java" partName="PokerGameLogger.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/View/PokerGameLogger.java" title="PokerGameLogger.java" tooltip="poker_project/src/edu/kcg/Poker/View/PokerGameLogger.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/View/PokerGameLogger.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="532" selectionTopPixel="40"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanPlayerStdIn.java" partName="HumanPlayerStdIn.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java" title="HumanPlayerStdIn.java" tooltip="poker_project/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="614" selectionTopPixel="124"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TableFactory.java" partName="TableFactory.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Factory/TableFactory.java" title="TableFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/TableFactory.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Factory/TableFactory.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandChecker.java" partName="HandChecker.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Common/HandChecker.java" title="HandChecker.java" tooltip="poker_project/src/edu/kcg/Poker/Common/HandChecker.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Common/HandChecker.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="301" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -116,6 +111,8 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.pathField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="問題">
 <expanded>
 <category IMemento.internal.id="警告"/>
+<category IMemento.internal.id="エラー (1 項目)"/>
+<category IMemento.internal.id="エラー"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="105" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="364"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -177,7 +174,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="リソース"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -328,7 +325,7 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.23692004" ratioLeft="240" ratioRight="773" relationship="2" relative="left"/>
+<info part="org.eclipse.ui.editorss" ratio="0.3277394" ratioLeft="332" ratioRight="681" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.6507177" ratioLeft="408" ratioRight="219" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="問題"/>
@@ -361,172 +358,162 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManager.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManager.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManager.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManager.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/ChipsManagerInterFace.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PhasesManagerInterface.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/CardsManagerInterface.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/DataManager/PlayersManagerInterface.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/Table.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Factory/TableFactory.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/HandChecker.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Common/HandChecker.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Logger/DefaultPokerLogger.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table/Table.java"/>
 </editors>
-<item historyLabel="PhasesManager.java" index="2">
-<position info="not_deleted" x="103" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="CardsManager.java" index="0">
-<position info="not_deleted" x="106" y="21"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PhasesManager.java" index="2">
-<position info="not_deleted" x="103" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PhasesManager.java" index="2">
-<position info="not_deleted" x="81" y="22"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="ChipsManagerInterFace.java" index="4">
-<position info="not_deleted" x="84" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PhasesManagerInterface.java" index="5">
-<position info="not_deleted" x="286" y="20"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="CardsManagerInterface.java" index="6">
-<position info="not_deleted" x="479" y="28"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PlayersManagerInterface.java" index="7">
-<position info="not_deleted" x="413" y="22"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PlayersManager.java" index="3">
-<position info="not_deleted" x="204" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="PhasesManager.java" index="2">
-<position info="not_deleted" x="81" y="22"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="ChipsManager.java" index="1">
-<position info="not_deleted" x="84" y="18"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="CardsManager.java" index="0">
-<position info="not_deleted" x="227" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3755" y="0"/>
 </item>
-<item historyLabel="Table.java" index="8">
-<position info="not_deleted" x="481" y="12"/>
-</item>
-<item historyLabel="DefaultPokerLogger.java" index="9">
+<item historyLabel="TableFactory.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="DefaultPokerLogger.java" index="9">
-<position info="not_deleted" x="552" y="0"/>
-</item>
-<item historyLabel="DefaultPokerLogger.java" index="9">
-<position info="not_deleted" x="3643" y="0"/>
-</item>
-<item historyLabel="DivideSolver.java" index="10">
-<position info="not_deleted" x="377" y="0"/>
-</item>
-<item historyLabel="PokerGame.java" index="11">
+<item historyLabel="HandChecker.java" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="PokerGame.java" index="11">
-<position info="not_deleted" x="5163" y="13"/>
-</item>
-<item historyLabel="CardsManager.java" index="0">
-<position info="not_deleted" x="227" y="0"/>
-</item>
-<item historyLabel="ChipsManager.java" index="1">
-<position info="not_deleted" x="84" y="18"/>
-</item>
-<item historyLabel="PhasesManager.java" index="2">
-<position info="not_deleted" x="105" y="0"/>
-</item>
-<item historyLabel="PhasesManagerInterface.java" index="5">
-<position info="not_deleted" x="166" y="0"/>
-</item>
-<item historyLabel="CardsManager.java" index="0">
-<position info="not_deleted" x="129" y="0"/>
-</item>
-<item historyLabel="CardsManagerInterface.java" index="6">
-<position info="not_deleted" x="141" y="0"/>
-</item>
-<item historyLabel="PlayersManager.java" index="3">
-<position info="not_deleted" x="204" y="0"/>
-</item>
-<item historyLabel="PokerGame.java" index="11">
-<position info="not_deleted" x="5467" y="0"/>
-</item>
-<item historyLabel="GameFactory.java" index="12">
+<item historyLabel="TableFactory.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="DefaultPokerLogger.java" index="13">
-<position info="not_deleted" x="3643" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position/>
 </item>
-<item historyLabel="DefaultPokerLogger.java" index="13">
-<position info="not_deleted" x="3645" y="0"/>
-</item>
-<item historyLabel="GameFactory.java" index="14">
+<item historyLabel="HandChecker.java" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position info="not_deleted" x="481" y="13"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3721" y="164"/>
 </item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="DefaultPokerLogger.java" index="0">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position info="not_deleted" x="952" y="0"/>
-</item>
-<item historyLabel="Table.java" index="15">
-<position info="not_deleted" x="923" y="0"/>
-</item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="DefaultPokerLogger.java" index="0">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3646" y="0"/>
+</item>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="201" y="18"/>
+</item>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3884" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="355" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="376" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="387" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="454" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="344" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="399" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="410" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="421" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="443" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="443" y="0"/>
+</item>
+<item historyLabel="DefaultPokerLogger.java" index="0">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="DefaultPokerLogger.java" index="0">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3792" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="3">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
+<item historyLabel="HandChecker.java" index="3">
 <position/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position info="not_deleted" x="939" y="0"/>
+<item historyLabel="DivideSolver.java" index="4">
+<position info="not_deleted" x="219" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="DivideSolver.java" index="4">
+<position info="not_deleted" x="226" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="PokerGame.java" index="5">
+<position info="not_deleted" x="7083" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="PokerGame.java" index="5">
+<position info="not_deleted" x="6466" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3646" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="HandChecker.java" index="3">
+<position info="not_deleted" x="301" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3646" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3791" y="0"/>
 </item>
-<item historyLabel="Table.java" index="15">
-<position/>
+<item historyLabel="HandChecker.java" index="3">
+<position info="not_deleted" x="301" y="0"/>
 </item>
-<item active="true" historyLabel="Table.java" index="15">
-<position info="not_deleted" x="903" y="0"/>
+<item historyLabel="DefaultPokerLogger.java" index="0">
+<position info="not_deleted" x="3791" y="0"/>
+</item>
+<item active="true" historyLabel="DivideSolver.java" index="4">
+<position info="not_deleted" x="226" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -534,6 +521,9 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -541,25 +531,11 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/GameFactory.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultPokerLogger.java" tooltip="poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/View/DefaultPokerLogger.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DivideSolver.java" tooltip="poker_project/src/edu/kcg/Poker/Common/DivideSolver.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/Common/DivideSolver.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table/Table.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/Table/Table.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandChecker.java" tooltip="poker_project/src/edu/kcg/Poker/HandChecker.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/HandChecker.java"/>
 </file>
@@ -578,11 +554,32 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Chair.java" tooltip="poker_project/src/edu/kcg/Poker/Chair.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Chair.java"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/GameFactory.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/PokerTester.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Table.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandCheckerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/HandCheckerTester.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Tester/HandCheckerTester.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameRules.java" tooltip="poker_project/src/edu/kcg/Poker/GameRules.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/GameRules.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TableAndViewFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/TableAndViewFactory.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Factory/TableAndViewFactory.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerView.java" tooltip="poker_project/src/edu/kcg/Poker/View/PokerView.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/View/PokerView.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Params.java" tooltip="poker_project/src/edu/kcg/Poker/Strategy/Params.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Strategy/Params.java"/>
 </file>
 </mruList>
 </workbench>

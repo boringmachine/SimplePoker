@@ -14,14 +14,4 @@
 <fullyQualifiedTypeName name="edu.kcg.Poker.Chair"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.PokerGame"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.PlayersManageData"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Client.Player"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.DataManager.Interface.CardsManagerInterface"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.DataManager.Interface.PhasesManagerInterface"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.DataManager.AdaptManager"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.DataManager.CardsManager"/>
-<fullyQualifiedTypeName name="edu.kcg.Poker.Table.DataManager.PhasesManager"/>
-<fullyQualifiedTypeName name="java.lang.reflect.Field"/>
-<fullyQualifiedTypeName name="java.lang.reflect.Method"/>
 </qualifiedTypeNameHistroy>

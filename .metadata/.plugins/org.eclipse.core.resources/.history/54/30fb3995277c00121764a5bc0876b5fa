@@ -1,5 +1,0 @@
-package edu.kcg.Poker.Table.DataManager.Interface;
-
-public interface PhasesDataManager {
-
-}

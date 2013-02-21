@@ -1,6 +1,0 @@
-package edu.kcg.Poker.Table;
-
-public class PhasesManageData {
-	private int currentPhase;
-	private int round;
-}
