@@ -15,11 +15,12 @@ public class Chair {
 	private int bankroll;
 	private int currentRaise;
 	private boolean fold;
-	private int hand;
+	// private int hand;
 	private int hands;
 	private int lastPlay;
 	private Player player;
-	private boolean winner;
+
+	// private boolean winner;
 
 	public Chair(Player player) {
 		this.player = player;
@@ -29,7 +30,7 @@ public class Chair {
 		bankroll = 1000;
 		fold = false;
 		allin = false;
-		winner = false;
+		// winner = false;
 	}
 
 	public int choice(int maxBet, int limit) {
@@ -70,10 +71,9 @@ public class Chair {
 		return currentRaise;
 	}
 
-	public int getHand() {
-		return hand;
-	}
-
+	/*
+	 * public int getHand() { return hand; }
+	 */
 	public int getHands() {
 		return hands;
 	}
@@ -94,10 +94,9 @@ public class Chair {
 		return fold;
 	}
 
-	public boolean isWinner() {
-		return winner;
-	}
-
+	/*
+	 * public boolean isWinner() { return winner; }
+	 */
 	public void payAnty(int x) {
 		this.setLastPlay(x);
 		this.addedRaise += x;
@@ -125,10 +124,9 @@ public class Chair {
 		this.fold = fold;
 	}
 
-	public void setHand(int hand) {
-		this.hand = hand;
-	}
-
+	/*
+	 * public void setHand(int hand) { this.hand = hand; }
+	 */
 	public void setHands(int hands) {
 		this.hands = hands;
 	}
@@ -140,9 +138,7 @@ public class Chair {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
-	public void setWinner(boolean winner) {
-		this.winner = winner;
-	}
-
+	/*
+	 * public void setWinner(boolean winner) { this.winner = winner; }
+	 */
 }

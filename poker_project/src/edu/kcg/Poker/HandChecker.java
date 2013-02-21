@@ -19,14 +19,14 @@ public class HandChecker {
 
 	public static int checkHand(int hands, int[] comcard) {
 		int[] cards;
-		cards = Arrays.copyOf(comcard, comcard.length+2);
-		cards[cards.length-1] = hands & HAND_R;
-		cards[cards.length-2] = (hands & HAND_L) >> 6;
-/*		
-		int[] cards = { 
-				comcard[0],comcard[1],comcard[2],comcard[3],comcard[4], 
-				(hands & HAND_L) >> 6, hands & HAND_R };
-*/
+		cards = Arrays.copyOf(comcard, comcard.length + 2);
+		cards[cards.length - 1] = hands & HAND_R;
+		cards[cards.length - 2] = (hands & HAND_L) >> 6;
+		/*
+		 * int[] cards = {
+		 * comcard[0],comcard[1],comcard[2],comcard[3],comcard[4], (hands &
+		 * HAND_L) >> 6, hands & HAND_R };
+		 */
 		int bit = 0;
 		bit |= checkFlush(cards);
 		bit |= checkStraight(cards);

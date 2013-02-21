@@ -3,8 +3,7 @@ package edu.kcg.Poker.Factory;
 import java.util.Vector;
 
 import edu.kcg.Poker.PokerGame;
-import edu.kcg.Poker.Table;
-import edu.kcg.Poker.View.PokerView;
+import edu.kcg.Poker.View.PokerGameLogger;
 
 public class GameFactory {
 
@@ -23,20 +22,8 @@ public class GameFactory {
 		return game;
 	}
 
-	public static PokerGame createGame(PokerView view) {
+	public static PokerGame createGame(PokerGameLogger view) {
 		PokerGame game = new PokerGame(view);
-		pool.add(game);
-		return game;
-	}
-
-	public static PokerGame createGame(Table table) {
-		PokerGame game = new PokerGame(table);
-		pool.add(game);
-		return game;
-	}
-
-	public static PokerGame createGame(Table table, PokerView view) {
-		PokerGame game = new PokerGame(table, view);
 		pool.add(game);
 		return game;
 	}

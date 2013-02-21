@@ -3,9 +3,9 @@ package edu.kcg.Poker;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import edu.kcg.Poker.Factory.TableAndViewFactory;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
-import edu.kcg.Poker.View.PokerView;
+import edu.kcg.Poker.View.DefaultPokerLogger;
+import edu.kcg.Poker.View.PokerGameLogger;
 
 /**
  * テーブルのデータを処理し、ゲームを定義するクラス.
@@ -13,27 +13,38 @@ import edu.kcg.Poker.View.PokerView;
  * @author Shun.S
  * 
  */
-public class PokerGame extends TableAndViewFactory implements GameRules,
-		Runnable {
+public class PokerGame implements GameRules, Runnable {
 
+	private PokerGameLogger view;
+	private Table table;
+	
+	
 	public PokerGame() {
 		createTable();
 	}
 
-	public PokerGame(PokerView view) {
+	public PokerGame(PokerGameLogger view) {
 		createTable(view);
 	}
 
-	public PokerGame(Table table) {
-		createPokerView(table);
+	public Table createTable() {
+		Table table = new Table();
+		this.table = table;
+		if (this.view == null) {
+			this.view = new DefaultPokerLogger(this.table);
+		}
+		this.view.setTable(this.table);
+		return this.table;
 	}
 
-	public PokerGame(Table table, PokerView view) {
+	public Table createTable(PokerGameLogger view) {
+		Table table = new Table();
 		this.table = table;
 		this.view = view;
-		view.setTable(this.table);
+		this.view.setTable(this.table);
+		return this.table;
 	}
-
+	
 	public void addPlayer(Player player) {
 		table.addChair(player);
 	}
@@ -209,12 +220,13 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.addPot(x);
 	}
 
-	private int backOverRaise(int maxAddedBet) {
+	private int backOverRaise(int maxAddedBet, boolean[] winners) {
 		ArrayList<Chair> chairs = table.getChairs();
 		int pot = table.getPot();
 		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
-		for (Chair chair : chairs) {
-			if (!chair.isWinner()) {
+		for (int i = 0; i < chairs.size(); i++) {
+			Chair chair = chairs.get(i);
+			if (winners[i]) {
 				int x = chair.getAddedBet();
 				if (x > maxAddedBet) {
 					x = chair.getAddedBet() - maxAddedBet;
@@ -231,9 +243,9 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			chair.setLastPlay(0);
 			chair.setAllin(false);
 			chair.setFold(false);
-			chair.setHand(0);
+			// chair.setHand(0);
 			chair.setHands(0);
-			chair.setWinner(false);
+			// chair.setWinner(false);
 			chair.setAddedBet(0);
 		}
 	}
@@ -319,12 +331,17 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		int sumWinner = 0;
 		int max = 0;
 		int pot = 0;
+		int chairSize = table.chairSize();
+		int[] handrolls = new int[chairSize];
+		boolean[] winners = new boolean[chairSize];
 
-		max = solvePlayersHand();
-		sumWinner = solveWinner(max);
-		maxAddedBet = solveMaxAddedBet();
-		pot = backOverRaise(maxAddedBet);
-		solveProfit(pot, sumWinner);
+		handrolls = solveHandrolls();
+		max = solveMaxHandroll(handrolls);
+		winners = solveWinner(max, handrolls);
+		sumWinner = solveSumWinnersBet(winners);
+		maxAddedBet = solveMaxAddedBet(winners);
+		pot = backOverRaise(maxAddedBet, winners);
+		solveProfit(pot, sumWinner, winners);
 
 	}
 
@@ -445,12 +462,46 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		table.setDeck(bufDeck);
 	}
 
-	private int solveMaxAddedBet() {
+	private int[] solveHandrolls() {
+		int handroll = 0;
+		// int max = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+		int[] handrolls = new int[chairs.size()];
+
+		// 最大ハンドを計算。
+		for (int i = 0; i < chairs.size(); i++) {
+			// ハンドを取得
+			Chair chair = chairs.get(i);
+			int hands = chair.getHands();
+			handroll = 0;
+			int[] comcard = table.getCommunityCards();
+			// 役の強さを計算。
+			if (!chair.isFold()) {
+				handroll = HandChecker.checkHand(hands, comcard);
+			}
+
+			handrolls[i] = handroll;
+
+			/*
+			 * chair.setHand(hand); // 最大ハンドより大きければ、 if (handroll >= max) { max
+			 * = handroll; }
+			 */
+			/***************/
+			view.playerHands(i);
+			/***************/
+
+		}
+		return handrolls;
+	}
+
+	private int solveMaxAddedBet(boolean[] winners) {
 		int maxAddedBet = 0;
 		ArrayList<Chair> chairs = table.getChairs();
+		int chairSize = table.chairSize();
 		// 勝者の掛け金の最大を計算。
-		for (Chair chair : chairs) {
-			if (chair.isWinner()) {
+		for (int i = 0; i < chairSize; i++) {
+			Chair chair = chairs.get(i);
+			if (winners[i]) {
 				int x = chair.getAddedBet();
 				if (x > maxAddedBet) {
 					maxAddedBet = x;
@@ -460,43 +511,27 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 		return maxAddedBet;
 	}
 
-	private int solvePlayersHand() {
-		int i = 0;
-		int hand = 0;
+	private int solveMaxHandroll(int[] handrolls) {
 		int max = 0;
-		ArrayList<Chair> chairs = table.getChairs();
 
-		// 最大ハンドを計算。
-		for (Chair chair : chairs) {
-			// ハンドを取得
-			int hands = chair.getHands();
-			hand = 0;
-			int[] comcard = table.getCommunityCards();
-			// 役の強さを計算。
-			if (!chair.isFold()) {
-				hand = HandChecker.checkHand(hands, comcard);
-			}
-			chair.setHand(hand);
+		// 最大ハンドを計算
+		for (int i = 0; i < handrolls.length; i++) {
 			// 最大ハンドより大きければ、
-			if (hand >= max) {
-				max = hand;
+			if (handrolls[i] >= max) {
+				max = handrolls[i];
 			}
-			/***************/
-			view.playerHands(i);
-			/***************/
-
-			i++;
 		}
 		return max;
 	}
 
-	private void solveProfit(int pot, int sumWinner) {
-		int i = 0;
+	private void solveProfit(int pot, int sumWinner, boolean[] winners) {
 		ArrayList<Chair> chairs = table.getChairs();
+		int chairSize = chairs.size();
 		// 勝者に利益を配分。
 		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
-		for (Chair chair : chairs) {
-			if (chair.isWinner()) {
+		for (int i = 0; i < chairSize; i++) {
+			Chair chair = chairs.get(i);
+			if (winners[i]) {
 				int x = chair.getAddedBet();
 				int profit = (x * pot) / sumWinner;
 				chair.profit(profit);
@@ -504,21 +539,39 @@ public class PokerGame extends TableAndViewFactory implements GameRules,
 			/*****/
 			view.playerBankroll(i);
 			/*****/
-			i++;
 		}
 	}
 
-	private int solveWinner(int max) {
+	private int solveSumWinnersBet(boolean[] winners) {
 		int sumWinner = 0;
 		ArrayList<Chair> chairs = table.getChairs();
-		// 勝者を決定。
-		for (Chair chair : chairs) {
-			if (chair.getHand() == max) {
-				chair.setWinner(true);
-				sumWinner += chair.getAddedBet();
+		int chairSize = chairs.size();
+		for (int i = 0; i < chairSize; i++) {
+			if (winners[i]) {
+				sumWinner += chairs.get(i).getAddedBet();
 			}
 		}
 		return sumWinner;
+	}
+
+	private boolean[] solveWinner(int max, int[] handRoll) {
+		// int sumWinner = 0;
+		ArrayList<Chair> chairs = table.getChairs();
+		int chairSize = chairs.size();
+		// 勝者を決定。
+		boolean[] winner = new boolean[chairSize];
+		for (int i = 0; i < winner.length; i++) {
+			// if (chair.getHand() == max) {
+			// chair.setWinner(true);
+			if (handRoll[i] == max) {
+				winner[i] = true;
+				// sumWinner += chair.getAddedBet();
+			} else {
+				winner[i] = false;
+			}
+		}
+		return winner;
+		// return sumWinner;
 	}
 
 	private void tableInit() {

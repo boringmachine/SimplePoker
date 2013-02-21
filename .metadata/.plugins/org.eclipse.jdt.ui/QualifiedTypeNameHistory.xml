@@ -10,7 +10,8 @@
 <fullyQualifiedTypeName name="edu.kcg.Poker.Strategy.Params"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.HandChecker"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.PokerGame"/>
-<fullyQualifiedTypeName name="java.util.Vector"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.Factory.GameFactory"/>
 <fullyQualifiedTypeName name="edu.kcg.Poker.Factory.TableAndViewFactory"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.Vector"/>
 </qualifiedTypeNameHistroy>

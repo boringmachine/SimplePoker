@@ -13,7 +13,7 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="130" y="24"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="74" y="24"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="74" y="24"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="58" y="24"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="106" y="24"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launch.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -22,7 +22,7 @@
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="194" y="24"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.jdt.ui.PropertiesFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -31,10 +31,26 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" partName="Table.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Table.java" title="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Table.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="164" selectionTopPixel="124"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" partName="PokerTester.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java" title="PokerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/PokerTester.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="115"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" partName="PokerGame.java" path="/home/john/SimplePoker/poker_project/src/edu/kcg/Poker/PokerGame.java" title="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="359" selectionTopPixel="614"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="プロジェクト・エクスプローラー">
@@ -49,8 +65,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="問題">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.pathField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="問題">
 <expanded>
-<category IMemento.internal.id="警告"/>
-<category IMemento.internal.id="エラー"/>
+<category IMemento.internal.id="警告 (1 項目)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="105" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="364"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -112,7 +127,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="リソース"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -264,7 +279,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.24481738" ratioLeft="248" ratioRight="765" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.5119617" ratioLeft="321" ratioRight="306" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottom" ratio="0.6507177" ratioLeft="408" ratioRight="219" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="問題"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -294,7 +309,139 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/GameRules.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/HandChecker.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.PropertiesFileEditor" path="/poker_project/src/edu/kcg/Poker/View/messages.properties"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Tester/HandCheckerTester.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Table.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
+</editors>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="1450" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4782" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4617" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4597" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4599" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4600" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4558" y="6"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4679" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4704" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="4795" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="0">
+<position info="not_deleted" x="1452" y="0"/>
+</item>
+<item historyLabel="GameRules.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="169" y="0"/>
+</item>
+<item historyLabel="messages.properties" index="3">
+<position info="not_deleted" x="190" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="169" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="456" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="464" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="530" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="496" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="586" y="0"/>
+</item>
+<item historyLabel="HandCheckerTester.java" index="4">
+<position info="not_deleted" x="211" y="0"/>
+</item>
+<item historyLabel="PokerTester.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="HandCheckerTester.java" index="4">
+<position info="not_deleted" x="211" y="0"/>
+</item>
+<item historyLabel="PokerTester.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="HandCheckerTester.java" index="4">
+<position info="not_deleted" x="211" y="0"/>
+</item>
+<item historyLabel="HandChecker.java" index="2">
+<position info="not_deleted" x="586" y="0"/>
+</item>
+<item historyLabel="Table.java" index="6">
+<position info="not_deleted" x="227" y="0"/>
+</item>
+<item historyLabel="PokerTester.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="8">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="PokerGame.java" index="8">
+<position info="not_deleted" x="359" y="0"/>
+</item>
+<item historyLabel="Table.java" index="6">
+<position info="not_deleted" x="164" y="0"/>
+</item>
+<item active="true" historyLabel="PokerGame.java" index="8">
+<position info="not_deleted" x="359" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -311,11 +458,26 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandChecker.java" tooltip="poker_project/src/edu/kcg/Poker/HandChecker.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/HandChecker.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/PokerTester.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/Table.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandCheckerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/HandCheckerTester.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Tester/HandCheckerTester.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.PropertiesFileEditor" name="messages.properties" tooltip="poker_project/src/edu/kcg/Poker/View/messages.properties">
+<persistable path="/poker_project/src/edu/kcg/Poker/View/messages.properties"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HandChecker.java" tooltip="poker_project/src/edu/kcg/Poker/HandChecker.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/HandChecker.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameRules.java" tooltip="poker_project/src/edu/kcg/Poker/GameRules.java">
+<persistable path="/poker_project/src/edu/kcg/Poker/GameRules.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanPlayerStdIn.java" tooltip="poker_project/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Strategy/HumanPlayerStdIn.java"/>
@@ -329,32 +491,17 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameFactory.java" tooltip="poker_project/src/edu/kcg/Poker/Factory/GameFactory.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Factory/GameFactory.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameRules.java" tooltip="poker_project/src/edu/kcg/Poker/GameRules.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/GameRules.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerView.java" tooltip="poker_project/src/edu/kcg/Poker/View/PokerView.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/View/PokerView.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Params.java" tooltip="poker_project/src/edu/kcg/Poker/Strategy/Params.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/Strategy/Params.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Table.java" tooltip="poker_project/src/edu/kcg/Poker/Table.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/Table.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerTester.java" tooltip="poker_project/src/edu/kcg/Poker/Tester/PokerTester.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/Tester/PokerTester.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerGame.java" tooltip="poker_project/src/edu/kcg/Poker/PokerGame.java">
-<persistable path="/poker_project/src/edu/kcg/Poker/PokerGame.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Messages.java" tooltip="poker_project/src/edu/kcg/Poker/View/Messages.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/View/Messages.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PokerHand.java" tooltip="poker_project/src/edu/kcg/Poker/PokerHand.java">
 <persistable path="/poker_project/src/edu/kcg/Poker/PokerHand.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.PropertiesFileEditor" name="messages.properties" tooltip="poker_project/src/edu/kcg/Poker/View/messages.properties">
-<persistable path="/poker_project/src/edu/kcg/Poker/View/messages.properties"/>
 </file>
 </mruList>
 </workbench>

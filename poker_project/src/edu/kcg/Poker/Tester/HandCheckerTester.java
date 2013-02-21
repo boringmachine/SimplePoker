@@ -9,7 +9,7 @@ public class HandCheckerTester {
 	public static void main(String[] args) {
 
 		// コミュニティカード
-		int[] com = { 1, 3, 4, 2, 11};
+		int[] com = { 1, 3, 4, 2, 11 };
 
 		// プレイヤーの手札
 		int handl = 10;

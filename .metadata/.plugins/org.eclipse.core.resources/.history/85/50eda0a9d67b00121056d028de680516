@@ -1,0 +1,28 @@
+package edu.kcg.Poker.Factory;
+
+import edu.kcg.Poker.Table;
+import edu.kcg.Poker.View.DefaultPokerView;
+import edu.kcg.Poker.View.PokerGameLogger;
+
+public abstract class TableFactory {
+	protected Table table;
+	protected PokerGameLogger view;
+
+	public Table createTable() {
+		Table table = new Table();
+		this.table = table;
+		if (this.view == null) {
+			this.view = new DefaultPokerView(this.table);
+		}
+		this.view.setTable(this.table);
+		return this.table;
+	}
+
+	public Table createTable(PokerGameLogger view) {
+		Table table = new Table();
+		this.table = table;
+		this.view = view;
+		this.view.setTable(this.table);
+		return this.table;
+	}
+}

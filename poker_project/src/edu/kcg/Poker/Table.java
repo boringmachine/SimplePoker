@@ -12,21 +12,25 @@ import edu.kcg.Poker.Strategy.Params;
 public class Table {
 
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+
 	private static int lastId = 0;
-
 	private int anty;
-	private ArrayList<Chair> chairs;
 
+	private ArrayList<Chair> chairs;
 	private int[] communityCards = new int[5];
+
 	private int communityCardsIndex;
+
 	private int currentPhase;
 	private int currentPlayer;
+
 	private int dealer;
 	private int[] deck = new int[52];
 	private int deckIndex;
 	private int limit;
 	private int maxRaise;
 	private int pot;
+
 	private int round;
 	private int tableId;
 
