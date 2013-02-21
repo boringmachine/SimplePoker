@@ -13,7 +13,7 @@ public class Chair {
 	private int addedRaise;
 	private int bankroll;
 	private int currentRaise;
-	private boolean fold;
+	//private boolean fold;
 	private int hands;
 	private int lastPlay;
 	private Player player;
@@ -24,7 +24,7 @@ public class Chair {
 		addedRaise = 0;
 		currentRaise = 0;
 		bankroll = 1000;
-		fold = false;
+//		fold = false;
 	}
 
 	public int choice(int maxBet, int limit) {
@@ -45,9 +45,12 @@ public class Chair {
 			}
 			this.addedRaise += bet;
 			bankroll -= bet;
-		} else if (option == -1) {
+		}
+		/*
+		 else if (option == -1) {
 			setFold(true);
 		}
+		*/
 		this.setLastPlay(option);
 		return option;
 	}
@@ -81,7 +84,7 @@ public class Chair {
 	}
 
 	public boolean isFold() {
-		return fold;
+		return this.lastPlay == -1;
 	}
 
 	public void payAnty(int x) {
@@ -102,11 +105,11 @@ public class Chair {
 	public void setCurrentRaise(int currentRaise) {
 		this.currentRaise = currentRaise;
 	}
-
+/*
 	public void setFold(boolean fold) {
 		this.fold = fold;
 	}
-
+*/
 	public void setHands(int hands) {
 		this.hands = hands;
 	}

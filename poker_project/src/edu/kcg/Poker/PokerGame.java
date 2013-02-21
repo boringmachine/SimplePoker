@@ -220,7 +220,7 @@ public class PokerGame implements GameRules, Runnable {
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
-			chair.setFold(false);
+//			chair.setFold(false);
 			chair.setHands(0);
 			chair.setAddedBet(0);
 		}
@@ -229,7 +229,7 @@ public class PokerGame implements GameRules, Runnable {
 	private int countAllin() {
 		int count = 0;
 		for (Chair chair : this.table.getChairs()) {
-			if (chair.getBankroll() == 0/* isallin */) {
+			if (chair.isAllin()/* isallin */) {
 				count++;
 			}
 		}
