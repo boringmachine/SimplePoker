@@ -1,6 +1,6 @@
 package edu.kcg.Poker.Tester;
 
-import edu.kcg.Poker.HandChecker;
+import edu.kcg.Poker.Common.HandChecker;
 
 /**
  * 役判定モジュールのテスター。

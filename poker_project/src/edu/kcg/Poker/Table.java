@@ -12,6 +12,8 @@ import edu.kcg.Poker.Strategy.Params;
 public class Table {
 
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+	public static final int 
+	PREFLOP = 0,FLOP = 1,TURN = 2,RIVER = 3,SHOWDOWN = 4;
 
 	private static int lastId = 0;
 	private int anty;

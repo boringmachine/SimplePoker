@@ -3,6 +3,7 @@ package edu.kcg.Poker;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import edu.kcg.Poker.Common.DivideSolver;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
 import edu.kcg.Poker.View.DefaultPokerLogger;
 import edu.kcg.Poker.View.PokerGameLogger;
@@ -15,7 +16,7 @@ import edu.kcg.Poker.View.PokerGameLogger;
  */
 public class PokerGame implements GameRules, Runnable {
 
-	private PokerGameLogger view;
+	private PokerGameLogger logger;
 	private Table table;
 	
 	
@@ -26,22 +27,22 @@ public class PokerGame implements GameRules, Runnable {
 	public PokerGame(PokerGameLogger view) {
 		createTable(view);
 	}
-
+	
 	public Table createTable() {
 		Table table = new Table();
 		this.table = table;
-		if (this.view == null) {
-			this.view = new DefaultPokerLogger(this.table);
+		if (this.logger == null) {
+			this.logger = new DefaultPokerLogger(this.table);
 		}
-		this.view.setTable(this.table);
+		this.logger.setTable(this.table);
 		return this.table;
 	}
 
 	public Table createTable(PokerGameLogger view) {
 		Table table = new Table();
 		this.table = table;
-		this.view = view;
-		this.view.setTable(this.table);
+		this.logger = view;
+		this.logger.setTable(this.table);
 		return this.table;
 	}
 	
@@ -61,7 +62,7 @@ public class PokerGame implements GameRules, Runnable {
 		dealCommunityCard(round);
 
 		/****************************/
-		view.communityCardStatus();
+		logger.communityCardStatus();
 		/*****************************/
 
 		if (notFolder == 1 || (notFolder - countAllin) < 2) {
@@ -81,7 +82,7 @@ public class PokerGame implements GameRules, Runnable {
 			status = gameStatus();
 
 			/******************/
-			view.phaseStatus(status);
+			logger.phaseNameStatus(status);
 			/******************/
 
 			gameGraph(status);
@@ -93,7 +94,7 @@ public class PokerGame implements GameRules, Runnable {
 			nextPhase();
 
 			/**************/
-			view.phaseLast();
+			logger.lastPhaseStatus();
 			/**************/
 		}
 	}
@@ -101,10 +102,10 @@ public class PokerGame implements GameRules, Runnable {
 	@Override
 	public void finalPhase() {
 
-		divisionProfit();
+		divideProfit();
 
 		/***************/
-		view.communityCardStatus();
+		logger.communityCardStatus();
 		/***************/
 
 		// firstフェーズに戻るためにポットを初期化。
@@ -160,7 +161,7 @@ public class PokerGame implements GameRules, Runnable {
 		}
 
 		/******************/
-		view.playerStatus(index);
+		logger.playerStatus(index);
 		/******************/
 
 		if (!chair.isFold()) {
@@ -190,7 +191,7 @@ public class PokerGame implements GameRules, Runnable {
 			}
 		}
 		/****************************/
-		view.lastPlayStatus(index);
+		logger.lastPlayStatus(index);
 		/****************************/
 	}
 
@@ -220,32 +221,12 @@ public class PokerGame implements GameRules, Runnable {
 		table.addPot(x);
 	}
 
-	private int backOverRaise(int maxAddedBet, boolean[] winners) {
-		ArrayList<Chair> chairs = table.getChairs();
-		int pot = table.getPot();
-		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
-		for (int i = 0; i < chairs.size(); i++) {
-			Chair chair = chairs.get(i);
-			if (winners[i]) {
-				int x = chair.getAddedBet();
-				if (x > maxAddedBet) {
-					x = chair.getAddedBet() - maxAddedBet;
-					pot -= x;
-					chair.profit(x);
-				}
-			}
-		}
-		return pot;
-	}
-
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
 			chair.setAllin(false);
 			chair.setFold(false);
-			// chair.setHand(0);
 			chair.setHands(0);
-			// chair.setWinner(false);
 			chair.setAddedBet(0);
 		}
 	}
@@ -291,15 +272,15 @@ public class PokerGame implements GameRules, Runnable {
 		// ラウンド1ならデックからコミュニティカードに3枚出す。
 		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
 		// ラウンド4なら何もしない。
-		if (round == 1) {
+		if (round == Table.FLOP) {
 			for (int i = 0; i < 3; i++) {
 				int card = table.popDeck();
 				table.pushCommunityCards(card);
 			}
-		} else if (round == 2 || round == 3) {
+		} else if (round == Table.TURN || round == Table.RIVER) {
 			int card = table.popDeck();
 			table.pushCommunityCards(card);
-		} else if (round == 4) {
+		} else if (round == Table.SHOWDOWN) {
 		}
 	}
 
@@ -325,8 +306,9 @@ public class PokerGame implements GameRules, Runnable {
 	/**
 	 * 利益の分配。
 	 */
-	private void divisionProfit() {
+	private void divideProfit() {
 
+		DivideSolver solver = new DivideSolver(this);
 		int maxAddedBet = 0;
 		int sumWinner = 0;
 		int max = 0;
@@ -335,14 +317,19 @@ public class PokerGame implements GameRules, Runnable {
 		int[] handrolls = new int[chairSize];
 		boolean[] winners = new boolean[chairSize];
 
-		handrolls = solveHandrolls();
-		max = solveMaxHandroll(handrolls);
-		winners = solveWinner(max, handrolls);
-		sumWinner = solveSumWinnersBet(winners);
-		maxAddedBet = solveMaxAddedBet(winners);
-		pot = backOverRaise(maxAddedBet, winners);
-		solveProfit(pot, sumWinner, winners);
+		handrolls = solver.solveHandrolls();
+		max = solver.solveMaxHandroll(handrolls);
+		winners = solver.solveWinner(max, handrolls);
+		sumWinner = solver.solveSumWinnersBet(winners);
+		maxAddedBet = solver.solveMaxAddedBet(winners);
+		
+		pot = solver.backOverRaise(maxAddedBet, winners);
+		solver.divideProfit(pot, sumWinner, winners);
 
+		logger.playersHandsStatus();
+		logger.playersHandRollStatus(handrolls);
+		logger.playersBankrollStatus();
+		
 	}
 
 	private void finalize(int status) {
@@ -379,7 +366,7 @@ public class PokerGame implements GameRules, Runnable {
 	}
 
 	private boolean isFinal() {
-		if (table.getRound() == 4) {
+		if (table.getRound() == Table.SHOWDOWN) {
 			return true;
 		}
 
@@ -462,117 +449,6 @@ public class PokerGame implements GameRules, Runnable {
 		table.setDeck(bufDeck);
 	}
 
-	private int[] solveHandrolls() {
-		int handroll = 0;
-		// int max = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		int[] handrolls = new int[chairs.size()];
-
-		// 最大ハンドを計算。
-		for (int i = 0; i < chairs.size(); i++) {
-			// ハンドを取得
-			Chair chair = chairs.get(i);
-			int hands = chair.getHands();
-			handroll = 0;
-			int[] comcard = table.getCommunityCards();
-			// 役の強さを計算。
-			if (!chair.isFold()) {
-				handroll = HandChecker.checkHand(hands, comcard);
-			}
-
-			handrolls[i] = handroll;
-
-			/*
-			 * chair.setHand(hand); // 最大ハンドより大きければ、 if (handroll >= max) { max
-			 * = handroll; }
-			 */
-			/***************/
-			view.playerHands(i);
-			/***************/
-
-		}
-		return handrolls;
-	}
-
-	private int solveMaxAddedBet(boolean[] winners) {
-		int maxAddedBet = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = table.chairSize();
-		// 勝者の掛け金の最大を計算。
-		for (int i = 0; i < chairSize; i++) {
-			Chair chair = chairs.get(i);
-			if (winners[i]) {
-				int x = chair.getAddedBet();
-				if (x > maxAddedBet) {
-					maxAddedBet = x;
-				}
-			}
-		}
-		return maxAddedBet;
-	}
-
-	private int solveMaxHandroll(int[] handrolls) {
-		int max = 0;
-
-		// 最大ハンドを計算
-		for (int i = 0; i < handrolls.length; i++) {
-			// 最大ハンドより大きければ、
-			if (handrolls[i] >= max) {
-				max = handrolls[i];
-			}
-		}
-		return max;
-	}
-
-	private void solveProfit(int pot, int sumWinner, boolean[] winners) {
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = chairs.size();
-		// 勝者に利益を配分。
-		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
-		for (int i = 0; i < chairSize; i++) {
-			Chair chair = chairs.get(i);
-			if (winners[i]) {
-				int x = chair.getAddedBet();
-				int profit = (x * pot) / sumWinner;
-				chair.profit(profit);
-			}
-			/*****/
-			view.playerBankroll(i);
-			/*****/
-		}
-	}
-
-	private int solveSumWinnersBet(boolean[] winners) {
-		int sumWinner = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = chairs.size();
-		for (int i = 0; i < chairSize; i++) {
-			if (winners[i]) {
-				sumWinner += chairs.get(i).getAddedBet();
-			}
-		}
-		return sumWinner;
-	}
-
-	private boolean[] solveWinner(int max, int[] handRoll) {
-		// int sumWinner = 0;
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = chairs.size();
-		// 勝者を決定。
-		boolean[] winner = new boolean[chairSize];
-		for (int i = 0; i < winner.length; i++) {
-			// if (chair.getHand() == max) {
-			// chair.setWinner(true);
-			if (handRoll[i] == max) {
-				winner[i] = true;
-				// sumWinner += chair.getAddedBet();
-			} else {
-				winner[i] = false;
-			}
-		}
-		return winner;
-		// return sumWinner;
-	}
 
 	private void tableInit() {
 		int[] comcard = new int[5];
