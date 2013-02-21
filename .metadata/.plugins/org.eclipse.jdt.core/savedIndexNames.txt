@@ -14,6 +14,9 @@ INDEX VERSION 1.126+/home/john/SimplePoker/.metadata/.plugins/org.eclipse.jdt.co
 2913048097.index
 1453598739.index
 1279675953.index
+<<<<<<< HEAD
+>>>>>>> parent of 65951b9... update
+=======
 >>>>>>> parent of 65951b9... update
 3703194086.index
 248439285.index

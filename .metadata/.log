@@ -993,6 +993,7 @@ org.osgi.service.prefs.BackingStoreException: 設定のロード中に例外が�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.jdt.core 4 4 2013-02-22 05:11:31.878
 !MESSAGE JavaBuilder handling CoreException
@@ -1637,5 +1638,7 @@ java.io.FileNotFoundException: /home/john/SimplePoker/poker_project/bin/src/edu/
 !MESSAGE 保管操作の警告。
 !SUBENTRY 1 org.eclipse.core.resources 2 234 2013-02-22 05:13:00.446
 !MESSAGE 'poker_project' のプロジェクト記述ファイル (.project) がありませんでした。 このファイルには、プロジェクトに関する重要な情報が含まれています。 新しいプロジェクト記述ファイルが作成されましたが、プロジェクトに関する情報の一部が破損している可能性があります。
+=======
+>>>>>>> parent of 65951b9... update
 =======
 >>>>>>> parent of 65951b9... update
