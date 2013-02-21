@@ -1642,3 +1642,13 @@ java.io.FileNotFoundException: /home/john/SimplePoker/poker_project/bin/src/edu/
 >>>>>>> parent of 65951b9... update
 =======
 >>>>>>> parent of 65951b9... update
+
+!ENTRY org.eclipse.ui.ide 4 4 2013-02-22 05:24:40.062
+!MESSAGE 選択されたリソースをリフレッシュ中に問題が発生しました。
+!SUBENTRY 1 org.eclipse.core.resources 4 567 2013-02-22 05:24:40.063
+!MESSAGE 'poker_project' のプロジェクト記述ファイル (.project) がありません。 このファイルには、プロジェクトに関する重要な情報が含まれています。 このファイルが復元されるまで、プロジェクトは正しく機能しません。
+
+!ENTRY org.eclipse.core.resources 2 2 2013-02-22 05:24:40.121
+!MESSAGE 保管操作の警告。
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2013-02-22 05:24:40.121
+!MESSAGE 'poker_project' のプロジェクト記述ファイル (.project) がありませんでした。 このファイルには、プロジェクトに関する重要な情報が含まれています。 新しいプロジェクト記述ファイルが作成されましたが、プロジェクトに関する情報の一部が破損している可能性があります。
