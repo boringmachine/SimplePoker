@@ -1,0 +1,15 @@
+package edu.kcg.Poker.Table;
+
+import java.util.ArrayList;
+
+public class PlayersManageData {
+	private ArrayList<Chair> chairs;
+	private int currentPlayer;
+	private int dealer;
+	
+	public PlayersManageData(){
+		chairs = new ArrayList<Chair>();
+		currentPlayer = 0;
+		dealer = 0;
+	}
+}

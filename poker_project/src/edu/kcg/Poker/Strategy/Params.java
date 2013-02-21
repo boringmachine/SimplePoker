@@ -18,17 +18,17 @@ public class Params {
 	private int pot;
 	private int round;
 
-	public Params(Table table, int chairIndex) {
+	public Params(Table table, int chairIndex) {		
 		this.chairIndex = chairIndex;
-		this.hands = table.getChairs().get(chairIndex).getHands();
-		this.anty = table.getAnty();
-		this.limit = table.getLimit();
-		this.maxRaise = table.getMaxRaise();
-		this.pot = table.getPot();
-		this.round = table.getRound();
+		this.hands = table.getPlayerManager().getChairs().get(chairIndex).getHands();
+		this.anty = table.getChipManager().getAnty();
+		this.limit = table.getChipManager().getLimit();
+		this.maxRaise = table.getChipManager().getMaxRaise();
+		this.pot = table.getChipManager().getPot();
+		this.round = table.getPhaseManager().getRound();
 		this.setCommunityCards(table);
-		this.setBankrolls(table.getChairs());
-		this.setLastPlays(table.getChairs());
+		this.setBankrolls(table.getPlayerManager().getChairs());
+		this.setLastPlays(table.getPlayerManager().getChairs());
 	}
 
 	public int getAnty() {
@@ -85,7 +85,7 @@ public class Params {
 	}
 
 	public void setCommunityCards(Table table) {
-		int[] cards = table.getCommunityCards();
+		int[] cards = table.getCardManager().getCommunityCards();
 		this.communityCards = new int[5];
 		for (int i = 0; i < cards.length; i++) {
 			this.communityCards[i] = cards[i];

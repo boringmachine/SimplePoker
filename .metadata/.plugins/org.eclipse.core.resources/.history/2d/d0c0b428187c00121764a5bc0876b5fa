@@ -1,0 +1,14 @@
+package edu.kcg.Poker.Table;
+
+public class CardsManageData {
+	
+	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
+	
+	//community card	
+	private int[] communityCards = new int[5];
+	private int communityCardsIndex;
+	
+	//Deck
+	private int[] deck = new int[52];
+	private int deckIndex;
+}

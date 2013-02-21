@@ -1,0 +1,16 @@
+package edu.kcg.Poker.Table.DataManager;
+
+import edu.kcg.Poker.Table.DataManager.Interface.CardsManagerInterface;
+import edu.kcg.Poker.Table.DataManager.Interface.ChipsManagerInterFace;
+import edu.kcg.Poker.Table.DataManager.Interface.PhasesManagerInterface;
+import edu.kcg.Poker.Table.DataManager.Interface.PlayersManagerInterface;
+
+abstract public class AdaptManager 
+implements 
+	CardsManagerInterface,
+	ChipsManagerInterFace,
+	PhasesManagerInterface,
+	PlayersManagerInterface
+{
+
+}

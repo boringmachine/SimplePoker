@@ -1,0 +1,157 @@
+package edu.kcg.Poker;
+
+import java.util.ArrayList;
+
+import edu.kcg.Poker.Client.Player;
+import edu.kcg.Poker.Strategy.Params;
+
+/**
+ * ゲームに使用するデータを持つクラス.
+ * 
+ * @author Shun.S
+ */
+public class Table {
+	private int tableId;
+	private static int lastId = 0;
+	private PhasesDataManager phaseManager;
+	private PlayersDataManager playerManager;
+	private ChipsDataManager chipManager;
+	private CardsDataManager cardManager;
+	
+	public Table() {
+		tableId = lastId++;
+		phaseManager = new PhasesDataManager();
+		playerManager = new PlayersDataManager();
+		chipManager = new ChipsDataManager();
+		cardManager = new CardsDataManager();
+	}
+
+	public void addChair(Player player) {
+		playerManager.addChair(player);
+	}
+
+	public void addPot(int chip) {
+		chipManager.addPot(chip);
+	}
+
+	public int chairSize() {
+		return playerManager.chairSize();
+	}
+
+	public int getAnty() {
+		return chipManager.getAnty();
+	}
+
+	public ArrayList<Chair> getChairs() {
+		return playerManager.getChairs();
+	}
+
+	public int[] getCommunityCards() {
+		return cardManager.getCommunityCards();
+	}
+
+	public int getCommunityCardsIndex() {
+		return cardManager.getCommunityCardsIndex();
+	}
+
+	public int getCurrentPhase() {
+		return phaseManager.getCurrentPhase();
+	}
+
+	public int getCurrentPlayer() {
+		return playerManager.getCurrentPlayer();
+	}
+
+	public int getDealer() {
+		return playerManager.getDealer();
+	}
+
+	public int getDeckIndex() {
+		return cardManager.getDeckIndex();
+	}
+
+	public int getLimit() {
+		return chipManager.getLimit();
+	}
+
+	public int getMaxRaise() {
+		return chipManager.getMaxRaise();
+	}
+
+	public int getPot() {
+		return chipManager.getPot();
+	}
+
+	public int getRound() {
+		return phaseManager.getRound();
+	}
+
+	public int getTableId() {
+		return tableId;
+	}
+
+	/**
+	 * プレイヤーが参照できるパラメータを取得する.
+	 * 
+	 * @return
+	 */
+	public Params packParams(int index) {
+		return new Params(this, index);
+	}
+
+	public int popDeck() {
+		return cardManager.popDeck();
+	}
+
+	public void pushCommunityCards(int card) {
+		cardManager.pushCommunityCards(card);
+	}
+
+	public void setAnty(int anty) {
+		manager
+	}
+
+	public void setCommunityCards(int[] communityCards) {
+		this.communityCards = communityCards;
+	}
+
+	public void setCommunityCardsIndex(int communityCardsIndex) {
+		this.communityCardsIndex = communityCardsIndex;
+	}
+
+	public void setCurrentPhase(int currentPhase) {
+		this.currentPhase = currentPhase;
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public void setDealer(int dealer) {
+		this.dealer = dealer;
+	}
+
+	public void setDeck(int[] deck) {
+		this.deck = deck;
+	}
+
+	public void setDeckIndex(int deckIndex) {
+		this.deckIndex = deckIndex;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public void setMaxRaise(int maxBet) {
+		this.maxRaise = maxBet;
+	}
+
+	public void setPot(int pot) {
+		this.pot = pot;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+}

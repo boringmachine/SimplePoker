@@ -7,16 +7,20 @@ import edu.kcg.Poker.Common.HandChecker;
 import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
 import edu.kcg.Poker.Table.DataManager.CardsManager;
+import edu.kcg.Poker.Table.DataManager.ChipsManager;
 
 public class DefaultPokerLogger extends PokerGameLogger {
 
+	ArrayList<Chair> chairs;
+	
 	public DefaultPokerLogger(Table table) {
 		super(table);
+		chairs = table.getPlayerManager().getChairs();
 	}
 
 	@Override
 	public void communityCardStatus() {
-		for (int card : table.getCommunityCards()) {
+		for (int card : table.getCardManager().getCommunityCards()) {
 			if (card == -1) {
 				System.out.print("[]");
 			} else {
@@ -30,7 +34,7 @@ public class DefaultPokerLogger extends PokerGameLogger {
 	
 	@Override
 	public void lastPlayStatus(int index) {
-		Chair chair = table.getChairs().get(index);
+		Chair chair = chairs.get(index);
 		int lastplay = chair.getLastPlay();
 		String stringLastPlay = String.valueOf(lastplay);
 		if (chair.isFold()) {
@@ -72,8 +76,7 @@ public class DefaultPokerLogger extends PokerGameLogger {
 	
 	@Override
 	public void playersBankrollStatus() {
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = table.chairSize();
+		int chairSize = chairs.size();
 		for(int i=0;i<chairSize;i++){
 			Chair chair = chairs.get(i);
 			System.out.println(i 
@@ -83,8 +86,7 @@ public class DefaultPokerLogger extends PokerGameLogger {
 
 	@Override
 	public void playersHandsStatus() {
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = table.chairSize();
+		int chairSize = chairs.size();
 		for(int i=0 ; i<chairSize;i++){
 			Chair chair = chairs.get(i);
 			int hands = chair.getHands();
@@ -105,15 +107,16 @@ public class DefaultPokerLogger extends PokerGameLogger {
 
 	@Override
 	public void playerStatus(int index) {
-		Chair chair = table.getChairs().get(index);
+		ChipsManager chipManager = table.getChipManager();
+		Chair chair = chairs.get(index);
 		int hands = chair.getHands();
 		int hand_l = (hands & HandChecker.HAND_L) >> 6;
 		int hand_r = (hands & HandChecker.HAND_R);
 		System.out.println(" " 
-			+ Messages.getString("PokerGame.POT")        + table.getPot()          + ","
-			+ Messages.getString("PokerGame.MAX_BET")    + table.getMaxRaise()     + "," 
-			+ Messages.getString("PokerGame.TOTAL_BET")  + chair.getAddedBet()     + ","
-			+ Messages.getString("PokerGame.CUR_BET")    + chair.getCurrentRaise() + "\n "
+			+ Messages.getString("PokerGame.POT")        + chipManager.getPot()      + ","
+			+ Messages.getString("PokerGame.MAX_BET")    + chipManager.getMaxRaise() + "," 
+			+ Messages.getString("PokerGame.TOTAL_BET")  + chair.getAddedBet()       + ","
+			+ Messages.getString("PokerGame.CUR_BET")    + chair.getCurrentRaise()   + "\n "
 			+ Messages.getString("PokerGame.YOUR_HANDS")
 			+ "[" + (hand_l % 13 + 1) + ":" + CardsManager.MARK[hand_l / 13] + "]" 
 			+ "[" + (hand_r % 13 + 1) + ":" + CardsManager.MARK[hand_r / 13] + "]");

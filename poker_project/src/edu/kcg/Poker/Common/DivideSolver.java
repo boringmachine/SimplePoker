@@ -2,22 +2,22 @@ package edu.kcg.Poker.Common;
 
 import java.util.ArrayList;
 
-import edu.kcg.Poker.PokerGame;
 import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
 
 public class DivideSolver {
 
-	private PokerGame game;
+	private ArrayList<Chair> chairs;
+	private int pot;
+	private int[] communityCards;
 
-	public DivideSolver(PokerGame game) {
-		this.game = game;
+	public DivideSolver(Table table) {
+		this.chairs = table.getPlayerManager().getChairs();
+		this.pot = table.getChipManager().getPot();
+		this.communityCards = table.getCardManager().getCommunityCards();
 	}
 
 	public int backOverRaise(int maxAddedBet, boolean[] winners) {
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
-		int pot = table.getPot();
 		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
 		for (int i = 0; i < chairs.size(); i++) {
 			Chair chair = chairs.get(i);
@@ -34,8 +34,6 @@ public class DivideSolver {
 	}
 
 	public void divideProfit(int pot, int sumWinner, boolean[] winners) {
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
 		int chairSize = chairs.size();
 		// 勝者に利益を配分。
 		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
@@ -51,8 +49,6 @@ public class DivideSolver {
 
 	public int[] solveHandrolls() {
 		int handroll = 0;
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
 		int[] handrolls = new int[chairs.size()];
 
 		// 最大ハンドを計算。
@@ -61,10 +57,9 @@ public class DivideSolver {
 			Chair chair = chairs.get(i);
 			int hands = chair.getHands();
 			handroll = 0;
-			int[] comcard = table.getCommunityCards();
 			// 役の強さを計算。
 			if (!chair.isFold()) {
-				handroll = HandChecker.checkHand(hands, comcard);
+				handroll = HandChecker.checkHand(hands, communityCards);
 			}
 
 			handrolls[i] = handroll;
@@ -74,9 +69,7 @@ public class DivideSolver {
 
 	public int solveMaxAddedBet(boolean[] winners) {
 		int maxAddedBet = 0;
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
-		int chairSize = table.chairSize();
+		int chairSize = chairs.size();
 		// 勝者の掛け金の最大を計算。
 		for (int i = 0; i < chairSize; i++) {
 			Chair chair = chairs.get(i);
@@ -105,8 +98,6 @@ public class DivideSolver {
 
 	public int solveSumWinnersBet(boolean[] winners) {
 		int sumWinner = 0;
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
 		int chairSize = chairs.size();
 		for (int i = 0; i < chairSize; i++) {
 			if (winners[i]) {
@@ -117,8 +108,6 @@ public class DivideSolver {
 	}
 
 	public boolean[] solveWinner(int max, int[] handRoll) {
-		Table table = game.getTable();
-		ArrayList<Chair> chairs = table.getChairs();
 		int chairSize = chairs.size();
 		boolean[] winner = new boolean[chairSize];
 		for (int i = 0; i < winner.length; i++) {

@@ -1,0 +1,93 @@
+package edu.kcg.Poker.Table;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+import edu.kcg.Poker.Client.Player;
+import edu.kcg.Poker.Strategy.Params;
+import edu.kcg.Poker.Table.DataManager.AdaptManager;
+import edu.kcg.Poker.Table.DataManager.CardsManager;
+import edu.kcg.Poker.Table.DataManager.ChipsManager;
+import edu.kcg.Poker.Table.DataManager.PhasesManager;
+import edu.kcg.Poker.Table.DataManager.PlayersManager;
+
+/**
+ * ゲームに使用するデータを持つクラス.
+ * 
+ * @author Shun.S
+ */
+public class Table extends AdaptManager {
+	private static int lastId = 0;
+	private CardsManager cardManager;
+	private ChipsManager chipManager;
+	private PhasesManager phaseManager;
+	private PlayersManager playerManager;
+	private int tableId;
+
+	public Table() {
+		tableId = lastId++;
+		phaseManager = new PhasesManager();
+		playerManager = new PlayersManager();
+		chipManager = new ChipsManager();
+		cardManager = new CardsManager();
+	}
+
+	public void addChair(Player player) {
+		playerManager.addChair(player);
+	}
+	
+	public void addPot(int chip) {
+		chipManager.addPot(chip);
+	}
+	
+
+	public Object get(String fieldName,String methodName){
+		try {
+		    Field field = this.getClass().getDeclaredField(fieldName);
+			String mname = "get" + methodName;
+		    Method method = field.getClass().getMethod(mname);
+			Object result = method.invoke(field);
+			return result;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void set(String fieldName,String methodName,Object param){
+		try {
+		    Field field = this.getClass().getDeclaredField(fieldName);
+			String mname = "set" + methodName;
+		    Method method = field.getClass().getMethod(mname,new Class[]{});
+			method.invoke(field,param);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public int getRound() {
+		return phaseManager.getRound();
+	}
+
+	public int getTableId() {
+		return tableId;
+	}
+
+	/**
+	 * プレイヤーが参照できるパラメータを取得する.
+	 * 
+	 * @return
+	 */
+	public Params packParams(int index) {
+		return new Params(this, index);
+	}
+
+	public int popDeck() {
+		return cardManager.popDeck();
+	}
+
+	public void pushCommunityCards(int card) {
+		cardManager.pushCommunityCards(card);
+	}
+}

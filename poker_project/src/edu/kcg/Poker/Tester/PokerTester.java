@@ -23,8 +23,8 @@ public class PokerTester {
 		// Thread thread = new Thread(game);
 
 		Table table = game.getTable();
-		table.setAnty(10);
-		table.setLimit(1000);
+		table.getChipManager().setAnty(10);
+		table.getChipManager().setLimit(1000);
 
 		for (Player player : players) {
 			player = new Player();
