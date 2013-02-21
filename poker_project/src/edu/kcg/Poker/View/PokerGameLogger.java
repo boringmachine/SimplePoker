@@ -1,6 +1,6 @@
 package edu.kcg.Poker.View;
 
-import edu.kcg.Poker.Table;
+import edu.kcg.Poker.Table.Table;
 
 abstract public class PokerGameLogger {
 

@@ -1,10 +1,10 @@
 package edu.kcg.Poker.Tester;
 
-import edu.kcg.Poker.Player;
 import edu.kcg.Poker.PokerGame;
-import edu.kcg.Poker.Table;
+import edu.kcg.Poker.Client.Player;
 import edu.kcg.Poker.Factory.GameFactory;
 import edu.kcg.Poker.Strategy.HumanPlayerStdIn;
+import edu.kcg.Poker.Table.Table;
 
 /**
  * ポーカー全体のテスター.

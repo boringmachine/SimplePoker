@@ -2,9 +2,9 @@ package edu.kcg.Poker.Common;
 
 import java.util.ArrayList;
 
-import edu.kcg.Poker.Chair;
 import edu.kcg.Poker.PokerGame;
-import edu.kcg.Poker.Table;
+import edu.kcg.Poker.Table.Chair;
+import edu.kcg.Poker.Table.Table;
 
 public class DivideSolver {
 	

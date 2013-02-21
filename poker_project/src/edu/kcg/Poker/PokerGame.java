@@ -3,8 +3,12 @@ package edu.kcg.Poker;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import edu.kcg.Poker.Client.Player;
 import edu.kcg.Poker.Common.DivideSolver;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
+import edu.kcg.Poker.Table.Chair;
+import edu.kcg.Poker.Table.Table;
+import edu.kcg.Poker.Table.DataManager.PhasesManager;
 import edu.kcg.Poker.View.DefaultPokerLogger;
 import edu.kcg.Poker.View.PokerGameLogger;
 
@@ -220,7 +224,6 @@ public class PokerGame implements GameRules, Runnable {
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
-//			chair.setFold(false);
 			chair.setHands(0);
 			chair.setAddedBet(0);
 		}
@@ -229,7 +232,7 @@ public class PokerGame implements GameRules, Runnable {
 	private int countAllin() {
 		int count = 0;
 		for (Chair chair : this.table.getChairs()) {
-			if (chair.isAllin()/* isallin */) {
+			if (chair.isAllin()) {
 				count++;
 			}
 		}
@@ -267,12 +270,12 @@ public class PokerGame implements GameRules, Runnable {
 		// ラウンド1ならデックからコミュニティカードに3枚出す。
 		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
 		// ラウンド4なら何もしない。
-		if (round == Table.FLOP) {
+		if (round == PhasesManager.FLOP) {
 			for (int i = 0; i < 3; i++) {
 				int card = table.popDeck();
 				table.pushCommunityCards(card);
 			}
-		} else if (round == Table.TURN || round == Table.RIVER) {
+		} else if (round == PhasesManager.TURN || round == PhasesManager.RIVER) {
 			int card = table.popDeck();
 			table.pushCommunityCards(card);
 		} else if (round == Table.SHOWDOWN) {

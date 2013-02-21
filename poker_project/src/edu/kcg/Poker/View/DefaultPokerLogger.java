@@ -2,10 +2,11 @@ package edu.kcg.Poker.View;
 
 import java.util.ArrayList;
 
-import edu.kcg.Poker.Chair;
 import edu.kcg.Poker.GameRules;
-import edu.kcg.Poker.Table;
 import edu.kcg.Poker.Common.HandChecker;
+import edu.kcg.Poker.Table.Chair;
+import edu.kcg.Poker.Table.Table;
+import edu.kcg.Poker.Table.DataManager.CardsManager;
 
 public class DefaultPokerLogger extends PokerGameLogger {
 
@@ -20,7 +21,7 @@ public class DefaultPokerLogger extends PokerGameLogger {
 				System.out.print("[]");
 			} else {
 				System.out.print(
-					"["	+ (card % 13 + 1) + ":"	+ Table.MARK[card / 13] + "]");
+					"["	+ (card % 13 + 1) + ":"	+ CardsManager.MARK[card / 13] + "]");
 			}
 		}
 		System.out.println();
@@ -93,9 +94,9 @@ public class DefaultPokerLogger extends PokerGameLogger {
 			int handr = (hands & HandChecker.HAND_R);
 			// それぞれ数字とマークに分解。
 			int handln = handl % 13 + 1;
-			char handlm = Table.MARK[handl / 13];
+			char handlm = CardsManager.MARK[handl / 13];
 			int handrn = handr % 13 + 1;
-			char handrm = Table.MARK[handr / 13];
+			char handrm = CardsManager.MARK[handr / 13];
 			System.out.println(i + ":" 
 					+ "[" + handln + ":" + handlm + "]"
 					+ "[" + handrn + ":" + handrm + "]");
@@ -114,8 +115,8 @@ public class DefaultPokerLogger extends PokerGameLogger {
 			+ Messages.getString("PokerGame.TOTAL_BET")  + chair.getAddedBet()     + ","
 			+ Messages.getString("PokerGame.CUR_BET")    + chair.getCurrentRaise() + "\n "
 			+ Messages.getString("PokerGame.YOUR_HANDS")
-			+ "[" + (hand_l % 13 + 1) + ":" + Table.MARK[hand_l / 13] + "]" 
-			+ "[" + (hand_r % 13 + 1) + ":" + Table.MARK[hand_r / 13] + "]");
+			+ "[" + (hand_l % 13 + 1) + ":" + CardsManager.MARK[hand_l / 13] + "]" 
+			+ "[" + (hand_r % 13 + 1) + ":" + CardsManager.MARK[hand_r / 13] + "]");
 	}
 
 	@Override
