@@ -156,10 +156,6 @@ public class PokerGame implements GameRules, Runnable {
 		Chair chair = table.getChairs().get(index);
 		int pastBankroll = chair.getBankroll();
 
-		if (pastBankroll == 0) {
-			chair.setAllin(true);
-		}
-
 		/******************/
 		logger.playerStatus(index);
 		/******************/
@@ -224,7 +220,6 @@ public class PokerGame implements GameRules, Runnable {
 	private void chairsInit() {
 		for (Chair chair : table.getChairs()) {
 			chair.setLastPlay(0);
-			chair.setAllin(false);
 			chair.setFold(false);
 			chair.setHands(0);
 			chair.setAddedBet(0);

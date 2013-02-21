@@ -11,16 +11,12 @@ public class Chair {
 	public static final int HANDBITMASK_R = 0xFC0;
 
 	private int addedRaise;
-	private boolean allin;
 	private int bankroll;
 	private int currentRaise;
 	private boolean fold;
-	// private int hand;
 	private int hands;
 	private int lastPlay;
 	private Player player;
-
-	// private boolean winner;
 
 	public Chair(Player player) {
 		this.player = player;
@@ -29,8 +25,6 @@ public class Chair {
 		currentRaise = 0;
 		bankroll = 1000;
 		fold = false;
-		allin = false;
-		// winner = false;
 	}
 
 	public int choice(int maxBet, int limit) {
@@ -45,7 +39,6 @@ public class Chair {
 			int bet = maxBet + option - this.currentRaise;
 			if (bankroll - bet < 0) {
 				bet = bankroll;
-				setAllin(true);
 			}
 			if (bet > limit) {
 				bet = limit;
@@ -71,9 +64,6 @@ public class Chair {
 		return currentRaise;
 	}
 
-	/*
-	 * public int getHand() { return hand; }
-	 */
 	public int getHands() {
 		return hands;
 	}
@@ -87,16 +77,13 @@ public class Chair {
 	}
 
 	public boolean isAllin() {
-		return allin;
+		return bankroll==0;
 	}
 
 	public boolean isFold() {
 		return fold;
 	}
 
-	/*
-	 * public boolean isWinner() { return winner; }
-	 */
 	public void payAnty(int x) {
 		this.setLastPlay(x);
 		this.addedRaise += x;
@@ -112,10 +99,6 @@ public class Chair {
 		this.addedRaise = addedBet;
 	}
 
-	public void setAllin(boolean allin) {
-		this.allin = allin;
-	}
-
 	public void setCurrentRaise(int currentRaise) {
 		this.currentRaise = currentRaise;
 	}
@@ -124,9 +107,6 @@ public class Chair {
 		this.fold = fold;
 	}
 
-	/*
-	 * public void setHand(int hand) { this.hand = hand; }
-	 */
 	public void setHands(int hands) {
 		this.hands = hands;
 	}
@@ -138,7 +118,5 @@ public class Chair {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	/*
-	 * public void setWinner(boolean winner) { this.winner = winner; }
-	 */
+
 }
