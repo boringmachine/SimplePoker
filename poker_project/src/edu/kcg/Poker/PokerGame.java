@@ -5,12 +5,12 @@ import java.util.Vector;
 
 import edu.kcg.Poker.Client.Player;
 import edu.kcg.Poker.Common.DivideSolver;
+import edu.kcg.Poker.Logger.DefaultPokerLogger;
+import edu.kcg.Poker.Logger.PokerGameLogger;
 import edu.kcg.Poker.Strategy.AdaptStrategy;
 import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
 import edu.kcg.Poker.Table.DataManager.PhasesManager;
-import edu.kcg.Poker.View.DefaultPokerLogger;
-import edu.kcg.Poker.View.PokerGameLogger;
 
 /**
  * テーブルのデータを処理し、ゲームを定義するクラス.

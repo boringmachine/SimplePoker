@@ -3,7 +3,7 @@ package edu.kcg.Poker.Factory;
 import java.util.Vector;
 
 import edu.kcg.Poker.PokerGame;
-import edu.kcg.Poker.View.PokerGameLogger;
+import edu.kcg.Poker.Logger.PokerGameLogger;
 
 public class GameFactory {
 
