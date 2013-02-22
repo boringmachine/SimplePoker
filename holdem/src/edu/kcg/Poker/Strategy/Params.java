@@ -18,9 +18,10 @@ public class Params {
 	private int pot;
 	private int round;
 
-	public Params(Table table, int chairIndex) {		
+	public Params(Table table, int chairIndex) {
 		this.chairIndex = chairIndex;
-		this.hands = table.getPlayerManager().getChairs().get(chairIndex).getHands();
+		this.hands = table.getPlayerManager().getChairs().get(chairIndex)
+				.getHands();
 		this.anty = table.getChipManager().getAnty();
 		this.limit = table.getChipManager().getLimit();
 		this.maxRaise = table.getChipManager().getMaxRaise();

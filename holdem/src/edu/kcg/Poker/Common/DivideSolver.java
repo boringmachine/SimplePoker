@@ -8,8 +8,8 @@ import edu.kcg.Poker.Table.Table;
 public class DivideSolver {
 
 	private ArrayList<Chair> chairs;
-	private int pot;
 	private int[] communityCards;
+	private int pot;
 
 	public DivideSolver(Table table) {
 		this.chairs = table.getPlayerManager().getChairs();
@@ -31,6 +31,32 @@ public class DivideSolver {
 			}
 		}
 		return pot;
+	}
+
+	/**
+	 * 利益の分配。
+	 */
+	public void divideProfit() {
+		int maxAddedBet = 0;
+		int sumWinner = 0;
+		int max = 0;
+		int pot = 0;
+		int chairSize = chairs.size();
+		int[] handrolls = new int[chairSize];
+		boolean[] winners = new boolean[chairSize];
+
+		handrolls = this.solveHandrolls();
+		max = this.solveMaxHandroll(handrolls);
+		winners = this.solveWinner(max, handrolls);
+		sumWinner = this.solveSumWinnersBet(winners);
+		maxAddedBet = this.solveMaxAddedBet(winners);
+
+		pot = this.backOverRaise(maxAddedBet, winners);
+		this.divideProfit(pot, sumWinner, winners);
+
+		// logger.playersHandsStatus();
+		// logger.playersHandRollStatus(handrolls);
+		// logger.playersBankrollStatus();
 	}
 
 	public void divideProfit(int pot, int sumWinner, boolean[] winners) {

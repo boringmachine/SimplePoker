@@ -12,7 +12,7 @@ import edu.kcg.Poker.Table.DataManager.PlayersManager;
  * @author Shun.S
  */
 public class Table {
-	
+
 	private static int lastId = 0;
 	private CardsManager cardManager;
 	private ChipsManager chipManager;
@@ -22,10 +22,10 @@ public class Table {
 
 	public Table() {
 		tableId = lastId++;
-		phaseManager = new PhasesManager();
-		playerManager = new PlayersManager();
-		chipManager = new ChipsManager();
-		cardManager = new CardsManager();
+		phaseManager = new PhasesManager(this);
+		playerManager = new PlayersManager(this);
+		chipManager = new ChipsManager(this);
+		cardManager = new CardsManager(this);
 	}
 
 	public CardsManager getCardManager() {

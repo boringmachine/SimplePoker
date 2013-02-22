@@ -1,24 +1,68 @@
 package edu.kcg.Poker.Table.DataManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CardsManager{
+import edu.kcg.Poker.Table.Chair;
+import edu.kcg.Poker.Table.Table;
+
+public class CardsManager {
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
 
 	// community card
 	private int[] communityCards = new int[5];
-	private int communityCardsIndex;
 
+	private int communityCardsIndex;
 	// Deck
 	private int[] deck = new int[52];
-	private int deckIndex;
 
-	public CardsManager() {
+	private int deckIndex;
+	private Table table;
+
+	public CardsManager(Table table) {
+		this.table = table;
+		
 		communityCardsIndex = 0;
 		Arrays.fill(communityCards, -1);
 
 		deckIndex = 0;
 		Arrays.fill(deck, 0);
+	}
+
+	/**
+	 * カードを配る。
+	 */
+	public void deal() {
+		PlayersManager playerManage = table.getPlayerManager();
+		ArrayList<Chair> chairs = playerManage.getChairs();
+
+		for (Chair chair : chairs) {
+			int cardLeft = this.popDeck() << 6;
+			int cardRight = this.popDeck();
+			int hands = (cardLeft | cardRight);
+			chair.setHands(hands);
+		}
+	}
+
+	/**
+	 * コミュニティカードを配る。
+	 * 
+	 * @param round
+	 */
+	public void dealCommunityCard(int round) {
+		// ラウンド1ならデックからコミュニティカードに3枚出す。
+		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
+		// ラウンド4なら何もしない。
+		if (round == PhasesManager.FLOP) {
+			for (int i = 0; i < 3; i++) {
+				int card = this.popDeck();
+				this.pushCommunityCards(card);
+			}
+		} else if (round == PhasesManager.TURN || round == PhasesManager.RIVER) {
+			int card = this.popDeck();
+			this.pushCommunityCards(card);
+		} else if (round == PhasesManager.SHOWDOWN) {
+		}
 	}
 
 	public int[] getCommunityCards() {
@@ -55,6 +99,25 @@ public class CardsManager{
 
 	public void setDeckIndex(int deckIndex) {
 		this.deckIndex = deckIndex;
+	}
+
+	/**
+	 * デックをシャッフル
+	 */
+	public void shuffle() {
+		int[] bufDeck = new int[52];
+		for (int i = 0; i < bufDeck.length; i++) {
+			bufDeck[i] = i;
+		}
+
+		for (int i = bufDeck.length - 1; i > 0; i--) {
+			int t = (int) (Math.random() * i);
+			int tmp = bufDeck[i];
+			bufDeck[i] = bufDeck[t];
+			bufDeck[t] = tmp;
+		}
+
+		this.setDeck(bufDeck);
 	}
 
 }
