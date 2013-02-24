@@ -8,18 +8,77 @@ import edu.kcg.Poker.Table.Table;
 import edu.kcg.Poker.Table.DataManager.CardsManager;
 import edu.kcg.Poker.Table.DataManager.ChipsManager;
 import edu.kcg.Poker.Table.DataManager.PhasesManager;
+import edu.kcg.Poker.Table.DataManager.PlayersManager;
 
 public class DefaultPokerLogger extends PokerGameLogger {
 
-	ArrayList<Chair> chairs;
-
 	public DefaultPokerLogger(Table table) {
 		super(table);
-		chairs = table.getPlayerManager().getChairs();
 	}
 
 	@Override
-	public void communityCardStatus() {
+	public void afterChance() {
+		this.communityCardStatus();
+	}
+
+	@Override
+	public void afterFinal() {
+		this.playersHandsStatus();
+		this.playersBankrollStatus();
+	}
+
+	@Override
+	public void afterFirst() {
+
+	}
+
+	@Override
+	public void afterHuman() {
+		int index = table.getPlayerManager().getCurrentPlayer();
+		this.lastPlayStatus(index);
+	}
+
+	@Override
+	public void afterPhase() {
+		this.lastPhaseStatus();
+	}
+
+	@Override
+	public void beforeChance() {
+		System.out.println(Messages.getString("PokerGame.CHANCE"));
+	}
+
+	@Override
+	public void beforeFinal() {
+		System.out.println(Messages.getString("PokerGame.FINAL"));
+	}
+
+	@Override
+	public void beforeFirst() {
+		System.out.println(Messages.getString("PokerGame.FIRST"));		
+	}
+
+
+	@Override
+	public void beforeHuman() {
+		System.out.println(Messages.getString("PokerGame.HUMAN"));
+		int index = table.getPlayerManager().getCurrentPlayer();
+		this.playerStatus(index);
+	}
+
+
+	@Override
+	public void beforePhase() {
+	}
+
+
+	@Override
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+
+	private void communityCardStatus() {
 		for (int card : table.getCardManager().getCommunityCards()) {
 			if (card == -1) {
 				System.out.print("[]");
@@ -31,14 +90,48 @@ public class DefaultPokerLogger extends PokerGameLogger {
 		System.out.println();
 	}
 
-	@Override
-	public void lastPhaseStatus() {
+
+	private void playersBankrollStatus() {
+		int chairSize = table.getPlayerManager().getChairSize();
+		for (int i = 0; i < chairSize; i++) {
+			Chair chair = table.getPlayerManager().getChairs().get(i);
+			System.out.println(i + Messages.getString("PokerGame.BANKROLL")
+					+ chair.getBankroll());
+		}
+	}
+
+
+
+
+	private void lastPhaseStatus() {
 		System.out.println(Messages.getString("PokerGame.LINE"));
 	}
 
-	@Override
-	public void lastPlayStatus(int index) {
-		Chair chair = chairs.get(index);
+
+
+
+	private void playersHandsStatus() {
+		int chairSize = table.getPlayerManager().getChairSize();
+		for (int i = 0; i < chairSize; i++) {
+			Chair chair = table.getPlayerManager().getChairs().get(i);
+			int hands = chair.getHands();
+
+			// ハンドを２枚に分解。
+			int handl = (hands & HandChecker.HAND_L) >> 6;
+			int handr = (hands & HandChecker.HAND_R);
+			// それぞれ数字とマークに分解。
+			int handln = handl % 13 + 1;
+			char handlm = CardsManager.MARK[handl / 13];
+			int handrn = handr % 13 + 1;
+			char handrm = CardsManager.MARK[handr / 13];
+			System.out.println(i + ":" + "[" + handln + ":" + handlm + "]"
+					+ "[" + handrn + ":" + handrm + "]");
+		}
+	}
+
+
+	private void lastPlayStatus(int index) {
+		Chair chair = this.table.getPlayerManager().getChairs().get(index);
 		int lastplay = chair.getLastPlay();
 		String stringLastPlay = String.valueOf(lastplay);
 		if (chair.isFold()) {
@@ -56,65 +149,15 @@ public class DefaultPokerLogger extends PokerGameLogger {
 		System.out.println(stringPrint);
 	}
 
-	@Override
-	public void phaseNameStatus(int status) {
-		switch (status) {
-		case PhasesManager.FIRST:
-			System.out.println(Messages.getString("PokerGame.FIRST"));
-			break;
-		case PhasesManager.HUMAN:
-			System.out.println(Messages.getString("PokerGame.HUMAN"));
-			break;
-		case PhasesManager.CHANCE:
-			System.out.println(Messages.getString("PokerGame.CHANCE"));
-			break;
-		case PhasesManager.FINAL:
-			System.out.println(Messages.getString("PokerGame.FINAL"));
-			break;
-		}
-	}
-
-	@Override
-	public void playersBankrollStatus() {
-		int chairSize = chairs.size();
-		for (int i = 0; i < chairSize; i++) {
-			Chair chair = chairs.get(i);
-			System.out.println(i + Messages.getString("PokerGame.BANKROLL")
-					+ chair.getBankroll());
-		}
-	}
-
-	@Override
-	public void playersHandRollStatus(int[] handrolls) {
+	private void playersHandRollStatus(int[] handrolls) {
 		for (int i = 0; i < handrolls.length; i++) {
 			System.out.println(i + ")" + handrolls[i]);
 		}
 	}
 
-	@Override
-	public void playersHandsStatus() {
-		int chairSize = chairs.size();
-		for (int i = 0; i < chairSize; i++) {
-			Chair chair = chairs.get(i);
-			int hands = chair.getHands();
-
-			// ハンドを２枚に分解。
-			int handl = (hands & HandChecker.HAND_L) >> 6;
-			int handr = (hands & HandChecker.HAND_R);
-			// それぞれ数字とマークに分解。
-			int handln = handl % 13 + 1;
-			char handlm = CardsManager.MARK[handl / 13];
-			int handrn = handr % 13 + 1;
-			char handrm = CardsManager.MARK[handr / 13];
-			System.out.println(i + ":" + "[" + handln + ":" + handlm + "]"
-					+ "[" + handrn + ":" + handrm + "]");
-		}
-	}
-
-	@Override
-	public void playerStatus(int index) {
+	private void playerStatus(int index) {
 		ChipsManager chipManager = table.getChipManager();
-		Chair chair = chairs.get(index);
+		Chair chair = table.getPlayerManager().getChairs().get(index);
 		int hands = chair.getHands();
 		int hand_l = (hands & HandChecker.HAND_L) >> 6;
 		int hand_r = (hands & HandChecker.HAND_R);
@@ -132,8 +175,4 @@ public class DefaultPokerLogger extends PokerGameLogger {
 				+ CardsManager.MARK[hand_r / 13] + "]");
 	}
 
-	@Override
-	public void setTable(Table table) {
-		this.table = table;
-	}
 }

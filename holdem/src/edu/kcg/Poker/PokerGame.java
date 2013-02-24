@@ -61,9 +61,8 @@ public class PokerGame implements GameRules, Runnable {
 		while (true) {
 			PlayersManager playerManage = table.getPlayerManager();
 			status = phaseManage.gameStatus();
-
-			logger.phaseNameStatus(status);
-
+			phaseManage.setCurrentPhase(status);
+			
 			gameGraph(status);
 
 			if (playerManage.getChairSize() == 1) {
@@ -72,7 +71,6 @@ public class PokerGame implements GameRules, Runnable {
 
 			phaseManage.nextPhase();
 
-			// logger.lastPhaseStatus();
 		}
 	}
 
@@ -108,20 +106,30 @@ public class PokerGame implements GameRules, Runnable {
 
 	private void gameGraph(int status) {
 		PhasesManager phaseManage = table.getPhaseManager();
+		logger.beforePhase();
 		switch (status) {
 		case PhasesManager.FIRST:
+			logger.beforeFirst();
 			phaseManage.firstPhase();
+			logger.afterChance();
 			break;
 		case PhasesManager.HUMAN:
+			logger.beforeHuman();
 			phaseManage.humanPhase();
+			logger.afterHuman();
 			break;
 		case PhasesManager.CHANCE:
+			logger.beforeChance();
 			phaseManage.chancePhase();
+			logger.afterChance();
 			break;
 		case PhasesManager.FINAL:
+			logger.beforeFinal();
 			phaseManage.finalPhase();
+			logger.afterFinal();
 			break;
 		}
+		logger.afterPhase();
 		finalize(status);
 	}
 
