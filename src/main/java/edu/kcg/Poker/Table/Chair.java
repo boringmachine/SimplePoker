@@ -24,7 +24,7 @@ public class Chair {
 		lastPlay = 0;
 		addedRaise = 0;
 		currentRaise = 0;
-		bankroll = 1000;
+		bankroll = 300;
 	}
 
 	public int choice(int maxBet, int limit) {

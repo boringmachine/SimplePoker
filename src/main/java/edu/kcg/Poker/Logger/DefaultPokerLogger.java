@@ -1,5 +1,13 @@
 package edu.kcg.Poker.Logger;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 import edu.kcg.Poker.Common.HandChecker;
 import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
@@ -10,25 +18,64 @@ import edu.kcg.Poker.Table.DataManager.PlayersManager;
 
 public class DefaultPokerLogger extends PokerGameLogger {
 
+	HashMap<String,StringBuilder> bankrollLog;
+	private BufferedWriter writer;
+	
 	public DefaultPokerLogger(Table table) {
 		super(table);
+		bankrollLog = new HashMap<String,StringBuilder>();
 	}
 
+	private void bankrollLogInit(){
+		PlayersManager playerManage = table.getPlayerManager();
+		ArrayList<Chair> chairs = playerManage.getChairs();
+		for(Chair chair : chairs){
+			String key = "player" + chair.getPlayer().getPlayerId();
+			if(!bankrollLog.containsKey(key)){
+				bankrollLog.put(key, new StringBuilder());
+			}
+		}
+	}
+	
 	@Override
 	public void afterChance() {
 		this.communityCardStatus();
 	}
 
 	@Override
-	public void afterFinal() {
+	public void afterFinal(){
 		this.playersHandsStatus();
 		this.playersHandRollStatus();
 		this.playersBankrollStatus();
 	}
 
+	private void writeBankrollLogToCSV() throws IOException{
+		Set<String> keys = bankrollLog.keySet();
+		for(Object key : keys){
+			String directory = "output";
+			String filename = (String)key+".csv";
+			File file = new File(directory + "/" + filename);
+			writer = new BufferedWriter(new FileWriter(file));
+			StringBuilder line = bankrollLog.get(key);
+			writer.write(line.toString());
+			writer.close();
+			System.out.println(filename+" << writed ");
+
+		}
+	}
+	
 	@Override
 	public void afterFirst() {
-
+		PlayersManager playerManage = table.getPlayerManager();
+		ArrayList<Chair> chairs = playerManage.getChairs();
+		for(Chair chair : chairs){
+			String key = "player" + chair.getPlayer().getPlayerId();
+			if(bankrollLog.containsKey(key)){
+				StringBuilder strb = bankrollLog.get(key);
+				strb.append(chair.getBankroll());
+				strb.append("\n");
+			}
+		}
 	}
 
 	@Override
@@ -40,6 +87,14 @@ public class DefaultPokerLogger extends PokerGameLogger {
 	@Override
 	public void afterPhase() {
 		this.lastPhaseStatus();
+		try{
+			if(table.getPlayerManager().getChairSize()==1){
+				writeBankrollLogToCSV();
+				return;
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -54,7 +109,8 @@ public class DefaultPokerLogger extends PokerGameLogger {
 
 	@Override
 	public void beforeFirst() {
-		System.out.println(Messages.getString("PokerGame.FIRST"));		
+		System.out.println(Messages.getString("PokerGame.FIRST"));
+		bankrollLogInit();
 	}
 
 
@@ -75,7 +131,6 @@ public class DefaultPokerLogger extends PokerGameLogger {
 	public void setTable(Table table) {
 		this.table = table;
 	}
-
 
 	private void communityCardStatus() {
 		for (int card : table.getCardManager().getCommunityCards()) {
@@ -98,9 +153,6 @@ public class DefaultPokerLogger extends PokerGameLogger {
 					+ chair.getBankroll());
 		}
 	}
-
-
-
 
 	private void lastPhaseStatus() {
 		System.out.println(Messages.getString("PokerGame.LINE"));

@@ -109,7 +109,7 @@ public class PokerGame implements GameRules, Runnable {
 		case PhasesManager.FIRST:
 			logger.beforeFirst();
 			phaseManage.firstPhase();
-			logger.afterChance();
+			logger.afterFirst();
 			break;
 		case PhasesManager.HUMAN:
 			logger.beforeHuman();
@@ -127,8 +127,8 @@ public class PokerGame implements GameRules, Runnable {
 			logger.afterFinal();
 			break;
 		}
-		logger.afterPhase();
 		finalize(status);
+		logger.afterPhase();
 	}
 
 	private void initGame() {

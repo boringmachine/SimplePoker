@@ -3,7 +3,7 @@ package edu.kcg.Poker.Tester;
 import edu.kcg.Poker.PokerGame;
 import edu.kcg.Poker.Client.Player;
 import edu.kcg.Poker.Factory.GameFactory;
-import edu.kcg.Poker.Strategy.HumanPlayerStdIn;
+import edu.kcg.Poker.Strategy.*;
 import edu.kcg.Poker.Table.Table;
 
 /**
@@ -28,7 +28,7 @@ public class PokerTester {
 
 		for (Player player : players) {
 			player = new Player();
-			player.setStrategy(new HumanPlayerStdIn());
+			player.setStrategy(new DefaultStrategy());
 			game.addPlayer(player);
 		}
 
