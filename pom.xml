@@ -3,11 +3,26 @@
   <groupId>edu.kcg</groupId>
   <artifactId>Poker</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>3.0</version>
+  		</plugin>
+  		<plugin>
+  			<groupId>com.sun.maven</groupId>
+  			<artifactId>maven-junit-plugin</artifactId>
+  			<version>1.5</version>
+  		</plugin>
+  	</plugins>
+  </build>
   <dependencies>
   	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.10</version>
+  		<groupId>com.sun.maven</groupId>
+  		<artifactId>maven-junit-plugin</artifactId>
+  		<version>1.5</version>
+  		<type>maven-plugin</type>
   		<scope>test</scope>
   	</dependency>
   </dependencies>
