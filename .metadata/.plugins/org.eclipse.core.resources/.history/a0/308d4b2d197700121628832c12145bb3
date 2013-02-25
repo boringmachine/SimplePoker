@@ -1,8 +1,0 @@
-package edu.kcg.Poker.Strategy;
-
-import edu.kcg.Poker.Params;
-
-public abstract class AdaptStrategy implements Strategy {
-	protected Params params;
-	abstract void setParams(Params params);
-}

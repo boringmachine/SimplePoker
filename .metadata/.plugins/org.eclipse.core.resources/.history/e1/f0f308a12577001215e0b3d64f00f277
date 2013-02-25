@@ -1,5 +1,0 @@
-package edu.kcg.Poker.View;
-
-public class DefaultPokerView implements PokerView{
-
-}

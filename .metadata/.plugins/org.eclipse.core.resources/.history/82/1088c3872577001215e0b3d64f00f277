@@ -1,8 +1,0 @@
-package edu.kcg.Poker.View;
-
-
-public interface PokerView {
-
-	public void playerStatus();
-	public void phaseStatus();
-}

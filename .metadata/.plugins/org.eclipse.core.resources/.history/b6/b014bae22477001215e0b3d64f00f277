@@ -1,6 +1,0 @@
-package edu.kcg.Poker;
-
-
-public interface PokerViewInterface {
-
-}
