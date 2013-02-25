@@ -11,6 +11,22 @@ import edu.kcg.Poker.Common.HandChecker;
 public class HandChekerTester{
 
 	@Test
+	public void testStraightFlushByMax4() throws Exception{
+
+		// コミュニティカード
+		int[] com = { 0, 1, 4, 11, 12 };
+		// プレイヤーの手札
+		int handl = 2;
+		int handr = 3;
+		handl <<= 6;
+
+		int expected = HandChecker.SF | 4;
+		int actual = HandChecker.checkHand(handl | handr, com);
+		
+		assertThat(actual,is(expected));
+	}	
+	
+	@Test
 	public void testFlushByMax12() throws Exception{
 
 		// コミュニティカード

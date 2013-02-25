@@ -27,15 +27,15 @@ public class HandChecker {
 		 * comcard[0],comcard[1],comcard[2],comcard[3],comcard[4], (hands &
 		 * HAND_L) >> 6, hands & HAND_R };
 		 */
-		int bit = 0;
-		bit |= checkFlush(cards);
-		bit |= checkStraight(cards);
-		if (bit > 0) {
-			if ((bit & HandChecker.FL) > 0 && (bit & HandChecker.ST) > 0) {
-				bit |= HandChecker.SF;
-				return bit;
-			}
+		int fBit = 0;
+		int sBit = 0;
+		fBit |= checkFlush(cards);
+		sBit |= checkStraight(cards);
+		if (fBit > 0 && sBit > 0) {
+				sBit |= HandChecker.SF;
+				return sBit;
 		}
+		int bit = fBit > sBit ? fBit : sBit;		
 		int buf = bit;
 		bit = checkOther(cards);
 		if (buf > bit) {
