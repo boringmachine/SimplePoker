@@ -17,7 +17,7 @@ public class DivideSolver {
 		this.communityCards = table.getCardManager().getCommunityCards();
 	}
 
-	public int backOverRaise(int maxAddedBet, boolean[] winners) {
+	private int backOverRaise(int maxAddedBet, boolean[] winners) {
 		// 勝者よりも掛け金が多い敗北プレイヤーに過多分の返上。
 		for (int i = 0; i < chairs.size(); i++) {
 			Chair chair = chairs.get(i);
@@ -59,7 +59,7 @@ public class DivideSolver {
 		// logger.playersBankrollStatus();
 	}
 
-	public void divideProfit(int pot, int sumWinner, boolean[] winners) {
+	private void divideProfit(int pot, int sumWinner, boolean[] winners) {
 		int chairSize = chairs.size();
 		// 勝者に利益を配分。
 		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
@@ -73,7 +73,7 @@ public class DivideSolver {
 		}
 	}
 
-	public int[] solveHandrolls() {
+	private int[] solveHandrolls() {
 		int handroll = 0;
 		int[] handrolls = new int[chairs.size()];
 
@@ -93,7 +93,7 @@ public class DivideSolver {
 		return handrolls;
 	}
 
-	public int solveMaxAddedBet(boolean[] winners) {
+	private int solveMaxAddedBet(boolean[] winners) {
 		int maxAddedBet = 0;
 		int chairSize = chairs.size();
 		// 勝者の掛け金の最大を計算。
@@ -109,7 +109,7 @@ public class DivideSolver {
 		return maxAddedBet;
 	}
 
-	public int solveMaxHandroll(int[] handrolls) {
+	private int solveMaxHandroll(int[] handrolls) {
 		int max = 0;
 
 		// 最大ハンドを計算
@@ -122,7 +122,7 @@ public class DivideSolver {
 		return max;
 	}
 
-	public int solveSumWinnersBet(boolean[] winners) {
+	private int solveSumWinnersBet(boolean[] winners) {
 		int sumWinner = 0;
 		int chairSize = chairs.size();
 		for (int i = 0; i < chairSize; i++) {
@@ -133,7 +133,7 @@ public class DivideSolver {
 		return sumWinner;
 	}
 
-	public boolean[] solveWinner(int max, int[] handRoll) {
+	private boolean[] solveWinner(int max, int[] handRoll) {
 		int chairSize = chairs.size();
 		boolean[] winner = new boolean[chairSize];
 		for (int i = 0; i < winner.length; i++) {
