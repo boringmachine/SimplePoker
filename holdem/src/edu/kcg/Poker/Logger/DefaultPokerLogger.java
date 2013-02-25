@@ -1,14 +1,12 @@
 package edu.kcg.Poker.Logger;
 
-import java.util.ArrayList;
-
 import edu.kcg.Poker.Common.HandChecker;
 import edu.kcg.Poker.Table.Chair;
 import edu.kcg.Poker.Table.Table;
 import edu.kcg.Poker.Table.DataManager.CardsManager;
 import edu.kcg.Poker.Table.DataManager.ChipsManager;
-import edu.kcg.Poker.Table.DataManager.PhasesManager;
 import edu.kcg.Poker.Table.DataManager.PlayersManager;
+
 
 public class DefaultPokerLogger extends PokerGameLogger {
 
@@ -24,6 +22,7 @@ public class DefaultPokerLogger extends PokerGameLogger {
 	@Override
 	public void afterFinal() {
 		this.playersHandsStatus();
+		this.playersHandRollStatus();
 		this.playersBankrollStatus();
 	}
 
@@ -149,9 +148,20 @@ public class DefaultPokerLogger extends PokerGameLogger {
 		System.out.println(stringPrint);
 	}
 
-	private void playersHandRollStatus(int[] handrolls) {
-		for (int i = 0; i < handrolls.length; i++) {
-			System.out.println(i + ")" + handrolls[i]);
+	private void playerHandRollStatus(int index){
+		PlayersManager playerManager = table.getPlayerManager();
+		CardsManager cardManager = table.getCardManager();
+		int hands = playerManager.getChairs().get(index).getHands();
+		int[] comcard = cardManager.getCommunityCards();
+		int handroll = HandChecker.checkHand(hands, comcard);
+		System.out.println(index + ")" + handroll);
+	}
+	
+	
+	private void playersHandRollStatus() {
+		int size = table.getPlayerManager().getChairSize();
+		for (int i=0;i<size;i++) {
+			playerHandRollStatus(i);
 		}
 	}
 
