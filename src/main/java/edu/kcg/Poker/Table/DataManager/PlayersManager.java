@@ -21,10 +21,12 @@ public class PlayersManager {
 		dealer = 0;
 	}
 
-	public void addChair(Player player) {
-		chairs.add(new Chair(player));
+	public Chair addChair(Player player) {
+		Chair chair = new Chair(player);
+		chairs.add(chair);
+		return chair;
 	}
-
+	
 	public int countAllin() {
 		int count = 0;
 		for (Chair chair : chairs) {

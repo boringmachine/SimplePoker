@@ -9,7 +9,7 @@ import edu.kcg.Poker.Common.HandChecker;
 
 
 public class HandChekerTester{
-	
+
 	@Test
 	public void testStraightFlushByMax4() throws Exception{
 

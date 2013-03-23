@@ -27,6 +27,10 @@ public class Chair {
 		bankroll = 300;
 	}
 
+	public void setBankroll(int bankroll){
+		this.bankroll = bankroll;
+	}
+	
 	public int choice(int maxBet, int limit) {
 		if (isFold()) {
 			return -2;
