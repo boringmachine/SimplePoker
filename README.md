@@ -20,7 +20,7 @@ AdaptStrategyクラスを継承した戦略を作成し、戦略内でベット�
 --------------
 java version "1.7.0_21"
 
-maven-junit-plugin version "1.5"
+maven version "2.2.1"
 
 junit version "4.11"
 
