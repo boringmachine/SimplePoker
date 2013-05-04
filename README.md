@@ -5,6 +5,29 @@ SimplePoker
 -------------
 SimplePokerは、テキサスホールデムの戦略のモデリング・シミュレーションのための環境です。
 
+現在、/src/test/java/*/PokerTester.javaで実行できることを確認していますが、最小限の実行環境なため、ユーザビリティは考慮していません。
+
+使い方
+-------------
+AdaptStrategyクラスを継承した戦略を作成し、戦略内でベットを決定させます。これが、目的関数となります。
+
+その戦略をPlayerにセットし、比較対象となる戦略を他のPlayerにセットします。
+
+
+GameFuctoryからPokerGameを作成したあと、addPlayer関数によってプレイヤーを追加します。
+
+また、getTableによってTableを取得し、取得したTableのデータを初期化することによって、目的関数の実行可能領域（制約条件）を指定します。
+
+あとは、作成したPokerGameをexecuteメソッドで実行すれば、Playerが一人になるまでゲームが実行され、Playerが一人になった時点で、outputフォルダにバンクロールの推移データが出力されます。
+
+実行環境
+--------------
+java version "1.7.0_21"
+maven-junit-plugin version "1.5"
+junit version "4.11"
+
+
+
 ライセンス
 -------------
  
