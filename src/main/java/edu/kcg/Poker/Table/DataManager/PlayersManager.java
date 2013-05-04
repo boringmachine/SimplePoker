@@ -56,11 +56,13 @@ public class PlayersManager {
 		if (small > chairSize - 1) {
 			small = 0;
 		}
+
 		// ビッグブラインドを決定する。
 		int big = small + 1;
 		if (big > chairSize - 1) {
 			big = 0;
 		}
+		
 		blind[0] = small;
 		blind[1] = big;
 
@@ -157,8 +159,7 @@ public class PlayersManager {
 
 		// 現在プレイヤーが戦略で使えるパラメータを渡し、選択肢を選択させる。
 		if ((notFolder > 1) && (notFolder - countAllin != 0)) {
-			AdaptStrategy strategy = (AdaptStrategy) chair.getPlayer()
-					.getStrategy();
+			AdaptStrategy strategy = (AdaptStrategy)chair.getPlayer().getStrategy();
 			strategy.setParams(table.packParams(chairIndex));
 			option = chair.choice(maxBet, limit);
 		}

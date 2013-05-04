@@ -8,14 +8,9 @@ import edu.kcg.Poker.Table.Table;
 
 public class CardsManager {
 	public static final char[] MARK = { 'H', 'C', 'D', 'S' };
-
-	// community card
 	private int[] communityCards = new int[5];
-
 	private int communityCardsIndex;
-	// Deck
 	private int[] deck = new int[52];
-
 	private int deckIndex;
 	private Table table;
 
@@ -29,9 +24,6 @@ public class CardsManager {
 		Arrays.fill(deck, 0);
 	}
 
-	/**
-	 * カードを配る。
-	 */
 	public void deal() {
 		PlayersManager playerManage = table.getPlayerManager();
 		ArrayList<Chair> chairs = playerManage.getChairs();
@@ -44,15 +36,8 @@ public class CardsManager {
 		}
 	}
 
-	/**
-	 * コミュニティカードを配る。
-	 * 
-	 * @param round
-	 */
 	public void dealCommunityCard(int round) {
-		// ラウンド1ならデックからコミュニティカードに3枚出す。
-		// ラウンド2,3なら、デックからコミュニティカードに1枚出す。
-		// ラウンド4なら何もしない。
+		// ラウンド1ならコミュニティカードを3枚出し、2,3なら、1枚出す。
 		if (round == PhasesManager.FLOP) {
 			for (int i = 0; i < 3; i++) {
 				int card = this.popDeck();
@@ -101,9 +86,6 @@ public class CardsManager {
 		this.deckIndex = deckIndex;
 	}
 
-	/**
-	 * デックをシャッフル
-	 */
 	public void shuffle() {
 		int[] bufDeck = new int[52];
 		for (int i = 0; i < bufDeck.length; i++) {

@@ -134,11 +134,15 @@ public class PokerGame implements GameRules, Runnable {
 	private void initGame() {
 		PlayersManager playerManage = table.getPlayerManager();
 		CardsManager cardManage = table.getCardManager();
+
 		playerManage.updateChairs();
+		
 		chairsInit();
 		tableInit();
+		
 		cardManage.shuffle();
 		cardManage.deal();
+		
 		playerManage.nextDealer();
 	}
 

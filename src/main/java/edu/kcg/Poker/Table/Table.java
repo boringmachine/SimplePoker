@@ -7,7 +7,7 @@ import edu.kcg.Poker.Table.DataManager.PhasesManager;
 import edu.kcg.Poker.Table.DataManager.PlayersManager;
 
 /**
- * ゲームに使用するデータを持つクラス.
+ * ゲームに使用するデータを中間管理するクラス.
  * 
  * @author Shun.S
  */

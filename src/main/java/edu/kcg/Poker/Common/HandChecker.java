@@ -22,25 +22,27 @@ public class HandChecker {
 		cards = Arrays.copyOf(comcard, comcard.length + 2);
 		cards[cards.length - 1] = hands & HAND_R;
 		cards[cards.length - 2] = (hands & HAND_L) >> 6;
-		/*
-		 * int[] cards = {
-		 * comcard[0],comcard[1],comcard[2],comcard[3],comcard[4], (hands &
-		 * HAND_L) >> 6, hands & HAND_R };
-		 */
+	
 		int fBit = 0;
 		int sBit = 0;
+
 		fBit |= checkFlush(cards);
 		sBit |= checkStraight(cards);
+		
 		if (fBit > 0 && sBit > 0) {
 				sBit |= HandChecker.SF;
 				return sBit;
 		}
+		
 		int bit = fBit > sBit ? fBit : sBit;		
+		
 		int buf = bit;
 		bit = checkOther(cards);
+
 		if (buf > bit) {
 			bit = buf;
 		}
+		
 		return bit;
 	}
 

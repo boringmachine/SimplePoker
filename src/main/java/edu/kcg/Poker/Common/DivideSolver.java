@@ -33,9 +33,6 @@ public class DivideSolver {
 		return pot;
 	}
 
-	/**
-	 * 利益の分配。
-	 */
 	public void divideProfit() {
 		int maxAddedBet = 0;
 		int sumWinner = 0;
@@ -54,15 +51,13 @@ public class DivideSolver {
 		pot = this.backOverRaise(maxAddedBet, winners);
 		this.divideProfit(pot, sumWinner, winners);
 
-		// logger.playersHandsStatus();
-		// logger.playersHandRollStatus(handrolls);
-		// logger.playersBankrollStatus();
 	}
 
 	private void divideProfit(int pot, int sumWinner, boolean[] winners) {
 		int chairSize = chairs.size();
-		// 勝者に利益を配分。
+
 		// ある勝者の合計掛け金をxとすると、x/sumWinnerが分配される。
+		// ただし、sumWinnerは勝者の金額の合計。
 		for (int i = 0; i < chairSize; i++) {
 			Chair chair = chairs.get(i);
 			if (winners[i]) {
@@ -77,13 +72,10 @@ public class DivideSolver {
 		int handroll = 0;
 		int[] handrolls = new int[chairs.size()];
 
-		// 最大ハンドを計算。
 		for (int i = 0; i < chairs.size(); i++) {
-			// ハンドを取得
 			Chair chair = chairs.get(i);
 			int hands = chair.getHands();
 			handroll = 0;
-			// 役の強さを計算。
 			if (!chair.isFold()) {
 				handroll = HandChecker.checkHand(hands, communityCards);
 			}
@@ -96,7 +88,7 @@ public class DivideSolver {
 	private int solveMaxAddedBet(boolean[] winners) {
 		int maxAddedBet = 0;
 		int chairSize = chairs.size();
-		// 勝者の掛け金の最大を計算。
+		
 		for (int i = 0; i < chairSize; i++) {
 			Chair chair = chairs.get(i);
 			if (winners[i]) {
@@ -112,9 +104,7 @@ public class DivideSolver {
 	private int solveMaxHandroll(int[] handrolls) {
 		int max = 0;
 
-		// 最大ハンドを計算
 		for (int i = 0; i < handrolls.length; i++) {
-			// 最大ハンドより大きければ、
 			if (handrolls[i] >= max) {
 				max = handrolls[i];
 			}

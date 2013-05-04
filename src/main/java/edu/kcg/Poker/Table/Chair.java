@@ -3,10 +3,8 @@ package edu.kcg.Poker.Table;
 import edu.kcg.Poker.Client.Player;
 
 /**
- * プレイヤーがテーブルに参加した時に使用するデータを持つクラス.
- * 
+ * プレイヤーがテーブルに参加した時に使用するデータを管理する。
  * @author Shun.S
- * 
  */
 public class Chair {
 	public static final int HANDBITMASK_L = 0x03F;
