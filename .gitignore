@@ -1,3 +1,4 @@
 src/main/java/edu/kcg/Poker/Strategy/MinmaxStrategy.java
 target/*classes
 .metadata
+.settings
