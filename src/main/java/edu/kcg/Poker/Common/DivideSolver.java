@@ -42,14 +42,14 @@ public class DivideSolver {
 		int[] handrolls = new int[chairSize];
 		boolean[] winners = new boolean[chairSize];
 
-		handrolls = this.solveHandrolls();
-		max = this.solveMaxHandroll(handrolls);
-		winners = this.solveWinner(max, handrolls);
-		sumWinner = this.solveSumWinnersBet(winners);
-		maxAddedBet = this.solveMaxAddedBet(winners);
+		handrolls = solveHandrolls();
+		max = solveMaxHandroll(handrolls);
+		winners = solveWinner(max, handrolls);
+		sumWinner = solveSumWinnersBet(winners);
+		maxAddedBet = solveMaxAddedBet(winners);
 
-		pot = this.backOverRaise(maxAddedBet, winners);
-		this.divideProfit(pot, sumWinner, winners);
+		pot = backOverRaise(maxAddedBet, winners);
+		divideProfit(pot, sumWinner, winners);
 
 	}
 
